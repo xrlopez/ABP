@@ -102,6 +102,30 @@ class UsersController extends BaseController {
     $this->view->render("users", "login");    
   }
 
+  public function info(){
+      $currentuser = $this->view->getVariable("currentusername");
+    
+      switch ($this->userMapper->userType($currentuser)) {
+            case "organizador":
+            $this->view->moveToFragment($currentuser);
+            $this->view->redirect("organizador", "index");
+            break;
+          case "juradoPopular":
+            $this->view->moveToFragment($currentuser);
+            $this->view->redirect("juradoPopular", "perfil");
+            break;
+          case "juradoProfesional":
+            $this->view->moveToFragment($currentuser);
+            $this->view->redirect("juradoProfesional", "index");
+            break;
+          case "establecimiento":
+            $this->view->moveToFragment($currentuser);
+            $this->view->redirect("establecimiento", "index");
+            break;
+          }
+
+  }
+
  /**
    * Action to register
    * 

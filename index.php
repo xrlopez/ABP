@@ -4,8 +4,9 @@
 /**
  * Default controller if any controller is passed in the URL
  */
-define("DEFAULT_CONTROLLER", "concurso");
 
+require_once("/controller/JuradoPopularController.php");
+define("DEFAULT_CONTROLLER", "concurso");
 /**
  * Default action if any action is passed in the URL
  */

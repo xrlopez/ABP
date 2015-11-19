@@ -23,7 +23,7 @@ class JuradoPopularMapper {
     $jPops = array();
     
     foreach ($jPop_db as $jPop) {
-      array_push($jPops, new Organizador($jPop["id_usuario"], $jPop["nombre"], $jPop["password"], $jPop["email"], $jPop["residencia"], $jPop["tipo"]));
+      array_push($jPops, new JuradoPopular($jPop["id_usuario"], $jPop["nombre"], $jPop["password"], $jPop["email"], $jPop["residencia"], $jPop["tipo"]));
     }   
 	
     return $jPops;
@@ -32,7 +32,7 @@ class JuradoPopularMapper {
   
   public function findById($jPopid){
     $stmt = $this->db->prepare("SELECT * FROM juradopopular, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradopopular.id_usuario");
-    $stmt->execute(array(jPopid));
+    $stmt->execute(array($jPopid));
     $jPop = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if($jPop != null) {
@@ -46,7 +46,7 @@ class JuradoPopularMapper {
 	);}
   }
   
-  public function update(Organizador $jPop) {
+  public function update(JuradoPopular $jPop) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
     $stmt->execute(array($jPop->getNombre(), $jPop->getPassword(), $jPop->getEmail(), $jPop->getId())); 
     $stmt = $this->db->prepare("UPDATE juradopopular set residencia=? where id_usuario=?");

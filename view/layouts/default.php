@@ -30,8 +30,8 @@
                     
                   <li class="option"><a href="index.php?controller=pinchos&action=index">Pinchos</a></li>
 					
-                  <?php if (isset($currentuser)): ?> 
-                    <li><a href="#"><?= sprintf(i18n("Hello %s"), $currentuser) ?></a>
+                  <?php if (isset($currentuser)): ?>
+                    <li><a href="index.php?controller=users&amp;action=info"><?= sprintf(i18n("Hello %s"), $currentuser) ?></a>
                     <a  href="index.php?controller=users&amp;action=logout">Salir</a>  
                     </li>
                   
