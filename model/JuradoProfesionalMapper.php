@@ -34,7 +34,7 @@ class JuradoProfesionalMapper {
   
   public function findById($jPopid){
     $stmt = $this->db->prepare("SELECT * FROM juradoprofesional, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradoprofesional.id_usuario");
-    $stmt->execute(array(jPopid));
+    $stmt->execute(array($jPopid));
     $jPop = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if($jPop != null) {
@@ -44,7 +44,7 @@ class JuradoProfesionalMapper {
 		$jPop["password"],
 		$jPop["email"],
 		$jPop["profesion"],
-		new Organizador($jPop["organizador"]),
+		new Organizador($jPop["FK_organizador_jPro"]),
 		$jPop["tipo"]
 	);}
   }
