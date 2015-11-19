@@ -48,7 +48,8 @@
             </div>
             <div class="row">
               <div id="main" class="col-xs-12 col-sm-12 col-md-8">
-			  <?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>    
+                  <?= $view->popFlash() ?>
+			           <?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>    
               </div>
               <div id="news" class="col-xs-12 col-sm-12 col-md-4">
                 <ul class="menuAux">

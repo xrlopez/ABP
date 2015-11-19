@@ -74,6 +74,9 @@ class JuradoPopular {
    */    
   public function checkIsValidForCreate() {
       $errors = array();
+      if (strlen(trim($this->usuario)) == 0 ) {
+  $errors["usuario"] = "usuario es obligatorio";
+      }
       if (strlen(trim($this->nombre)) == 0 ) {
 	$errors["nombre"] = "Nombre es obligatorio";
       }
@@ -83,7 +86,7 @@ class JuradoPopular {
 	  if (strlen(trim($this->email)) == 0 ) {
 	$errors["email"] = "Email es obligatorio";
       }
-	  if (strlen(trim($this->email)) == 0 ) {
+	  if (strlen(trim($this->residencia)) == 0 ) {
 	$errors["residencia"] = "Residencia es obligatorio";
       }
       
@@ -92,31 +95,4 @@ class JuradoPopular {
       }
   }
 
-  /**
-   * Checks if the current instance is valid
-   * for being updated in the database.
-   * 
-   * @throws ValidationException if the instance is
-   * not valid
-   * 
-   * @return void
-   */
-  public function checkIsValidForUpdate() {
-    $errors = array();
-    
-    if (!isset($this->id)) {      
-      $errors["id"] = "id is mandatory";
-    }
-    
-    try{
-      $this->checkIsValidForCreate();
-    }catch(ValidationException $ex) {
-      foreach ($ex->getErrors() as $key=>$error) {
-	$errors[$key] = $error;
-      }
-    }    
-    if (sizeof($errors) > 0) {
-      throw new ValidationException($errors, "Jurado Popular no valido");
-    }
-  }
 }
