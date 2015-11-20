@@ -14,7 +14,7 @@ class JuradoProfesional {
   private $organizador;
   private $tipo;
   
-  public function __construct($id_usuario=NULL, $nombre=NULL, $password=NULL, $email=NULL, $profesion=NULL, $organizador=NULL, $tipo=NULL) {
+  public function __construct($id_usuario=NULL, $nombre=NULL, $password=NULL, $email=NULL, $profesion=NULL, /*Organizador*/ $organizador=NULL, $tipo=NULL) {
     $this->id_usuario = $id_usuario;
     $this->nombre = $nombre;
     $this->password = $password;
@@ -116,7 +116,7 @@ class JuradoProfesional {
    * 
    * @return void
    */
-  public function checkIsValidForUpdate() {
+  /*public function checkIsValidForUpdate() {
     $errors = array();
     
     if (!isset($this->id)) {      
@@ -133,5 +133,5 @@ class JuradoProfesional {
     if (sizeof($errors) > 0) {
       throw new ValidationException($errors, "Jurado Profesional no valido");
     }
-  }
+  }*/
 }

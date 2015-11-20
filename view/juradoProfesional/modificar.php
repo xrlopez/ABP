@@ -8,6 +8,7 @@
  
  $currentuser = $view->getVariable("currentusername");
  $juradoProfesional = $view->getVariable("juradoPro");
+ $errors = $view->getVariable("errors");
  
  
 ?>
@@ -15,7 +16,7 @@
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 		<h2>Jurado Profesional</h2>
 			<div>
-				<form id="form-aceptar" action="#" method="post" >
+				<form id="form-aceptar" action="index.php?controller=juradoProfesional&amp;action=update" method="post" >
 					<label for="usuario">Usuario</label></br>
 						<input name="usuario" class="registrar" type="text" id="usuario" readonly = "readonly" value="<?= $juradoProfesional->getId()?>"/ ></p>
 						
@@ -31,14 +32,14 @@
 					<label for="organizador">Organizador</label>
 	                    <input name="organizador" class="registrar" type="text" id="organizador" readonly = "readonly" value="<?= $juradoProfesional->getOrganizador()?>"/></p>
 						
-					<label for="pass">Contraseña actual</label>
-	                    <input name="pass" class="registrar" type="password" id="pass" / ></p>
+					<label for="passActual">Contraseña actual</label>
+	                    <input name="passActual" class="registrar" type="password" id="passActual" / ></p>
 
-	                <label for="pass">Contraseña nueva</label>
-	                    <input name="pass" class="registrar" type="password" id="pass"/ ></p>
+	                <label for="passNueva">Contraseña nueva</label>
+	                    <input name="passNueva" class="registrar" type="password" id="passNueva"/ ></p>
 
-	                <label for="repass">Repetir contraseña nueva</label>
-	                    <input name="repass" class="registrar" type="password" id="repass"/></p>
+	                <label for="passNew">Repetir contraseña nueva</label>
+	                    <input name="passNew" class="registrar" type="password" id="passNew"/></p>
 
 	                <p id="bot"><input name="submit" type="submit" id="boton" value="Aceptar" class="boton"/></p>
 				</form>
