@@ -112,7 +112,7 @@ class UsersController extends BaseController {
       switch ($this->userMapper->userType($currentuser)) {
             case "organizador":
             $this->view->moveToFragment($currentuser);
-            $this->view->redirect("organizador", "index");
+            $this->view->redirect("organizador", "perfil");
             break;
           case "juradoPopular":
             $this->view->moveToFragment($currentuser);
