@@ -43,7 +43,7 @@ class OrganizadorController extends BaseController {
     $concursos = $this->concursoMapper->findConcurso(); 
     $this->view->setVariable("organizador", $organizador);
     $this->view->setVariable("concursos", $concursos);  
-    $this->view->render("concurso", "index");
+    $this->view->render("concursos", "index");
   }
   
   public function asignar(){
