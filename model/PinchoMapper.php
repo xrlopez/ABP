@@ -10,13 +10,14 @@ class PinchoMapper {
     $this->db = PDOConnection::getInstance();
   }
   
-  public static function getNumPinchos(){
+  
+  public function getNumPinchos(){
     $query = $this->db->query('SELECT count(*) as num FROM pincho');
     $num_pinchos = $query->fetch(PDO::FETCH_ASSOC);
     return $num_pinchos;
   }
   
-  public static function getPinchos($inicio = 0, $limite = 5){
+  public function getPinchos($inicio = 0, $limite = 5){
     $list = [];
     $req = $this->db->query('SELECT * FROM pincho limit '.$inicio.', '.$limite.'');
     foreach($req->fetchAll() as $pincho) {
@@ -26,7 +27,7 @@ class PinchoMapper {
   }
   
   
-  public static function all() {
+  public function all() {
     $list = [];
     $req = $this->db->query('SELECT * FROM pincho');
     
@@ -37,7 +38,7 @@ class PinchoMapper {
     return $list;
   }
   
-  public static function find($id) {
+  public function find($id) {
     // we make sure $id is an integer
     $id = intval($id);
     $req = $this->db->prepare('SELECT * FROM pincho WHERE id_pincho = '.$id);
