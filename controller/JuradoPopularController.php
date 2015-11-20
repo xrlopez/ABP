@@ -3,6 +3,8 @@
 
 require_once(__DIR__."/../model/Concurso.php");
 require_once(__DIR__."/../model/ConcursoMapper.php");
+require_once(__DIR__."/../model/Codigo.php");
+require_once(__DIR__."/../model/CodigoMapper.php");
 require_once(__DIR__."/../model/JuradoPopular.php");
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
@@ -18,6 +20,7 @@ class JuradoPopularController extends BaseController {
   private $juradoPopularMapper;
   private $concursoMapper; 
   private $userMapper;  
+  private $codigoMapper;  
   
   public function __construct() { 
     parent::__construct();
@@ -25,6 +28,7 @@ class JuradoPopularController extends BaseController {
     $this->juradoPopularMapper = new JuradoPopularMapper();  
     $this->concursoMapper = new ConcursoMapper();   
     $this->userMapper = new UserMapper(); 
+    $this->codigoMapper = new CodigoMapper();
   }
   
   
@@ -112,5 +116,93 @@ class JuradoPopularController extends BaseController {
       }
     $this->view->redirect("juradoPopular", "index"); 
   }
-  
+
+  public function introCodigos(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $juradoPopular = $this->juradoPopularMapper->findById($currentuser);
+    $this->view->setVariable("juradoPop", $juradoPopular);
+    $this->view->render("juradoPopular", "introCodigos");
+  }
+
+  public function addCodigos(){
+    $jpopid = $_POST["usuario"];
+    $jpop = $this->juradoPopularMapper->findById($jpopid);
+    $errors = array();
+    if ($jpop == NULL) {
+      throw new Exception("No existe el usuario ".$jpopid);
+    }
+    $pincho1 = $_POST["pincho1"];
+    $pincho2 = $_POST["pincho2"];
+    $pincho3 = $_POST["pincho3"];
+
+    if(($pincho1!=$pincho2) && ($pincho1!=$pincho3) && ($pincho2!=$pincho3)){
+      $idPincho1 = $this->codigoMapper->findById($pincho1);
+      $idPincho2 = $this->codigoMapper->findById($pincho2);
+      $idPincho3 = $this->codigoMapper->findById($pincho3);
+      if(($idPincho1!=NULL) && ($idPincho1->getUsado()==0)){
+        if(($idPincho2!=NULL) && ($idPincho2->getUsado()==0)){
+          if(($idPincho3!=NULL) && ($idPincho3->getUsado()==0)){
+              
+            $idPincho1->setUsado(1);
+            $idPincho2->setUsado(1);
+            $idPincho3->setUsado(1);
+             try{
+              $this->codigoMapper->update($idPincho1);
+              $this->codigoMapper->update($idPincho2);
+              $this->codigoMapper->update($idPincho3);
+                $this->view->setVariable("codigo1",$idPincho1);
+                $this->view->setVariable("codigo2",$idPincho2);
+                $this->view->setVariable("codigo3",$idPincho3);
+                $this->view->setVariable("jPop",$jpop);
+              $this->view->setFlash("Codigos introducidos correctamente.");
+              $this->view->render("juradoPopular", "votaPopular"); 
+            }catch(ValidationException $ex) {
+              $errors = $ex->getErrors();
+              $this->view->setVariable("errors", $errors);
+            } 
+          }else{
+            $errors["pincho3"] = "<span>El pincho 3 o no existe o esta usado</span>";
+            $this->view->setVariable("errors", $errors);
+            $this->view->redirect("juradoPopular", "introCodigos");
+          }
+
+        }else{
+          $errors["pincho2"] = "<span>El pincho 2 o no existe o esta usado</span>";
+          $this->view->setVariable("errors", $errors);
+          $this->view->redirect("juradoPopular", "introCodigos");
+        }
+
+      }else{
+        $errors["pincho1"] = "<span>El pincho 1 o no existe o esta usado</span>";
+        $this->view->setVariable("errors", $errors);
+        $this->view->redirect("juradoPopular", "introCodigos");
+      }
+    }else{
+        $errors["pincho"] = "<span>Los pinchos tienen que ser distintos</span>";
+        $this->view->setVariable("errors", $errors);
+        $this->view->redirect("juradoPopular", "introCodigos"); 
+    }
+
+  }
+
+  public function votar(){
+
+    $jpopid = $_POST["usuario"];
+    $jpop = $this->juradoPopularMapper->findById($jpopid);
+    $errors = array();
+    if ($jpop == NULL) {
+      throw new Exception("No existe el usuario ".$jpopid);
+    }
+    $idpincho = $_POST["pincho"];
+    $pincho = $this->codigoMapper->findById($idpincho);
+
+    $this->codigoMapper->votar($pincho,$jpop);
+    
+    $this->view->setFlash(sprintf("Voto a \"%s\" sumado.",$idpincho));
+
+    $this->view->redirect("concurso", "index");
+
+  }
+
+    
 }
