@@ -60,6 +60,7 @@ CREATE TABLE pincho(
 	nombre VARCHAR(15) NOT NULL,
 	descripcion VARCHAR(100) NOT NULL,
 	celiaco BOOLEAN NOT NULL,
+	validado BOOLEAN NOT NULL,
 	num_votos INT,
 	FK_organizador_pinc VARCHAR(15) NOT NULL,
 	FK_concurso_pinc VARCHAR(15) NOT NULL,
