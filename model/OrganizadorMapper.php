@@ -49,7 +49,7 @@ class OrganizadorMapper {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
     $stmt->execute(array($orga->getNombre(), $orga->getPassword(), $orga->getEmail(), $orga->getId())); 
     $stmt = $this->db->prepare("UPDATE organizador set descripcionOrga=? where id_usuario=?");
-    $stmt->execute(array($orga->getDescripcion(), $orga->getId()));    
+    $stmt->execute(array($orga->getDescripcionOrga(), $orga->getId()));    
   }
   
 }
