@@ -11,13 +11,20 @@
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 		<h2>Establecimiento</h2>
 			<form id="form-login" action="index.php?controller=users&amp;action=registerEstablecimiento" method="POST">
-				<label for="nombre">Nombre</label>
-					<input name="nombre" class="registrar" type="text" id="nombre"/></p>
-				<label for="direccion">Direccion</label>
-					<input name="direccion" class="registrar" type="text" id="direccion"/></p>
+				<label for="usuario">Usuario</label>
+					<input name="usuario" class="registrar" type="text" id="usuario"/></p>
 
+				<label for="nombre">Nombre</label>
+					<input name="nombre" class="registrar" type="text" id="nombre"/ ></p>
+												 
 				<label for="correo">Correo</label>
 					<input name="correo" class="registrar" type="text" id="correo"/></p>
+												 
+				<label for="localizacion">Direccion</label>
+					<input name="localizacion" class="registrar" type="text" id="localizacion"/></p>
+					
+				<label for="descripcion">Descripcion</label>
+					<input name="descripcion" class="registrar" type="text" id="localizacion"/></p>
 
 				<label for="pass">Contraseña</label>
 					<input name="pass" class="registrar" type="password" id="pass"/ ></p>

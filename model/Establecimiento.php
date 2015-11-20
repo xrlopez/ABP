@@ -28,7 +28,11 @@ class Establecimiento {
      
   public function getId() {
     return $this->id_usuario;
-  }  
+  }
+
+  public function setId($id_usuario) {
+	  $this->id_usuario = $id_usuario;
+  }
   
   public function getNombre() {
     return $this->nombre;
