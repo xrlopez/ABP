@@ -26,13 +26,16 @@ class OrganizadorController extends BaseController {
    */
   private $organizadorMapper;
   private $juradoProfesionalMapper;
+  private $userMapper;
   
   public function __construct() { 
     parent::__construct();
     
     $this->organizadorMapper = new OrganizadorMapper();
 
-    $this->juradoProfesionalMapper = new JuradoProfesionalMapper();            
+    $this->juradoProfesionalMapper = new JuradoProfesionalMapper();  
+    
+    $this->userMapper = new UserMapper(); 
   }
   
   
@@ -77,3 +80,59 @@ class OrganizadorController extends BaseController {
     $this->view->render("organizador","asignados");
   }
 }
+
+public function perfil(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $organizador = $this->organizadorMapper->findById($currentuser);
+    $this->view->setVariable("organizador", $organizador);
+    $this->view->render("organizador", "perfil");
+  }
+  
+  public function modificar(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $organizador = $this->organizadorMapper->findById($currentuser);
+    $this->view->setVariable("organizador", $organizador);
+    $this->view->render("organizador", "modificar");
+  }
+
+  public function update(){
+    $jpopid = $_REQUEST["usuario"];
+    $jpop = $this->organizadorMapper->findById($jpopid);
+    $errors = array();
+    if($this->userMapper->isValidUser($_POST["usuario"],$_POST["passActual"])){
+
+        if (isset($_POST["submit"])) {  
+        
+          $jpop->setNombre($_POST["nombre"]);
+          $jpop->setEmail($_POST["correo"]);
+          $jpop->setDescripcionOrga($_POST["descripcion"]);
+
+          if(!(strlen(trim($_POST["passNew"])) == 0)){
+            if ($_POST["passNew"]==$_POST["passNueva"]) {
+              $jpop->setPassword($_POST["passNueva"]);
+            }
+            else{
+              $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+              $this->view->setVariable("errors", $errors);
+              $this->view->redirect("organizador", "modificar"); 
+            }
+          }
+          
+            try{
+              $this->organizadorMapper->update($jpop);
+              $this->view->setFlash(sprintf(i18n("Usuario \"%s\" modificado correctamente."),$jpop ->getNombre()));
+              $this->view->redirect("organizador", "index"); 
+            }catch(ValidationException $ex) {
+            $errors = $ex->getErrors();
+            $this->view->setVariable("errors", $errors);
+          } 
+        }
+
+    }
+    else{
+        $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+        $this->view->setVariable("errors", $errors);
+        $this->view->redirect("organizador", "modificar"); 
+      }
+    $this->view->redirect("organizador", "index"); 
+  }
