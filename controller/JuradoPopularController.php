@@ -72,14 +72,15 @@ class JuradoPopularController extends BaseController {
           $jpop->setEmail($_POST["correo"]);
           $jpop->setResidencia($_POST["residencia"]);
 
-          if(!(strlen(trim($_POST["passNew"])) == 0) && $_POST["passNew"]==$_POST["passNueva"]){
+          if(!(strlen(trim($_POST["passNew"])) == 0)){
+            if ($_POST["passNew"]==$_POST["passNueva"]) {
               $jpop->setPassword($_POST["passNueva"]);
-          }
-          else{
-            $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
-            $this->view->setVariable("errors", $errors);
-        $this->view->redirect("juradoPopular", "modificar"); 
-
+            }
+            else{
+              $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+              $this->view->setVariable("errors", $errors);
+              $this->view->redirect("juradoPopular", "modificar"); 
+            }
           }
           
             try{
