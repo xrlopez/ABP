@@ -5,6 +5,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 		public $nombre;
 		public $descripcion;
 		public $celiaco;
+		//public $validado;
 		public $num_votos;
 		public $ingredientes;
 
@@ -23,7 +24,14 @@ require_once(__DIR__."/../core/PDOConnection.php");
 		public function isCeliaco(){
 			return $this->celiaco;
 		}
-		
+		/*
+		public function getValidado(){
+			return $this->validado;
+		}
+		public function setValidado($validado){
+			$this->validado = $validado;
+		}
+		*/
 		public function getDescripcion(){
 			return $this->descripcion;
 		}
