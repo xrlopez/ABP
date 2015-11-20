@@ -74,7 +74,9 @@ class JuradoPopularController extends BaseController {
     $this->juradoPopularMapper->delete($juradoPopular);
     
     $this->view->setFlash(sprintf(i18n("Usuario \"%s\" eliminado."),$juradoPopular ->getId()));
-    
+    session_unset();
+    session_destroy();
+    $this->view->redirect("concurso", "index");
   }
 
   public function update(){
