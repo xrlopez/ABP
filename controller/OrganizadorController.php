@@ -79,7 +79,7 @@ class OrganizadorController extends BaseController {
     $this->view->setVariable("pinchos", $pincha);
     $this->view->render("organizador","asignados");
   }
-}
+
 
 public function perfil(){
     $currentuser = $this->view->getVariable("currentusername");
@@ -136,3 +136,4 @@ public function perfil(){
       }
     $this->view->redirect("organizador", "index"); 
   }
+}
