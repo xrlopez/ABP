@@ -248,11 +248,11 @@ class UsersController extends BaseController {
 	  $errors["usuario"] = "El usuario ya existe";
 	  $this->view->setVariable("errors", $errors);
 	}
+    $this->view->redirect("users", "login");
       }catch(ValidationException $ex) {
       	$errors = $ex->getErrors();
       	$this->view->setVariable("errors", $errors);
       }
-    $this->view->render("users", "login");
     }
     
     // Put the User object visible to the view
