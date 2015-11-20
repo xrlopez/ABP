@@ -59,6 +59,23 @@ class JuradoPopularController extends BaseController {
     $this->view->setVariable("juradoPop", $juradoPopular);
     $this->view->render("juradoPopular", "modificar");
   }
+  
+  public function eliminar(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $juradoPopular = $this->juradoPopularMapper->findById($currentuser);
+    
+        
+    // Does the post exist?
+    if ($juradoPopular == NULL) {
+      throw new Exception("No existe el usuario ".$currentuser);
+    }
+    
+    // Delete the Jurado Popular object from the database
+    $this->juradoPopularMapper->delete($juradoPopular);
+    
+    $this->view->setFlash(sprintf(i18n("Usuario \"%s\" eliminado."),$juradoPopular ->getId()));
+    
+  }
 
   public function update(){
     $jpopid = $_REQUEST["usuario"];
