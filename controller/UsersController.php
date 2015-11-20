@@ -120,7 +120,7 @@ class UsersController extends BaseController {
             break;
           case "juradoProfesional":
             $this->view->moveToFragment($currentuser);
-            $this->view->redirect("juradoProfesional", "index");
+            $this->view->redirect("juradoProfesional", "perfil");
             break;
           case "establecimiento":
             $this->view->moveToFragment($currentuser);
