@@ -16,6 +16,30 @@ require_once(__DIR__."/../core/PDOConnection.php");
 			$this->id_pincho = $id_pincho;
 			}
 
+		public function getNombre(){
+			return $this->nombre;
+		}
+		
+		public function isCeliaco(){
+			return $this->celiaco;
+		}
+		
+		public function getDescripcion(){
+			return $this->descripcion;
+		}
+		
+		public function getVotos(){
+			return $this->num_votos;
+		}
+		
+		public function getId(){
+			return $this->id_pincho;
+		}
+
+
+
+
+
 		public static function getNumPinchos()
 		{
 			$db = PDOConnection::getInstance();
