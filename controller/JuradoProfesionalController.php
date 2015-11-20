@@ -36,4 +36,18 @@ class JuradoProfesionalController extends BaseController {
     $this->view->render("juradoProfesional", "index");
   }
   
+  public function perfil(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $juradoProfesional = $this->juradoProfesionalMapper->findById($currentuser);
+    $this->view->setVariable("juradoPro", $juradoProfesional);
+    $this->view->render("juradoProfesional", "perfil");
+  }
+
+  public function modificar(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $juradoProfesional = $this->juradoProfesionalMapper->findById($currentuser);
+    $this->view->setVariable("juradoPro", $juradoProfesional);
+    $this->view->render("juradoProfesional", "modificar");
+  }
+  
 }

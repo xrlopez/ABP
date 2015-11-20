@@ -14,7 +14,7 @@ class JuradoProfesional {
   private $organizador;
   private $tipo;
   
-  public function __construct($id_usuario=NULL, $nombre=NULL, $password=NULL, $email=NULL, $profesion=NULL, Organizador $organizador=NULL, $tipo=NULL) {
+  public function __construct($id_usuario=NULL, $nombre=NULL, $password=NULL, $email=NULL, $profesion=NULL, $organizador=NULL, $tipo=NULL) {
     $this->id_usuario = $id_usuario;
     $this->nombre = $nombre;
     $this->password = $password;
@@ -29,6 +29,10 @@ class JuradoProfesional {
   public function getId() {
     return $this->id_usuario;
   }  
+  
+  public function setId($id_usuario) {
+    $this->id_usuario = $id_usuario;
+  }
   
   public function getNombre() {
     return $this->nombre;
@@ -89,17 +93,15 @@ class JuradoProfesional {
 	$errors["password"] = "Contraseña es obligatorio";
       }
 	  if (strlen(trim($this->email)) == 0 ) {
-	$errors["email"] = "Email es obligatorio";
-      }
-	  if (strlen(trim($this->email)) == 0 ) {
-	$errors["residencia"] = "Residencia es obligatorio";
-      }
-	  if (strlen(trim($this->email)) == 0 ) {
 	$errors["profesion"] = "Profesion es obligatorio";
       }
-	  if (strlen(trim($this->email)) == 0 ) {
+	  if (strlen(trim($this->profesion)) == 0 ) {
+	$errors["profesion"] = "Profesion es obligatorio";
+      }
+	  if (strlen(trim($this->organizador)) == 0 ) {
 	$errors["organizador"] = "Organizador es obligatorio";
       }
+
       if (sizeof($errors) > 0){
 	throw new ValidationException($errors, "Jurado Profesional no valido");
       }

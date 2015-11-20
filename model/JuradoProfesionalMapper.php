@@ -12,6 +12,7 @@ class JuradoProfesionalMapper {
    * @var PDO
    */
   private $db;
+  private $organizador;
   
   public function __construct() {
     $this->db = PDOConnection::getInstance();
@@ -19,41 +20,41 @@ class JuradoProfesionalMapper {
   
    public function findAll(){  
     $stmt = $this->db->query("SELECT * FROM juradoprofesional, usuario WHERE usuario.id_usuario = juradoprofesional.id_usuario");    
-    $jPop_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $jPro_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
-    $jPops = array();
+    $jPros = array();
     
-    foreach ($jPop_db as $jPop) {
-      $organizador = new Organizador($jPop["FK_organizador_jPro"]);
-      array_push($jPops, new JuradoProfesional($jPop["id_usuario"], $jPop["nombre"], $jPop["password"], $jPop["email"], $jPop["profesion"], $organizador, $jPop["tipo"]));
+    foreach ($jPro_db as $jPro) {
+	  $this->organizador = new Organizador($jPro["FK_organizador_jPro"]);
+      array_push($jPros, new JuradoProfesional($jPro["id_usuario"], $jPro["nombre"], $jPro["password"], $jPro["email"], $jPro["profesion"], $jPro["FK_organizador_jPro"], $jPro["tipo"]));
     }   
 	
-    return $jPops;
+    return $jPros;
   }
   
   
-  public function findById($jPopid){
+  public function findById($jProid){
     $stmt = $this->db->prepare("SELECT * FROM juradoprofesional, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradoprofesional.id_usuario");
-    $stmt->execute(array($jPopid));
-    $jPop = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->execute(array($jProid));
+    $jPro = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if($jPop != null) {
+    if($jPro != null) {
       return new JuradoProfesional(
-		$jPop["id_usuario"],
-		$jPop["nombre"],
-		$jPop["password"],
-		$jPop["email"],
-		$jPop["profesion"],
-		new Organizador($jPop["FK_organizador_jPro"]),
-		$jPop["tipo"]
+		$jPro["id_usuario"],
+		$jPro["nombre"],
+		$jPro["password"],
+		$jPro["email"],
+		$jPro["profesion"],
+		$jPro["FK_organizador_jPro"],
+		$jPro["tipo"]
 	);}
   }
   
-  public function update(Organizador $jPop) {
+  public function update(JuradoProfesional $jPro) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
-    $stmt->execute(array($jPop->getNombre(), $jPop->getPassword(), $jPop->getEmail(), $jPop->getId())); 
+    $stmt->execute(array($jPro->getNombre(), $jPro->getPassword(), $jPro->getEmail(), $jPro->getId())); 
     $stmt = $this->db->prepare("UPDATE juradoprofesional set profesion=? where id_usuario=?");
-    $stmt->execute(array($jPop->getRrofesion(), $jPop->getId()));    
+    $stmt->execute(array($jPro->getProfesion(), $jPro->getId()));    
   }
   
 }
