@@ -14,7 +14,7 @@ require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 
 require_once(__DIR__."/../model/Pincho.php");
-require_once(__DIR__."/../model/PinchoMapper.php");
+//require_once(__DIR__."/../model/PinchoMapper.php");
 
 class OrganizadorController extends BaseController {
   

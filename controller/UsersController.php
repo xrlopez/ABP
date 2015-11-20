@@ -5,6 +5,8 @@ require_once(__DIR__."/../core/I18n.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
+require_once(__DIR__."/../model/JuradoPopular.php");
+require_once(__DIR__."/../model/JuradoPopularMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
@@ -155,9 +157,6 @@ class UsersController extends BaseController {
    */
    
    public function register() { 
-    $user = new User();
-    $this->view->setVariable("user", $user);   
-    // render the view (/view/users/register.php)
     $this->view->render("users", "register");
     
   }
@@ -215,51 +214,49 @@ class UsersController extends BaseController {
     
   }
   
+
   public function registerPopular() {
     
-    $user = new User();
+    $jpop = new JuradoPopular();
     
-    if (isset($_POST["username"])){ // reaching via HTTP Post...
-      
-      // populate the User object with data form the form
-      $user->setUsername($_POST["username"]);
-      $user->setPassword($_POST["passwd"]);
+    if (isset($_POST["usuario"])){ 
+      $jpop->setId($_POST["usuario"]);
+      $jpop->setNombre($_POST["nombre"]);
+      $jpop->setEmail($_POST["correo"]);
+      $jpop->setResidencia($_POST["residencia"]);
+      $jpop->setTipo("juradoPopular");
+
+      if ($_POST["pass"]==$_POST["repass"]) {
+        $jpop->setPassword($_POST["pass"]);
+      }
+      else{
+        $errors["pass"] = "<span>La contraseña es obligatoria</span>";
+        $this->view->setVariable("errors", $errors);
+        $this->view->redirect("juradoPopular", "registerPopular"); 
+      }
+    
       
       try{
-	$user->checkIsValidForRegister(); // if it fails, ValidationException
-	
-	// check if user exists in the database
-	if (!$this->userMapper->usernameExists($_POST["username"])){
-	
-	  // save the User object into the database
-	  $this->userMapper->save($user);
-	  
-	  // POST-REDIRECT-GET
-	  // Everything OK, we will redirect the user to the list of posts
-	  // We want to see a message after redirection, so we establish
-	  // a "flash" message (which is simply a Session variable) to be
-	  // get in the view after redirection.
-	  $this->view->setFlash("Username ".$user->getUsername()." successfully added. Please login now");
-	  
-	  // perform the redirection. More or less: 
-	  // header("Location: index.php?controller=users&action=login")
-	  // die();
-	  $this->view->redirect("users", "login");	  
+	      $jpop->checkIsValidForCreate(); 
+    
+      	if (!$this->userMapper->usernameExists($_POST["usuario"])){
+
+        	  $this->userMapper->save($jpop);
+	          $this->view->setFlash("Usuario ".$jpop->getId()." registrado.");
 	} else {
 	  $errors = array();
-	  $errors["username"] = "Username already exists";
+	  $errors["usuario"] = "El usuario ya existe";
 	  $this->view->setVariable("errors", $errors);
 	}
       }catch(ValidationException $ex) {
-	// Get the errors array inside the exepction...
-	$errors = $ex->getErrors();
-	// And put it to the view as "errors" variable
-	$this->view->setVariable("errors", $errors);
+      	$errors = $ex->getErrors();
+      	$this->view->setVariable("errors", $errors);
       }
+    $this->view->render("users", "login");
     }
     
     // Put the User object visible to the view
-    $this->view->setVariable("user", $user);
+    $this->view->setVariable("juradoPopular", $jpop);
     
     // render the view (/view/users/register.php)
     $this->view->render("users", "registerPopular");

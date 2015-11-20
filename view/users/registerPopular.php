@@ -19,6 +19,9 @@
 												 
 				<label for="correo">Correo</label>
 					<input name="correo" class="registrar" type="text" id="correo"/></p>
+												 
+				<label for="residencia">Residencia</label>
+					<input name="residencia" class="registrar" type="text" id="residencia"/></p>
 
 				<label for="pass">Contraseña</label>
 					<input name="pass" class="registrar" type="password" id="pass"/ ></p>

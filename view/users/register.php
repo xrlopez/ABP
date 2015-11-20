@@ -18,16 +18,3 @@
 		</form>
 	</div>
 </div>
-<!--
-<form action="index.php?controller=users&amp;action=register" method="POST">
-      <?= i18n("Username")?>: <input type="text" name="username" 
-			value="<?= $user->getUsername() ?>">
-      <?= isset($errors["username"])?$errors["username"]:"" ?><br>
-      
-      <?= i18n("Password")?>: <input type="password" name="passwd" 
-			value="">
-      <?= isset($errors["passwd"])?$errors["passwd"]:"" ?><br>
-      
-      <input type="submit" value="<?= i18n("Register")?>">
-</form>
--->

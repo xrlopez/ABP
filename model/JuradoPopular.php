@@ -27,6 +27,9 @@ class JuradoPopular {
   public function getId() {
     return $this->id_usuario;
   }  
+  public function setId($id_usuario) {
+    $this->id_usuario=$id_usuario;
+  }
   
   public function getNombre() {
     return $this->nombre;
@@ -74,7 +77,7 @@ class JuradoPopular {
    */    
   public function checkIsValidForCreate() {
       $errors = array();
-      if (strlen(trim($this->usuario)) == 0 ) {
+      if (strlen(trim($this->id_usuario)) == 0 ) {
   $errors["usuario"] = "usuario es obligatorio";
       }
       if (strlen(trim($this->nombre)) == 0 ) {
