@@ -28,7 +28,7 @@
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <ul id="menu">
                     
-                  <li class="option"><a href="index.php?controller=pinchos&action=page=1">Pinchos</a></li>
+                  <li class="option"><a href="index.php?controller=pinchos&action=page&amp;page=1">Pinchos</a></li>
 					
                   <?php if (isset($currentuser)): ?>
                     <li><a href="index.php?controller=users&amp;action=info"><?= sprintf(i18n("Hello %s"), $currentuser) ?></a>
