@@ -80,7 +80,7 @@ class JuradoProfesionalController extends BaseController {
             else{
               $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
               $this->view->setVariable("errors", $errors);
-              $this->view->redirect("juradoPopular", "modificar"); 
+              $this->view->redirect("juradoProfesional", "modificar"); 
             }
           }
           
