@@ -23,6 +23,7 @@ class OrganizadorController extends BaseController {
   private $organizadorMapper;
   private $juradoProfesionalMapper;
   private $userMapper;
+  private concursoMapper;
   
   public function __construct() { 
     parent::__construct();
@@ -32,6 +33,7 @@ class OrganizadorController extends BaseController {
     $this->juradoProfesionalMapper = new JuradoProfesionalMapper();  
     
     $this->userMapper = new UserMapper(); 
+    $this->concursoMapper = new ConcursoMapper();
   }
   
   
