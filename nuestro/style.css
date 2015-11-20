@@ -1,0 +1,413 @@
+body{
+	font-family: 'Lato', sans-serif;
+}
+#header{
+	padding-right: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+.nombre h1{
+	color: #724E29;
+	font-weight: bold;
+	padding-top: 0px;
+	margin-top: 0px;
+}
+.nombre a{
+	text-decoration: none;
+}
+
+#main{
+    padding: 10px 30px;
+}
+#news{
+	padding-top: 50px;
+}
+
+#menu{
+	color: #D0B498;
+	background-color: #724E29;
+	padding: 15px;
+	text-align: right;
+}
+ul#menu li{
+    display: inline;
+}
+
+ul#menu li img{
+	text-align: left;
+}
+ul#menu li a{
+    padding: 10px 20px;
+	color: #D0B498;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+ul#menu li a:hover {
+    background-color: white;
+	color: #724E29;
+}
+
+ul.menuAux {
+	list-style: none;
+  	padding-left: 0px;
+  	padding-top: 10px;
+	border-radius: 4px;
+	margin: 20px;
+	padding-bottom: 10px;
+}
+
+ul.menuAux li {
+	border-radius: 4px;
+	margin: 15px;
+	padding: 5px;
+	background-color: #8A6A4A;
+}
+ul.menuAux li a{
+	color: black;
+}
+ul.menuAux li a:hover{
+    text-decoration: none;
+    color: white;
+}
+.preg{
+	padding-left: 10px;
+}
+#busqueda{
+	border-radius: 4px;
+	background: #FFFFFF;
+	color: black;
+	width: 125px;
+}
+#buttonBusqueda{
+	border-radius: 4px;
+	background-color: #e9e9e9;
+	color: black;
+	margin: 5px;
+	display:inline-block;
+	color:#666666;
+	font-weight:bold;
+}
+#buttonBusqueda:active {
+	position:relative;
+	top:1px;
+}
+#main h1{
+	font-size:25px;
+}
+
+#main h3{
+	font-size:15px;
+    padding-left: 30px;
+    padding-bottom: 50px;
+}
+
+.informacion a{
+	color: white;
+}
+.informacion a:hover{
+    text-decoration: none;
+    color: white;
+}
+.informacion{
+	padding: 15px;
+	border-radius: 4px;
+	color: black;
+	margin-bottom: 20px;
+	background-color: #AD8D6B;
+	clear: both;
+	width: inherit;
+}
+
+.login{
+	border-radius: 4px;
+	background-color: #F6E2CE;
+}
+.iniciarS{
+	padding-right: 190px;
+	color: #724E29;
+	font-weight: bold;
+	text-align: center;
+	padding-left: 190px;
+}
+.divLogin{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #D0B498;
+	border-radius: 4px;
+
+}
+.divFormulario{
+	margin: 15px;
+}
+.divFormulario a{
+	color: white;
+	margin-right: 5px;
+}
+.divLoginRegistrar a{
+	color: white;
+	margin-right: 5px;
+	font-size: 16px;
+
+}
+.divLoginRegistrar{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #D0B498;
+	border-radius: 4px;
+}
+.search{
+	text-align: center;
+}
+.registrarE{
+	padding-right: 190px;
+	color: #724E29;
+	font-weight: bold;
+	margin: 10px;
+	padding-left: 190px;
+
+}
+.registrarE h2{
+	text-align: center;
+}
+.registrar{
+	width: 100%;
+}
+#bot{
+	text-align: center;
+}
+#votarPincho{
+	margin: 20px;
+}
+
+input[type="radio"]{
+	margin: 5px;
+	margin-bottom: 10px;
+}
+
+.tabla{
+	margin-bottom: 20px;
+	margin-left: 30px;
+}
+
+.tabla-td{
+	padding-right: 10px;
+}
+.td-pincho{
+	padding-right: 40px;
+}
+.tabla form{
+	margin-bottom: 5px;
+	padding: 0px;
+}
+
+@media (max-width: 420px){
+	
+}
+@media (max-width: 767px) {
+	#menu{
+		padding-top: 5px;
+		text-align: left;
+		padding: 0px;
+	}
+	ul#menu li {
+	    padding: 10px 20px;
+	    display: block;
+	}
+
+	ul#menu li a{
+	    text-decoration: none;
+	    border-radius: 4px;
+	}
+
+	ul#menu li a:hover {
+	    background-color: white;
+		color: black;
+	}
+
+	.masP{
+		padding-top: 5px;
+		text-align: center;
+	}
+	
+	ul.masP li.optionPeq{
+	    padding: 10px 20px;
+		display: block;
+	}
+
+	ul.masP li a{
+	    padding: 10px 20px;
+	    text-decoration: none;
+	    border-radius: 4px;
+	}
+
+	ul.masP li a:hover {
+		font-weight: bold;
+	    color: black;
+	}
+
+	ul.masP li.option{
+	display: none;
+	}
+	
+	ul.masP li.option_sele{
+		display: none;
+	}
+	.iniciarS{
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+	.registrarE{
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+	
+}
+
+@media (min-width: 768px) {
+		
+}
+
+@media (min-width: 992px) {
+	
+	
+}
+@media (min-width: 1200px) { 
+
+	
+}
+
+/* Puntuar con estrellas*/
+.rating {
+	font-size:25px;
+  	unicode-bidi: bidi-override;
+  	direction: rtl;
+  	text-align: center;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}
+/* botones navegacion*/
+
+ol.navegacion {
+	text-align: center;
+}
+
+ol.navegacion li{
+	display:inline;
+	padding: 0.3em 0.3em;
+	margin: 0.643em auto;
+}
+.acciones a{
+	padding: 0.25em 0.75em;
+	background: #EEE linear-gradient(#FFF 2%, #DDD 95%, #BBB 100%) repeat scroll 0% 0%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #BBB #BBB #AAA;
+}
+.current{
+	color: #111;
+	background: #CCC none repeat scroll 0% 0%;
+	border-color: #FFF;
+	box-shadow: 1px 1px 3px #333 inset;
+	height: 1.286em;
+	padding: 0.25em 0.75em;
+}
+/* ------------*/ 
+.divInfo{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #D0B498;
+	border-radius: 4px;
+}
+
+/* pinchos index group blurb*/
+.index{	
+	width: 70%;
+	float: left;
+}
+.group{
+	width: 100%;
+}
+ul.ingredientes li{
+	display:inline;
+}
+.ingredientes li:after {
+  	content: ", ";
+}
+.ingredientes li:last-child:after {
+    content: ".";
+}
+.lista{
+	text-align: left;
+}
+.pinchos {
+
+}
+.pinchos li{
+	background-color: #D0B498;
+
+}
+
+li.blurb {
+	border: 1px solid #DDD;
+	padding: 0.429em 0.75em;
+	margin: 0.643em 0px;
+}
+/* titulos no visibles */
+.landmark {
+	color: transparent;
+	font-size: 0px;
+	line-height: 0;
+	height: 0px;
+	margin: 0px;
+}
+
+/* sumario pincho*/
+.blurb blockquote {
+	clear: none;
+	margin: 0.643em auto;
+	text-align: justify;
+	border: 0px none;
+}
+
+
+/* stats pinchos (votos y comentarios)*/
+.stats{
+	text-align: center;
+}
+dl.stats dt, dd{
+	display:inline;
+	padding: 0.3em 0.3em;
+	
+}
+
+strong {
+	font-weight: bold;
+}
+
+.heading{
+	padding: 0.3em 0.3em;
+	text-align: left;
+}
+.heading a{
+	padding: 0.4em 0.5em;
+}
+.votacion {
+	float: right;
+	padding-right: 0.5em;
+}
+a.votacion {
+	padding: 0.25em 0.75em;
+	background: #EEE linear-gradient(#FFF 2%, #DDD 95%, #BBB 100%) repeat scroll 0% 0%;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #BBB #BBB #AAA;
+}
