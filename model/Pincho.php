@@ -36,9 +36,27 @@ require_once(__DIR__."/../core/PDOConnection.php");
 			return $this->id_pincho;
 		}
 
+		public function setNombre($nombre){
+			$this->nombre = $nombre;
+		}
+		
+		public function setCeliaco($celiaco){
+			$this->celiaco = $celiaco;
+		}
+		
+		public function setDescripcion($descripcion){
+			$this->descripcion = $descripcion;
+		}
+		
+		public function setVotos($num_Votos){
+			$this->num_votos = $num_Votos;
+		}
+		
+		public function setId($id_pincho){
+			$this->id_pincho = $id_pincho;
+		}
 
-
-
+// Migrar a PinchoMapper
 
 		public static function getNumPinchos()
 		{
