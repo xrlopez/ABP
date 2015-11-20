@@ -53,4 +53,11 @@ class JuradoPopularMapper {
     $stmt->execute(array($jPop->getResidencia(), $jPop->getId()));    
   }
   
+  public function delete(JuradoPopular $jPop) {
+    $stmt = $this->db->prepare("DELETE from juradopopular WHERE id_usuario=?");
+    $stmt->execute(array($jPop->getId()));    
+    $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
+    $stmt->execute(array($jPop->getId()));    
+  }
+  
 }
