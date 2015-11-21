@@ -4,6 +4,11 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
  $currentuser = $view->getVariable("currentusername");
+ $tipoUsuario = "";
+ if(isset($_SESSION["tipoUsuario"])){
+	 $tipoUsuario = $_SESSION["tipoUsuario"];
+ }
+ 
  
 ?><!DOCTYPE html>
 <html lang="en">
@@ -25,23 +30,48 @@
     <div id="container" class="container">
             <!-- header -->
             <div id="header" class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                <ul id="menu">
-                    
-                  <li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
-					
-                  <?php if (isset($currentuser)): ?>
-                    <li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>
-                    <a  href="index.php?controller=users&amp;action=logout">Salir</a>  
-                    </li>
-                  
-                  <?php else: ?>
-                    <li><a href="index.php?controller=users&amp;action=login">Iniciar sesión</a></li>
-                    <?php endif ?>
-
-                  <!--<li class="option"><a href="iniSesion.html">Iniciar sesión</a></li>-->
-                </ul> 
-              </div>
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<ul id="menu">
+						<!-- menu organizador -->
+						<?php if($tipoUsuario == "organizador"){ ?>
+							<li class="option"><a href="index.php?controller=users&amp;action=info">Jurado profesional</a></li>
+							<li class="option"><a href="index.php?controller=users&amp;action=info">Validar pinchos</a></li>
+							<li class="option"><a href="index.php?controller=users&amp;action=info">Asignar pinchos</a></li>
+							<li class="option"><a href="index.php?controller=users&amp;action=info">Premios</a></li>
+							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
+							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>
+								<a  href="index.php?controller=users&amp;action=logout">Salir</a>  
+							</li>
+						<!-- menu jurado profesional -->
+						<?php } else if($tipoUsuario == "juradoProfesional"){ ?>
+							<li class="option"><a href="index.php?controller=users&amp;action=info">Votar</a></li>
+							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
+							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>
+								<a  href="index.php?controller=users&amp;action=logout">Salir</a>  
+							</li>
+						<!-- menu jurado popular -->
+						<?php } else if($tipoUsuario == "juradoPopular"){ ?>
+							<li class="option"><a href="index.php?controller=users&amp;action=info">Votar</a></li>
+							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
+							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>
+								<a  href="index.php?controller=users&amp;action=logout">Salir</a>  
+							</li>
+						<!-- menu establecimiento -->
+						<?php } else if($tipoUsuario == "establecimiento"){ ?>
+							<li class="option"><a href="index.php?controller=users&amp;action=info">Generar códigos</a></li>
+							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
+							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>
+								<a  href="index.php?controller=users&amp;action=logout">Salir</a>  
+							</li>
+						<!-- menu usuario sin sesion iniciada -->
+						<?php } else{ ?>
+							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
+							<li><a href="index.php?controller=users&amp;action=login">Iniciar sesión</a></li>
+							
+						<?php } ?>
+				
+					</ul> 
+				</div>
               <div class="nombre col-xs-12 col-sm-12 col-md-12">
                 <a href="index.php"><h1>Concurso de pinchos</h1></a>
               </div>  
@@ -57,7 +87,7 @@
                       <input type="search" id="busqueda" size="30" placeholder="buscar">
                       <button type="submit" id="buttonBusqueda">buscar</button>
                     </li>           
-                  <li class="preg"><a href="index.php?controller=establecimiento&amp;action=listar">Establecimientos</a></li>
+                  <li class="preg"><a href="pregunta.html">Establecimientos</a></li>
                   <li class="preg"><a href="pregunta.html">Gastromapa</a></li>
                   <li class="preg"><a href="pregunta.html">Folleto</a></li>
                   <li class="preg"><a href="pregunta.html">Bases del concurso</a></li>
