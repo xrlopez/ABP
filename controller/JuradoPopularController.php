@@ -29,6 +29,7 @@ class JuradoPopularController extends BaseController {
     $this->concursoMapper = new ConcursoMapper();   
     $this->userMapper = new UserMapper(); 
     $this->codigoMapper = new CodigoMapper();
+    $_SESSION["tipoUsuario"] = "juradoPopular";
   }
   
   
