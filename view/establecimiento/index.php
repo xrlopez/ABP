@@ -18,5 +18,6 @@
 		<?php foreach ($establecimientos as $establecimiento): ?>
 			<p><?= $establecimiento->getId()?></p>
 		<?php endforeach; ?>
+	    	<p id="bot"><a href="index.php?controller=establecimiento&amp;action=generarCodigos">Generar codigos</a></p>
 	</div>
 </div>

@@ -87,7 +87,7 @@ CREATE TABLE premiados(
 
 CREATE TABLE codigo(
 	FK_establecimiento_cod VARCHAR(15) NOT NULL,
-	id_codigo VARCHAR(15) PRIMARY KEY NOT NULL,
+	id_codigo INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	usado BOOLEAN NOT NULL,
 	CONSTRAINT FK_establecimiento_codigo FOREIGN KEY  (FK_establecimiento_cod) REFERENCES establecimiento(id_usuario)
 );
@@ -116,7 +116,7 @@ CREATE TABLE asignar_jRegistrado(
 
 CREATE TABLE vota_pop(
 	FK_juradoPopular_vot VARCHAR(15) NOT NULL,
-	FK_cod VARCHAR(15) NOT NULL,
+	FK_cod INT NOT NULL,
 	CONSTRAINT PK_vota_pop PRIMARY KEY (FK_juradoPopular_vot,FK_cod),
 	CONSTRAINT FK_codigo FOREIGN KEY  (FK_cod) REFERENCES codigo(id_codigo),
 	CONSTRAINT FK_juradoPopular_vota_pop FOREIGN KEY  (FK_juradoPopular_vot) REFERENCES juradoPopular(id_usuario)

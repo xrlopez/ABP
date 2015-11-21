@@ -3,6 +3,7 @@
 require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/Establecimiento.php");
+require_once(__DIR__."/../model/Codigo.php");
 
 class EstablecimientoMapper {
 
@@ -30,9 +31,9 @@ class EstablecimientoMapper {
   }
   
   
-  public function findById($jPopid){
+  public function findById($establecimiento){
     $stmt = $this->db->prepare("SELECT * FROM establecimiento, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = establecimiento.id_usuario");
-    $stmt->execute(array(jPopid));
+    $stmt->execute(array($establecimiento));
     $esta = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if($esta != null) {
@@ -47,11 +48,38 @@ class EstablecimientoMapper {
 	);}
   }
   
-  public function update(Organizador $esta) {
+  public function update(Establecimiento $esta) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
     $stmt->execute(array($esta->getNombre(), $esta->getPassword(), $esta->getEmail(), $esta->getId())); 
     $stmt = $this->db->prepare("UPDATE establecimiento set localizacion=?, descripcion=? where id_usuario=?");
     $stmt->execute(array($esta->getLocalizacion(), $esta->getDescripcion(), $esta->getId()));    
   }
   
+  public function generarCodigos(Establecimiento $esta){
+    $pr=1;
+    $stmt = $this->db->prepare("SELECT * FROM codigo WHERE ?"); 
+          $stmt->execute(array($pr));   
+    $cods = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $num=0;
+    foreach ($cods as $cod) {
+      if($num<$cod["id_codigo"]){
+          $num = $cod["id_codigo"];
+      }
+    }
+    for ($i = 1; $i <= 100; $i++) {
+          $stmt = $this->db->prepare("INSERT INTO codigo(FK_establecimiento_cod, id_codigo, usado) VALUES (?,NULL,0)");
+          $stmt->execute(array($esta->getId()));
+    }
+    $stmt2 = $this->db->prepare("SELECT * FROM codigo WHERE id_codigo>?");
+          $stmt2->execute(array($num));
+    $cod_bd = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    $cods = array();
+    
+    foreach ($cod_bd as $cod) {
+      array_push($cods, new Codigo($cod["FK_establecimiento_cod"], $cod["id_codigo"], $cod["usado"]));
+    }   
+  
+    return $cods;
+
+  }
 }

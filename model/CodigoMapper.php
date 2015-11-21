@@ -3,6 +3,7 @@
 require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/Codigo.php");
+require(__DIR__."/../fpdf/fpdf.php");
 require_once(__DIR__."/../model/JuradoPopular.php");
 
 class CodigoMapper {
@@ -42,4 +43,17 @@ class CodigoMapper {
     $stmt2->execute(array($cod->getEstablecimiento()));
 
   }
+
+  public function generarPDF($codigos,$estab){
+    $pdf=new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B',16);
+    $pos_y=10;
+    $pdf->Cell(0,12,"Codigos para los pinchos de ".$estab,0,0,"C");
+    foreach ($codigos as $codigo){
+      $pdf->Ln();
+      $pdf->Cell(0,10,$codigo->getId(),0,0,"C");
+    }
+    $pdf->Output("codigos.pdf","D");
+}
 }
