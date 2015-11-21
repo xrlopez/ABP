@@ -49,6 +49,8 @@
 	    </div>
 	    <div class="divFormulario">
 	    	<p id="bot"><a href="index.php?controller=organizador&amp;action=modificar">Modificar</a></p>
+	    	<p id="bot"><a href="index.php?controller=organizador&amp;action=asignar">Asignar Pinchos</a></p>
+	    	<p id="bot"><a href="index.php?controller=organizador&amp;action=validar">Validar Pinchos</a></p>
 		</div>
     </div>
 </div>

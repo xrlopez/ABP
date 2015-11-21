@@ -5,8 +5,7 @@ $jurados = $view->getVariable("juradosProfesionales");
 
 
 ?>
-			<div class="row">
-				<div id="main" class="col-xs-20 col-sm-12 col-md-8">
+
 					<div class="row registrarE">
 						<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 							<h2>Selecciona un miembro del Jurado Profesional</h2>
@@ -22,5 +21,4 @@ $jurados = $view->getVariable("juradosProfesionales");
 				                </form>
 						</div>
 					</div>
-				</div>
-			</div>
+				
