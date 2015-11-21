@@ -154,7 +154,7 @@ class JuradoPopularController extends BaseController {
                 $this->view->setVariable("codigo2",$idPincho2);
                 $this->view->setVariable("codigo3",$idPincho3);
                 $this->view->setVariable("jPop",$jpop);
-              $this->view->setFlash("Codigos introducidos correctamente.");
+              $this->view->setFlash(sprintf("Codigos introducidos correctamente."));
               $this->view->render("juradoPopular", "votaPopular"); 
             }catch(ValidationException $ex) {
               $errors = $ex->getErrors();
