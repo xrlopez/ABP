@@ -6,6 +6,7 @@ $jurados = $view->getVariable("juradosProfesionales");
 
 ?>
 
+<<<<<<< HEAD
 					<div class="row registrarE">
 						<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 							<h2>Selecciona un miembro del Jurado Profesional</h2>
@@ -22,3 +23,21 @@ $jurados = $view->getVariable("juradosProfesionales");
 						</div>
 					</div>
 				
+=======
+<div class="row registrarE">
+	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
+		<h2>Selecciona un miembro del Jurado Profesional</h2>
+			<form id="asignarPincho" action="index.php?controller=organizador&amp;action=asignarJurado" method="post" >
+				<?php
+				foreach ($jurados as $jurado) {
+				?>	
+					<p><input type="radio" name="usuario" id="usuario" value="<?= $jurado->getId()?>" checked><?php echo $jurado->getNombre() ?></p>
+				<?php
+				}
+				?>
+				<p id="bot"><input name="submit" type="submit" id="boton" value="Elegir" class="boton"/></p>
+        </form>
+	</div>
+</div>
+
+>>>>>>> origin/master
