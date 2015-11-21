@@ -19,12 +19,10 @@ class EstablecimientoController extends BaseController {
   public function __construct() { 
     parent::__construct();
     
-    $this->establecimientoMapper = new EstablecimientoMapper();
-	  $_SESSION["tipoUsuario"] = "establecimiento";	
-    
     $this->establecimientoMapper = new EstablecimientoMapper();      
     $this ->codigoMapper = new CodigoMapper();     
-    $this ->pincho = new Pincho();    
+    $this ->pincho = new Pincho();   
+    $_SESSION["tipoUsuario"] = "establecimiento";	
   }
   
   
