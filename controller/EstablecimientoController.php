@@ -5,6 +5,7 @@ require_once(__DIR__."/../model/Establecimiento.php");
 require_once(__DIR__."/../model/EstablecimientoMapper.php");
 require_once(__DIR__."/../model/Codigo.php");
 require_once(__DIR__."/../model/CodigoMapper.php");
+require_once(__DIR__."/../model/Pincho.php");
 
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
@@ -13,12 +14,14 @@ class EstablecimientoController extends BaseController {
   
   private $juradoPopularMapper;  
   private $codigoMapper;  
+  private $pincho;  
   
   public function __construct() { 
     parent::__construct();
     
     $this->establecimientoMapper = new EstablecimientoMapper();      
-    $this ->codigoMapper = new CodigoMapper();    
+    $this ->codigoMapper = new CodigoMapper();     
+    $this ->pincho = new Pincho();    
   }
   
   
@@ -35,6 +38,25 @@ class EstablecimientoController extends BaseController {
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
     $cods = $this->establecimientoMapper->generarCodigos($establecimiento);
     $this->codigoMapper->generarPDF($cods,$establecimiento->getNombre());
+  }
+
+  public function listar(){
+    $establecimientos = $this->establecimientoMapper->findAll();  
+    $this->view->setVariable("establecimientos", $establecimientos); 
+    $this->view->render("establecimiento", "listar");
+
+  }
+
+  public function findPincho(){
+    $estab = $_GET["id"];
+    $establecimiento = $this->establecimientoMapper->findById($estab);
+    $pincho = $this->pincho->findByEstablecimiento($establecimiento);
+    if($pincho == NULL){
+      throw new Exception("No existe el pincho");
+    }
+    $this->view->setVariable("pincho", $pincho); 
+    $this->view->render("pinchos", "pincho");
+      
   }
   
 }

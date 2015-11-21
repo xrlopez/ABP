@@ -131,8 +131,8 @@ public function perfil(){
       }
     $this->view->redirect("organizador", "index"); 
   }
-  
-  public function validar(){
+
+   public function validar(){
     $pinchos = Pincho::noValidados();
     $this->view->setVariable("pinchos", $pinchos);
     $this->view->render("organizador", "validarPincho");

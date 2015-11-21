@@ -47,6 +47,8 @@ class EstablecimientoMapper {
 		$esta["tipo"]
 	);}
   }
+
+
   
   public function update(Establecimiento $esta) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");

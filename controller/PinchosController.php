@@ -56,7 +56,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 			$this->view->setVariable("pincho", $pincho);
 			$this->view->render("pinchos", "pincho");
 		}
-		
+
 		public function validarPincho(){
 			$id = $_POST['pinchoID'];
 			Pincho::validar($id);
@@ -68,5 +68,6 @@ require_once(__DIR__."/../controller/BaseController.php");
 			Pincho::eliminar($id);
 			$this->view->redirect("organizador", "perfil"); 
 		}
+
 	}
 ?>

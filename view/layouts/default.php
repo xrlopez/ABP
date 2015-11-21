@@ -57,7 +57,7 @@
                       <input type="search" id="busqueda" size="30" placeholder="buscar">
                       <button type="submit" id="buttonBusqueda">buscar</button>
                     </li>           
-                  <li class="preg"><a href="pregunta.html">Establecimientos</a></li>
+                  <li class="preg"><a href="index.php?controller=establecimiento&amp;action=listar">Establecimientos</a></li>
                   <li class="preg"><a href="pregunta.html">Gastromapa</a></li>
                   <li class="preg"><a href="pregunta.html">Folleto</a></li>
                   <li class="preg"><a href="pregunta.html">Bases del concurso</a></li>
