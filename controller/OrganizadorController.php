@@ -34,7 +34,6 @@ class OrganizadorController extends BaseController {
     $this->concursoMapper = new ConcursoMapper();
     
     $this->userMapper = new UserMapper(); 
-    $_SESSION["tipoUsuario"] = "organizador";
   }
   
   
