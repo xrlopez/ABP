@@ -28,8 +28,9 @@ class JuradoProfesionalController extends BaseController {
     parent::__construct();
     
     $this->juradoProfesionalMapper = new JuradoProfesionalMapper();
-	$this->concursoMapper = new ConcursoMapper();   
-	$this->userMapper = new UserMapper(); 	
+    $this->concursoMapper = new ConcursoMapper();   
+    $this->userMapper = new UserMapper(); 
+    $_SESSION["tipoUsuario"] = "juradoProfesional";
   }
   
   
