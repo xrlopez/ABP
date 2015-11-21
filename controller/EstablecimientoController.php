@@ -22,7 +22,6 @@ class EstablecimientoController extends BaseController {
     $this->establecimientoMapper = new EstablecimientoMapper();      
     $this ->codigoMapper = new CodigoMapper();     
     $this ->pincho = new Pincho();   
-    $_SESSION["tipoUsuario"] = "establecimiento";	
   }
   
   
