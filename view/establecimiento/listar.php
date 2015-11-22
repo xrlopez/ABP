@@ -4,7 +4,6 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
  
- $currentuser = $view->getVariable("currentusername");
  $establecimientos = $view->getVariable("establecimientos");
  
  $view->setVariable("title", "Establecimientos");

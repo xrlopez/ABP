@@ -24,5 +24,16 @@ class ConcursoController extends BaseController {
     $this->view->render("concursos", "index");
 
   }
+
+  public function buscarInfo(){
+    if (isset($_POST["submit"])){
+        $busqueda = $_POST['busqueda'];
+    }
+    $result = $this->concursoMapper->buscarInfo($busqueda);
+    $concursos = $this->concursoMapper->findConcurso();    
+    $this->view->setVariable("concursos", $concursos);  
+    $this->view->setVariable("informacion",$result);
+    $this->view->render("concursos","info");
+  }
   
 }

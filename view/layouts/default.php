@@ -58,7 +58,7 @@
 							</li>
 						<!-- menu establecimiento -->
 						<?php } else if($tipoUsuario == "establecimiento"){ ?>
-							<li class="option"><a href="index.php?controller=users&amp;action=info">Generar códigos</a></li>
+							<li class="option"><a href="index.php?controller=establecimiento&amp;action=generarCodigos">Generar códigos</a></li>
 							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
 							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>
 								<a  href="index.php?controller=users&amp;action=logout">Salir</a>  
@@ -84,8 +84,10 @@
               <div id="news" class="col-xs-12 col-sm-12 col-md-4">
                 <ul class="menuAux">
                   <li class="intruBusca">
-                      <input type="search" id="busqueda" size="30" placeholder="buscar">
-                      <button type="submit" id="buttonBusqueda">buscar</button>
+                  		<form id="form-aceptar" action="index.php?controller=concurso&amp;action=buscarInfo" method="post" >
+	                      <input type="search" name="busqueda" id="busqueda" size="30" placeholder="buscar">
+	                      <button name="submit" type="submit" id="buttonBusqueda">buscar</button>
+	                    </form>
                     </li>           
                   <li class="preg"><a href="index.php?controller=establecimiento&amp;action=listar">Establecimientos</a></li>
                   <li class="preg"><a>Gastromapa</a></li>

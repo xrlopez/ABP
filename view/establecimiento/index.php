@@ -5,7 +5,7 @@
  $view = ViewManager::getInstance();
  
  $currentuser = $view->getVariable("currentusername");
- $establecimientos = $view->getVariable("establecimiento");
+ $establecimiento = $view->getVariable("esta");
  
  $view->setVariable("title", "Establecimiento");
  
@@ -14,10 +14,12 @@
 <div class="row">
 	<div class="informacion col-xs-12 col-sm-12 col-md-12">
 		<h2>Informacion del Establecimiento</h2>
-		<?= isset($errors["general"])?$errors["general"]:"" ?>
-		<?php foreach ($establecimientos as $establecimiento): ?>
-			<p><?= $establecimiento->getId()?></p>
-		<?php endforeach; ?>
-	    	<p id="bot"><a href="index.php?controller=establecimiento&amp;action=generarCodigos">Generar codigos</a></p>
+		<div class="establecimientos col-xs-12 col-sm-12 col-md-5">
+					<p><h2><a href="index.php?controller=establecimiento&amp;action=findPincho&amp;id=<?= $establecimiento->getId() ?>"><?= $establecimiento->getNombre()?></a></h2></p>
+					<p class="des"><?= $establecimiento->getdescripcion()?></p>
+					</br><p>Informacion:</p>
+					<p class="des">Direccion: <?= $establecimiento->getLocalizacion()?></p>
+					<p class="des">Contacto: <?= $establecimiento->getEmail()?></p>
+		</div>
 	</div>
 </div>

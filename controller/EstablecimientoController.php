@@ -5,6 +5,8 @@ require_once(__DIR__."/../model/Establecimiento.php");
 require_once(__DIR__."/../model/EstablecimientoMapper.php");
 require_once(__DIR__."/../model/Codigo.php");
 require_once(__DIR__."/../model/CodigoMapper.php");
+require_once(__DIR__."/../model/Concurso.php");
+require_once(__DIR__."/../model/ConcursoMapper.php");
 require_once(__DIR__."/../model/Pincho.php");
 
 require_once(__DIR__."/../core/ViewManager.php");
@@ -13,7 +15,8 @@ require_once(__DIR__."/../controller/BaseController.php");
 class EstablecimientoController extends BaseController {
   
   private $juradoPopularMapper;  
-  private $codigoMapper;  
+  private $codigoMapper;
+  private $concursoMapper;  
   private $pincho;  
   
   public function __construct() { 
@@ -22,14 +25,18 @@ class EstablecimientoController extends BaseController {
     $this->establecimientoMapper = new EstablecimientoMapper();      
     $this ->codigoMapper = new CodigoMapper();     
     $this ->pincho = new Pincho();   
+    $this->concursoMapper = new ConcursoMapper();
   }
   
   
   public function index() {
   
     $establecimiento = $this->establecimientoMapper->findAll();  
+    $concursos = $this->concursoMapper->findConcurso();   
     $this->view->setVariable("establecimiento", $establecimiento); 
-    $this->view->render("establecimiento", "index");
+    $this->view->setVariable("concursos", $concursos);    
+    
+    $this->view->render("concursos", "index");
     
   }
 
@@ -57,6 +64,14 @@ class EstablecimientoController extends BaseController {
     $this->view->setVariable("pincho", $pincho); 
     $this->view->render("pinchos", "pincho");
       
+  }
+
+  public function getInfo(){
+    $estab = $_GET["id"];
+    $establecimiento = $this->establecimientoMapper->findById($estab);
+    $this->view->setVariable("esta", $establecimiento); 
+    $this->view->render("establecimiento", "index");
+
   }
   
 }
