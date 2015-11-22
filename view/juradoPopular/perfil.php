@@ -52,7 +52,6 @@
 	    </div>
 	    <div class="divFormulario">
 	    	<p id="bot"><a href="index.php?controller=juradoPopular&amp;action=modificar">Modificar</a></p>
-	    	<p id="bot"><a href="index.php?controller=juradoPopular&amp;action=introCodigos">Votar</a></p>
 			<p id="bot"><a href="#" onclick="if (confirm('estas seguro?')) {document.getElementById('form-aceptar').submit()}">Eliminar</a></p>
 		 	
 		</div>

@@ -51,7 +51,7 @@
 							</li>
 						<!-- menu jurado popular -->
 						<?php } else if($tipoUsuario == "juradoPopular"){ ?>
-							<li class="option"><a href="index.php?controller=users&amp;action=info">Votar</a></li>
+							<li class="option"><a href="index.php?controller=juradoPopular&amp;action=introCodigos">Votar</a></li>
 							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
 							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>
 								<a  href="index.php?controller=users&amp;action=logout">Salir</a>  
