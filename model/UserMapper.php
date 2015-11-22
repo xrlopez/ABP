@@ -40,8 +40,8 @@ class UserMapper {
           $stmt->execute(array($user->getid(), $user->getResidencia()));
           break;
         case "juradoProfesional":
-          $this->view->moveToFragment($currentuser);
-          $this->view->redirect("juradoProfesional", "index");
+          $stmt = $this->db->prepare("INSERT INTO juradoProfesional values (?,?,?)");
+          $stmt->execute(array($user->getid(), $user->getProfesion(), $user->getOrganizador()));
           break;
         case "establecimiento":
     		  $stmt = $this->db->prepare("INSERT INTO establecimiento values (?,?,?)");

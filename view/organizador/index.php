@@ -17,6 +17,5 @@
 		<?php foreach ($organizadores as $organizador): ?>
 			<p><?= $organizador->getId()?></p>
 		<?php endforeach; ?>
-		<a href="index.php?controller=organizador&amp;action=asignar">Asignar pinchos al jurado profesional</a>
 	</div>
 </div>

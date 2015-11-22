@@ -6,6 +6,8 @@ require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/JuradoPopular.php");
 require_once(__DIR__."/../model/JuradoPopularMapper.php");
+require_once(__DIR__."/../model/JuradoProfesional.php");
+require_once(__DIR__."/../model/JuradoProfesionalMapper.php");
 require_once(__DIR__."/../model/Establecimiento.php");
 require_once(__DIR__."/../model/EstablecimientoMapper.php");
 
@@ -209,6 +211,56 @@ public function registerEstablecimiento() {
     $this->view->render("users", "registerPopular");
     
   }
+
+public function registerProfesional() {
+    
+    $jpop = new JuradoProfesional();
+    $currentuser = $this->view->getVariable("currentusername");
+    if (isset($_POST["usuario"])){ 
+      $jpop->setId($_POST["usuario"]);
+      $jpop->setNombre($_POST["nombre"]);
+      $jpop->setEmail($_POST["correo"]);
+      $jpop->setProfesion($_POST["profesion"]);
+      $jpop->setOrganizador($currentuser);
+      $jpop->setTipo("juradoProfesional");
+
+      if ($_POST["pass"]==$_POST["repass"]) {
+        $jpop->setPassword($_POST["pass"]);
+      }else{
+        $errors["pass"] = "<span>La contraseña es obligatoria</span>";
+        $this->view->setVariable("errors", $errors);
+        $this->view->redirect("juradoProfesional", "registerProfesional"); 
+      }
+    
+      
+      try{
+        $jpop->checkIsValidForCreate();     
+        if (!$this->userMapper->usernameExists($_POST["usuario"])){
+          $this->userMapper->save($jpop);
+          $this->view->setFlash("Usuario ".$jpop->getId()." registrado.");
+        } else {
+          $errors = array();
+          $errors["usuario"] = "El usuario ya existe";
+          $this->view->setVariable("errors", $errors);
+        }
+        $this->view->redirect("users", "registerProfesional");
+      }catch(ValidationException $ex) {
+        $errors = $ex->getErrors();
+        $this->view->setVariable("errors", $errors);
+      }
+    }
+    
+    // Put the User object visible to the view
+    $this->view->setVariable("juradoProfesional", $jpop);
+    
+    // render the view (/view/users/register.php)
+    $this->view->render("users", "registerProfesional");
+    
+  }
+
+
+
+
 
  /**
    * Action to logout
