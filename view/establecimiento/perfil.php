@@ -2,26 +2,26 @@
 
  
  require_once(__DIR__."/../../core/ViewManager.php");
- require_once(__DIR__."/../../model/JuradoPopular.php");
- require_once(__DIR__."/../../model/JuradoPopularMapper.php");
+ require_once(__DIR__."/../../model/Establecimiento.php");
+ require_once(__DIR__."/../../model/EstablecimientoMapper.php");
  $view = ViewManager::getInstance();
  
  $currentuser = $view->getVariable("currentusername");
- $juradoPopular = $view->getVariable("juradoPop");
+ $Establecimiento = $view->getVariable("juradoPop");
  
  
 ?>
 
 <div class="row registrarE">
 <div class="divLogin col-xs-12 col-sm-12 col-md-12">
-    <h2>Jurado Popular</h2>
+    <h2>Establecimiento</h2>
 	    <div>
 		    <div class="row consultarInfo">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
-			    	Usuario:  
+			    	Etablecimiento:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
-			    	<?= $juradoPopular->getId()?>  
+			    	<?= $Establecimiento->getId()?>  
 		    	</div>
 	    	</div>
 	    	<div class="row consultarInfo">
@@ -29,7 +29,7 @@
 		    		Nombre:
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
-			    	<?= $juradoPopular->getNombre()?>  
+			    	<?= $Establecimiento->getNombre()?>  
 		    	</div>
 	    	</div>
 		    <div class="row consultarInfo">
@@ -37,20 +37,20 @@
 		    		Correo:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
-			    	<?= $juradoPopular->getEmail()?>  
+			    	<?= $Establecimiento->getEmail()?>  
 		    	</div>
 		    </div>
 		    <div class="row consultarInfo">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
-		    		Residencia:  
+		    		Localizacion:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
-			    	<?= $juradoPopular->getResidencia()?>  
+			    	<?= $Establecimiento->getLocalizacion()?>  
 		    	</div>
 		    </div>
 	    </div>
 	    <div class="divFormulario">
-	    	<p id="bot"><a href="index.php?controller=juradoPopular&amp;action=modificar">Modificar</a></p>
+	    	<p id="bot"><a href="index.php?controller=Establecimiento&amp;action=modificar">Modificar</a></p>
 		</div>
     </div>
 </div>
