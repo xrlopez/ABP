@@ -6,7 +6,7 @@ require_once(__DIR__."/../model/Establecimiento.php");
 		public $nombre;
 		public $descripcion;
 		public $celiaco;
-		//public $validado;
+		public $validado;
 		public $num_votos;
 		public $establecimiento;
 		public $ingredientes;
@@ -18,6 +18,7 @@ require_once(__DIR__."/../model/Establecimiento.php");
 			$this->num_votos = $num_votos;
 			$this->establecimiento = $establecimiento;
 			$this->id_pincho = $id_pincho;
+			$this->validado = 0;
 			}
 
 		public function getNombre(){
@@ -27,14 +28,14 @@ require_once(__DIR__."/../model/Establecimiento.php");
 		public function isCeliaco(){
 			return $this->celiaco;
 		}
-		/*
+		
 		public function getValidado(){
 			return $this->validado;
 		}
 		public function setValidado($validado){
 			$this->validado = $validado;
 		}
-		*/
+		
 		public function getDescripcion(){
 			return $this->descripcion;
 		}
@@ -89,7 +90,7 @@ require_once(__DIR__."/../model/Establecimiento.php");
 		{
 			$list = [];
 			$db = PDOConnection::getInstance();
-			$req = $db->query('SELECT * FROM pincho limit '.$inicio.', '.$limite.'');
+			$req = $db->query('SELECT * FROM pincho WHERE validado = 1 limit '.$inicio.', '.$limite.'');
 			foreach($req->fetchAll() as $pincho) {
 				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
 			}
@@ -99,7 +100,7 @@ require_once(__DIR__."/../model/Establecimiento.php");
 		public static function all() {
 			$list = [];
 			$db = PDOConnection::getInstance();
-			$req = $db->query('SELECT * FROM pincho');
+			$req = $db->query('SELECT * FROM pincho WHERE validado = 1');
 			
 			// we create a list of Post objects from the database results
 			foreach($req->fetchAll() as $pincho) {
@@ -127,6 +128,36 @@ require_once(__DIR__."/../model/Establecimiento.php");
 			$pincho = $req->fetch();
 			return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
 		}
+
+		public static function noValidados(){
+			$list = [];
+			$db = PDOConnection::getInstance();
+			$req = $db->query('SELECT * FROM pincho WHERE validado = 0');
+			foreach($req->fetchAll() as $pincho) {
+				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+    		}
+   		 	return $list;
+		}
+
+		public static function validar($id){
+			$db = PDOConnection::getInstance();
+			// we make sure $id is an integer
+			$id = intval($id);
+			$stmt = $db->prepare('UPDATE pincho set validado = 1  WHERE id_pincho = '.$id);
+    		$stmt->execute(array());
+		}
+
+		public function eliminar($id){
+		    $pincho = Pincho::find($id);   
+		    if ($pincho == NULL) {
+		      throw new Exception("No existe el pincho ".$id);
+		    }
+		    
+		    // Delete the Jurado Popular object from the database
+		    $db = PDOConnection::getInstance();
+		    $stmt = $db->prepare("DELETE from pincho WHERE id_pincho=?");
+    		$stmt->execute(array($pincho->getId())); 
+ 		}
 
 	}
 
