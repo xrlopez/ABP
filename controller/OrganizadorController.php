@@ -109,7 +109,6 @@ public function perfil(){
     $this->view->redirect("concurso", "index");
   }
 
-
   public function update(){
     $jpopid = $_REQUEST["usuario"];
     $jpop = $this->organizadorMapper->findById($jpopid);

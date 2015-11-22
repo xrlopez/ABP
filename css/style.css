@@ -204,6 +204,11 @@ input[type="radio"]{
 	border-radius: 4px;
 
 }
+.establecimientos a{
+	color: white;
+	margin-right: 5px;
+	
+}
 .establecimientos h2{
 	font-weight: bold;
 }

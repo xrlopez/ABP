@@ -40,22 +40,24 @@ class EstablecimientoController extends BaseController {
     
   }
 
-  
   public function perfil(){
     $currentuser = $this->view->getVariable("currentusername");
-    $establecimiento = $this->EstablecimientoMapper->findById($currentuser);
-    $this->view->setVariable("Establecimiento", $Establecimiento);
-    $this->view->render("Establecimiento", "perfil");
+    $establecimiento = $this->establecimientoMapper->findById($currentuser);
+    $this->view->setVariable("establecimiento", $establecimiento);
+    $this->view->render("establecimiento", "perfil");
   }
 
   public function modificar(){
     $currentuser = $this->view->getVariable("currentusername");
-    $Establecimiento = $this->EstablecimientoMapper->findById($currentuser);
-    $this->view->setVariable("Establecimiento", $Establecimiento);
-    $this->view->render("Establecimiento", "modificar");
-	
-  }
+    $establecimiento = $this->establecimientoMapper->findById($currentuser);
+    $this->view->setVariable("establecimiento", $establecimiento);
+    $this->view->render("establecimiento", "modificar");
   
+  }
+  public function update(){
+    //telo que implementar
+  }
+
   public function generarCodigos(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);

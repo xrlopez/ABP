@@ -257,11 +257,6 @@ public function registerProfesional() {
     $this->view->render("users", "registerProfesional");
     
   }
-
-
-
-
-
  /**
    * Action to logout
    * 

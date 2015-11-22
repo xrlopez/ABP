@@ -7,7 +7,7 @@
  $view = ViewManager::getInstance();
  
  $currentuser = $view->getVariable("currentusername");
- $Establecimiento = $view->getVariable("juradoPop");
+ $establecimiento = $view->getVariable("establecimiento");
  
  
 ?>
@@ -18,10 +18,10 @@
 	    <div>
 		    <div class="row consultarInfo">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
-			    	Etablecimiento:  
+			    	Establecimiento:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
-			    	<?= $Establecimiento->getId()?>  
+			    	<?= $establecimiento->getId()?>  
 		    	</div>
 	    	</div>
 	    	<div class="row consultarInfo">
@@ -29,7 +29,7 @@
 		    		Nombre:
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
-			    	<?= $Establecimiento->getNombre()?>  
+			    	<?= $establecimiento->getNombre()?>  
 		    	</div>
 	    	</div>
 		    <div class="row consultarInfo">
@@ -37,7 +37,7 @@
 		    		Correo:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
-			    	<?= $Establecimiento->getEmail()?>  
+			    	<?= $establecimiento->getEmail()?>  
 		    	</div>
 		    </div>
 		    <div class="row consultarInfo">
@@ -45,12 +45,12 @@
 		    		Localizacion:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
-			    	<?= $Establecimiento->getLocalizacion()?>  
+			    	<?= $establecimiento->getLocalizacion()?>  
 		    	</div>
 		    </div>
 	    </div>
 	    <div class="divFormulario">
-	    	<p id="bot"><a href="index.php?controller=Establecimiento&amp;action=modificar">Modificar</a></p>
+	    	<p id="bot"><a href="index.php?controller=establecimiento&amp;action=modificar">Modificar</a></p>
 		</div>
     </div>
 </div>

@@ -7,7 +7,7 @@
  $view = ViewManager::getInstance();
  
  $currentuser = $view->getVariable("currentusername");
- $Establecimiento = $view->getVariable("Establecimiento");
+ $establecimiento = $view->getVariable("establecimiento");
  $errors = $view->getVariable("errors");
  
  
@@ -16,21 +16,21 @@
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 		<h2>Establecimiento</h2>
 			<div>
-				<form id="form-aceptar" action="index.php?controller=Establecimiento&amp;action=update" method="post" >
+				<form id="form-aceptar" action="index.php?controller=establecimiento&amp;action=update" method="post" >
 					<label for="usuario">Usuario</label><?= isset($errors["usuario"])?$errors["usuario"]:"" ?>
-						<input name="usuario" class="registrar" type="text" id="usuario" readonly = "readonly" value="<?= $Establecimiento->getId()?>"/ ></p>
+						<input name="usuario" class="registrar" type="text" id="usuario" readonly = "readonly" value="<?= $establecimiento->getId()?>"/ ></p>
 						
 					<label for="nombre">Nombre</label><?= isset($errors["nombre"])?$errors["nombre"]:"" ?>
-	                    <input name="nombre" class="registrar" type="text" id="nombre" value="<?= $Establecimiento->getNombre()?> "/ ></p>
+	                    <input name="nombre" class="registrar" type="text" id="nombre" value="<?= $establecimiento->getNombre()?> "/ ></p>
 					                    				 
 	                <label for="correo">Correo</label><?= isset($errors["correo"])?$errors["correo"]:"" ?>
-	                    <input name="correo" class="registrar" type="text" id="correo" value="<?= $Establecimiento->getEmail()?>"/></p>
+	                    <input name="correo" class="registrar" type="text" id="correo" value="<?= $establecimiento->getEmail()?>"/></p>
 					
 					<label for="localizacion">Direccion</label><?= isset($errors["residencia"])?$errors["residencia"]:"" ?>
-	                    <input name="residencia" class="registrar" type="text" id="residencia" value="<?= $Establecimiento->getLocalizacion()?>"/></p>
+	                    <input name="residencia" class="registrar" type="text" id="residencia" value="<?= $establecimiento->getLocalizacion()?>"/></p>
 						
 					<label for="descripcion">Descripcion</label><?= isset($errors["descripcion"])?$errors["residencia"]:"" ?>
-						<input name="descripcion" class="registrar" type="text" id="descripcion" value="<?= $Establecimiento->getDescripcion()?>"/></p>
+						<input name="descripcion" class="registrar" type="text" id="descripcion" value="<?= $establecimiento->getDescripcion()?>"/></p>
 						
 					<label for="pass">Contraseña actual</label><?= isset($errors["passActual"])?$errors["passActual"]:"" ?>
 	                    <input name="passActual" class="registrar" type="password" id="passActual" / ></p>
@@ -45,7 +45,7 @@
 				</form>
 			</div>
 			<div class="divFormulario">
-	    		<p id="bot"><a href="index.php?controller=Establecimiento&amp;action=perfil">Cancelar</a></p>
+	    		<p id="bot"><a href="index.php?controller=establecimiento&amp;action=perfil">Cancelar</a></p>
 			</div>
 	</div>
 </div>
