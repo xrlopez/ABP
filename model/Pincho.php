@@ -76,7 +76,13 @@ require_once(__DIR__."/../model/Establecimiento.php");
 			$this->establecimiento = $establecimiento;
 		}
 
-
+		public function getNombreEstablecimiento(){
+			$db = PDOConnection::getInstance();
+			$query = $db->prepare('SELECT nombre as name FROM usuario WHERE id_usuario=?');
+			$query->execute(array($this->establecimiento));
+			$nombre = $query->fetch();
+			return $nombre['name'];
+		}
 
 		public static function getNumPinchos()
 		{
