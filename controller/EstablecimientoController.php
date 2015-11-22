@@ -61,8 +61,17 @@ class EstablecimientoController extends BaseController {
   public function generarCodigos(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
-    $cods = $this->establecimientoMapper->generarCodigos($establecimiento);
-    $this->codigoMapper->generarPDF($cods,$establecimiento->getNombre());
+    $concursos = $this->concursoMapper->findConcurso();   
+    
+    $pincho = $this->pincho->findByEstablecimiento($establecimiento);
+    if($pincho!=NULL){
+      $cods = $this->establecimientoMapper->generarCodigos($establecimiento);
+      $this->codigoMapper->generarPDF($cods,$establecimiento->getNombre());  
+    }else{
+      $this->view->setFlash(sprintf("No tienes un pincho valido."));
+      $this->view->setVariable("concursos", $concursos);    
+      $this->view->render("concursos", "index");
+    }
   }
 
   public function listar(){

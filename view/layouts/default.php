@@ -58,6 +58,7 @@
 							</li>
 						<!-- menu establecimiento -->
 						<?php } else if($tipoUsuario == "establecimiento"){ ?>
+							<li class="option"><a href="#">Proponer Pincho</a></li>
 							<li class="option"><a href="index.php?controller=establecimiento&amp;action=generarCodigos">Generar códigos</a></li>
 							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
 							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>

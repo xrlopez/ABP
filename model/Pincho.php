@@ -132,7 +132,11 @@ require_once(__DIR__."/../model/Establecimiento.php");
 			$req = $db->prepare("SELECT * FROM pincho WHERE FK_establecimiento_pinc =?");
 			$req->execute(array($esta->getId()));
 			$pincho = $req->fetch();
-			return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+			if($pincho!=NULL){
+					return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+			}else{
+				return NULL;
+			}
 		}
 
 		public static function noValidados(){
