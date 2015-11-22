@@ -51,5 +51,11 @@ class OrganizadorMapper {
     $stmt = $this->db->prepare("UPDATE organizador set descripcionOrga=? where id_usuario=?");
     $stmt->execute(array($orga->getDescripcionOrga(), $orga->getId()));    
   }
+  public function delete(Organizador $orga) {
+    $stmt = $this->db->prepare("DELETE from organizador WHERE id_usuario=?");
+    $stmt->execute(array($orga->getId()));    
+    $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
+    $stmt->execute(array($orga->getId()));    
+  }
   
 }

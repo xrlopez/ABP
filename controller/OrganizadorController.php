@@ -90,6 +90,26 @@ public function perfil(){
     $this->view->render("organizador", "modificar");
   }
 
+  public function eliminar(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $organizador = $this->organizadorMapper->findById($currentuser);
+    
+        
+    // Does the post exist?
+    if ($organizador == NULL) {
+      throw new Exception("No existe el usuario ".$currentuser);
+    }
+    
+    // Delete the Jurado Popular object from the database
+    $this->organizadorMapper->delete($organizador);
+    
+    $this->view->setFlash(sprintf("Usuario \"%s\" eliminado.",$organizador ->getId()));
+    session_unset();
+    session_destroy();
+    $this->view->redirect("concurso", "index");
+  }
+
+
   public function update(){
     $jpopid = $_REQUEST["usuario"];
     $jpop = $this->organizadorMapper->findById($jpopid);
