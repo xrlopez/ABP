@@ -15,11 +15,11 @@
 				<label for="nombre">Nombre</label>
 					<input name="nombre" class="registrar" type="text" id="nombre"/ ></p>
 												 
+				<label for="descripcion">Descripción</label>
+					<input name="descripcion" class="registrar" type="boolean" id="descripcion"/></p>
+
 				<label for="celiaco">Celiaco</label>
-					<input name="celiaco" class="registrar" type="boolean" id="celaico"/></p>
-					
-				<label for="ingredientes">Ingredientes</label>
-					<input name="ingredientes" class="registrar" type="text" id="ingredientes"/ ></p>
+					<input name="celiaco" type="checkbox" id="celiaco"/></p>
 												 
 				<p id="bot"><input name="submit" type="submit" id="boton" value="Registrar" class="boton"/></p>
 			</form>

@@ -143,5 +143,10 @@ class EstablecimientoController extends BaseController {
     $this->view->render("establecimiento", "index");
 
   }
+
+  public function registerPincho(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $this->view->render("pinchos","registerPincho");
+  }
   
 }

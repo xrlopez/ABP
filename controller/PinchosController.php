@@ -2,10 +2,21 @@
 //require_once(__DIR__."/../view/pinchos/index.php");
 
 require_once(__DIR__."/../model/Pincho.php");
+require_once(__DIR__."/../model/PinchoMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
 	class PinchosController extends BaseController  {
+
+		private $pinchoMapper;    
+
+		public function __construct() {    
+			parent::__construct();
+
+			$this->pinchoMapper = new PinchoMapper();
+   
+		}
+
 
 		public function index(){
 			$pinchos = Pincho::getPinchos();
@@ -74,6 +85,31 @@ require_once(__DIR__."/../controller/BaseController.php");
 			$this->view->setVariable("pinchos", $pinchos);
 			$this->view->render("pinchos", "votosPop");
 
+		}
+
+		public function register(){
+			$currentuser = $this->view->getVariable("currentusername");
+			$pincho = new Pincho();
+			if (isset($_POST["nombre"])){ 
+				$pincho->setNombre($_POST["nombre"]);
+				$pincho->setCeliaco($_POST["celiaco"]);
+				$pincho->setDescripcion($_POST["descripcion"]);
+				$pincho->setEstablecimiento($currentuser);    
+      
+				try{
+					$pincho->checkIsValidForCreate(); 
+   					$this->view->redirect("pinchos", "pincho");
+      			}catch(ValidationException $ex) {
+			      	$errors = $ex->getErrors();
+			      	$this->view->setVariable("errors", $errors);
+      			}
+    		}
+    
+    // Put the User object visible to the view
+    		$this->view->setVariable("pincho", $pincho);
+    
+    // render the view (/view/users/register.php)
+    		$this->view->render("pinchos", "registerPincho");
 		}
 
 	}

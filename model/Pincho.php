@@ -92,6 +92,24 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			return $this->ingredientes->getIngredientes($this->id_pincho);
 		}
 
+		public function checkIsValidForCreate() {
+			$errors = array();
+			if (strlen(trim($this->nombre)) == 0 ) {
+				$errors["nombre"] = "Nombre es obligatorio";
+			}
+			if (strlen(trim($this->celiaco)) == 0 ) {
+				$errors["celiaco"] = "Celiaco es obligatorio";
+			}
+			if (strlen(trim($this->descripcion)) == 0 ) {
+				$errors["descripcion"] = "Descripcion es obligatorio";
+			}
+			if (sizeof($errors) > 0){
+			throw new ValidationException($errors, "Pincho no valido");
+			}
+		}
+
+
+
 		public static function getNumPinchos()
 		{
 			$db = PDOConnection::getInstance();
