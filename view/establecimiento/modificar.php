@@ -26,10 +26,10 @@
 	                <label for="correo">Correo</label><?= isset($errors["correo"])?$errors["correo"]:"" ?>
 	                    <input name="correo" class="registrar" type="email" id="correo" value="<?= $establecimiento->getEmail()?>"/></p>
 					
-					<label for="localizacion">Direccion</label><?= isset($errors["residencia"])?$errors["residencia"]:"" ?>
-	                    <input name="residencia" class="registrar" type="text" id="residencia" value="<?= $establecimiento->getLocalizacion()?> "/></p>
+					<label for="localizacion">Localización</label><?= isset($errors["localizacion"])?$errors["localizacion"]:"" ?>
+	                    <input name="localizacion" class="registrar" type="text" id="localizacion" value="<?= $establecimiento->getLocalizacion()?> "/></p>
 						
-					<label for="descripcion">Descripcion</label><?= isset($errors["descripcion"])?$errors["residencia"]:"" ?>
+					<label for="descripcion">Descripcion</label><?= isset($errors["descripcion"])?$errors["descripcion"]:"" ?>
 						<input name="descripcion" class="registrar" type="text" id="descripcion" value="<?= $establecimiento->getDescripcion()?>"/></p>
 						
 					<label for="pass">Contraseña actual</label><?= isset($errors["passActual"])?$errors["passActual"]:"" ?>

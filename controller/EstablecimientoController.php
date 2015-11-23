@@ -3,6 +3,8 @@
 
 require_once(__DIR__."/../model/Establecimiento.php");
 require_once(__DIR__."/../model/EstablecimientoMapper.php");
+require_once(__DIR__."/../model/User.php");
+require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/Codigo.php");
 require_once(__DIR__."/../model/CodigoMapper.php");
 require_once(__DIR__."/../model/Concurso.php");
@@ -17,7 +19,8 @@ class EstablecimientoController extends BaseController {
   private $juradoPopularMapper;  
   private $codigoMapper;
   private $concursoMapper;  
-  private $pincho;  
+  private $pincho;
+  private $userMapper;  
   
   public function __construct() { 
     parent::__construct();
@@ -26,6 +29,7 @@ class EstablecimientoController extends BaseController {
     $this ->codigoMapper = new CodigoMapper();     
     $this ->pincho = new Pincho();   
     $this->concursoMapper = new ConcursoMapper();
+    $this->userMapper = new UserMapper();
   }
   
   

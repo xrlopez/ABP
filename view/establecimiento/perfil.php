@@ -48,6 +48,14 @@
 			    	<?= $establecimiento->getLocalizacion()?>  
 		    	</div>
 		    </div>
+		    <div class="row consultarInfo">
+		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
+		    		Descripción:  
+		    	</div>
+		    	<div class="col-xs-8 col-sm-8 col-md-8">
+			    	<?= $establecimiento->getDescripcion()?>  
+		    	</div>
+		    </div>
 	    </div>
 	    <div class="divFormulario">
 	    	<p id="bot"><a href="index.php?controller=establecimiento&amp;action=modificar">Modificar</a></p>
