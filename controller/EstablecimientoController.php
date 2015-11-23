@@ -54,8 +54,47 @@ class EstablecimientoController extends BaseController {
     $this->view->render("establecimiento", "modificar");
   
   }
+
   public function update(){
-    //telo que implementar
+    $estid = $_REQUEST["usuario"];
+    $est = $this->establecimientoMapper->findById($estid);
+    $errors = array();
+    if($this->userMapper->isValidUser($_POST["usuario"],$_POST["passActual"])){
+
+        if (isset($_POST["submit"])) {  
+        
+          $est->setNombre($_POST["nombre"]);
+          $est->setEmail($_POST["correo"]);
+          $est->setLocalizacion($_POST["localizacion"]);
+
+          if(!(strlen(trim($_POST["passNew"])) == 0)){
+            if ($_POST["passNew"]==$_POST["passNueva"]) {
+              $est->setPassword($_POST["passNueva"]);
+            }
+            else{
+              $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+              $this->view->setVariable("errors", $errors);
+              $this->view->redirect("establecimiento", "modificar"); 
+            }
+          }
+          
+            try{
+              $this->establecimientoMapper->update($est);
+              $this->view->setFlash(sprintf("Usuario \"%s\" modificado correctamente.",$est ->getNombre()));
+              $this->view->redirect("establecimiento", "index"); 
+            }catch(ValidationException $ex) {
+            $errors = $ex->getErrors();
+            $this->view->setVariable("errors", $errors);
+          } 
+        }
+
+    }
+    else{
+        $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+        $this->view->setVariable("errors", $errors);
+        $this->view->redirect("establecimiento", "modificar"); 
+      }
+    $this->view->redirect("establecimiento", "index"); 
   }
 
   public function generarCodigos(){
