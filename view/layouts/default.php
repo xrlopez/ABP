@@ -36,7 +36,7 @@
 						<?php if($tipoUsuario == "organizador"){ ?>
 							<li class="option"><a href="index.php?controller=users&amp;action=registerProfesional">Jurado profesional</a></li>
 							<li class="option"><a href="index.php?controller=organizador&amp;action=validar">Validar pinchos</a></li>
-							<li class="option"><a href="index.php?controller=users&amp;action=info">Asignar pinchos</a></li>
+							<li class="option"><a href="index.php?controller=organizador&amp;action=asignar">Asignar pinchos</a></li>
 							<li class="option"><a href="index.php?controller=users&amp;action=info">Premios</a></li>
 							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
 							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a>

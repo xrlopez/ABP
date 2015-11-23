@@ -3,6 +3,7 @@
 require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/Organizador.php");
+require_once(__DIR__."/../model/JuradoProfesional.php");
 
 class OrganizadorMapper {
 
@@ -56,6 +57,13 @@ class OrganizadorMapper {
     $stmt->execute(array($orga->getId()));    
     $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
     $stmt->execute(array($orga->getId()));    
+  }
+
+  public function asignar(JuradoProfesional $jpro,$pinchos,Organizador $orga){
+    foreach ($pinchos as $pincho) {
+      $stmt = $this->db->prepare("INSERT INTO asignar_jregistrado VALUES(?,?,?)");
+      $stmt->execute(array($jpro->getId(), $pincho->getId(),$orga->getId()));
+    }
   }
   
 }
