@@ -63,10 +63,16 @@ foreach($pinchos as $pincho) {
 				}
 			?>	
 		</li>
-		<li class="ingrediente">Sal</li>
-		<li class="ingrediente">Harina</li>
-		<li class="ingrediente">Agua</li>
-		<li class="ingrediente">Aceite</li>
+<?php
+$ingredientes = $pincho->getIngredientes();
+foreach ($ingredientes as $ingrediente) {
+?>
+		<li class="ingrediente">
+		<?= $ingrediente->getIngrediente() ?>
+		</li>
+<?php
+}
+?>		
 	</ul>
 	<!--sumario-->
 	<h6 class="landmark heading">Sumario</h6>

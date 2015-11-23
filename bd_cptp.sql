@@ -121,3 +121,9 @@ CREATE TABLE vota_pop(
 	CONSTRAINT FK_codigo FOREIGN KEY  (FK_cod) REFERENCES codigo(id_codigo),
 	CONSTRAINT FK_juradoPopular_vota_pop FOREIGN KEY  (FK_juradoPopular_vot) REFERENCES juradoPopular(id_usuario)
 );
+
+CREATE TABLE ingrediente(
+    FK_pincho_ing VARCHAR(15) NOT NULL,
+    ingrediente VARCHAR(15) NOT NULL,
+    CONSTRAINT FK_pincho_ing FOREIGN KEY  (FK_pincho_ing) REFERENCES pincho(id_pincho)
+);

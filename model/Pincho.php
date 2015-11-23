@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/../model/Establecimiento.php");
+require_once(__DIR__."/../model/IngredienteMapper.php");
+
 	class Pincho {
 		public $id_pincho;
 		public $nombre;
@@ -9,7 +11,8 @@ require_once(__DIR__."/../model/Establecimiento.php");
 		public $validado;
 		public $num_votos;
 		public $establecimiento;
-		public $ingredientes;
+		private $ingredientes;
+
 
 		public function __construct($nombre=NULL, $celiaco=NULL, $descripcion=NULL, $num_votos=NULL, $establecimiento=NULL, $id_pincho=NULL) {
 			$this->nombre= $nombre;
@@ -19,7 +22,8 @@ require_once(__DIR__."/../model/Establecimiento.php");
 			$this->establecimiento = $establecimiento;
 			$this->id_pincho = $id_pincho;
 			$this->validado = 0;
-			}
+			$this->ingredientes = new IngredienteMapper();
+		}
 
 		public function getNombre(){
 			return $this->nombre;
@@ -82,6 +86,10 @@ require_once(__DIR__."/../model/Establecimiento.php");
 			$query->execute(array($this->establecimiento));
 			$nombre = $query->fetch();
 			return $nombre['name'];
+		}
+
+		public function getIngredientes(){
+			return $this->ingredientes->getIngredientes($this->id_pincho);
 		}
 
 		public static function getNumPinchos()
