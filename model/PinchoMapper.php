@@ -99,8 +99,11 @@ class PinchoMapper{
 		$stmt->execute(array($pincho->getId())); 
 	}
 
-
-
+//TERMINAR!!
+	public function save($pincho){
+		$stmt = $this->db->prepare("INSERT INTO pincho values (?,?,?,?,?,?,?,?,?)");
+		$stmt->execute(array(IDPINCHO,$pincho->getNombre(), $pincho->getDescripcion(), $pincho->isCeliaco(), 0, 0, FK_ORGANIZAD, FK_CONCURSO, $pincho->getEstablecimiento()));
+	}
 
 
 

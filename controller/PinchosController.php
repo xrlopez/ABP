@@ -98,7 +98,8 @@ require_once(__DIR__."/../controller/BaseController.php");
       
 				try{
 					$pincho->checkIsValidForCreate(); 
-   					$this->view->redirect("pinchos", "pincho");
+   					$this->pinchoMapper->save($pincho);
+	          		$this->view->setFlash("Pincho ".$pincho->getId()." registrado.");
       			}catch(ValidationException $ex) {
 			      	$errors = $ex->getErrors();
 			      	$this->view->setVariable("errors", $errors);
