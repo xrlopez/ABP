@@ -24,7 +24,7 @@
 	                    <input name="nombre" class="registrar" type="text" id="nombre" value="<?= $juradoProfesional->getNombre()?> "/ ></p>
 					                    				 
 	                <label for="correo">Correo</label>
-	                    <input name="correo" class="registrar" type="text" id="correo" value="<?= $juradoProfesional->getEmail()?>"/></p>
+	                    <input name="correo" class="registrar" type="email" id="correo" value="<?= $juradoProfesional->getEmail()?>"/></p>
 					
 					<label for="profesion">Profesion</label>
 	                    <input name="profesion" class="registrar" type="text" id="profesion" value="<?= $juradoProfesional->getProfesion()?>"/></p>
@@ -33,7 +33,7 @@
 	                    <input name="organizador" class="registrar" type="text" id="organizador" readonly = "readonly" value="<?= $juradoProfesional->getOrganizador()?>"/></p>
 						
 					<label for="passActual">Contraseña actual</label>
-	                    <input name="passActual" class="registrar" type="password" id="passActual" / ></p>
+	                    <input name="passActual" class="registrar" type="password" id="passActual" required/ ></p>
 
 	                <label for="passNueva">Contraseña nueva</label>
 	                    <input name="passNueva" class="registrar" type="password" id="passNueva"/ ></p>

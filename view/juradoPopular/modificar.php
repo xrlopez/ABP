@@ -24,13 +24,13 @@
 	                    <input name="nombre" class="registrar" type="text" id="nombre" value="<?= $juradoPopular->getNombre()?> "/ ></p>
 					                    				 
 	                <label for="correo">Correo</label><?= isset($errors["correo"])?$errors["correo"]:"" ?>
-	                    <input name="correo" class="registrar" type="text" id="correo" value="<?= $juradoPopular->getEmail()?>"/></p>
+	                    <input name="correo" class="registrar" type="email" id="correo" value="<?= $juradoPopular->getEmail()?>"/></p>
 					
 					<label for="residencia">Residencia</label><?= isset($errors["residencia"])?$errors["residencia"]:"" ?>
 	                    <input name="residencia" class="registrar" type="text" id="residencia" value="<?= $juradoPopular->getResidencia()?>"/></p>
 						
 					<label for="pass">Contraseña actual</label><?= isset($errors["passActual"])?$errors["passActual"]:"" ?>
-	                    <input name="passActual" class="registrar" type="password" id="passActual" / ></p>
+	                    <input name="passActual" class="registrar" type="password" id="passActual" / required></p>
 
 	                <label for="pass">Contraseña nueva</label>
 	                    <input name="passNew" class="registrar" type="password" id="passNew"/ ></p>

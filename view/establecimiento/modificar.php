@@ -24,16 +24,16 @@
 	                    <input name="nombre" class="registrar" type="text" id="nombre" value="<?= $establecimiento->getNombre()?> "/ ></p>
 					                    				 
 	                <label for="correo">Correo</label><?= isset($errors["correo"])?$errors["correo"]:"" ?>
-	                    <input name="correo" class="registrar" type="text" id="correo" value="<?= $establecimiento->getEmail()?>"/></p>
+	                    <input name="correo" class="registrar" type="email" id="correo" value="<?= $establecimiento->getEmail()?>"/></p>
 					
 					<label for="localizacion">Direccion</label><?= isset($errors["residencia"])?$errors["residencia"]:"" ?>
-	                    <input name="residencia" class="registrar" type="text" id="residencia" value="<?= $establecimiento->getLocalizacion()?>"/></p>
+	                    <input name="residencia" class="registrar" type="text" id="residencia" value="<?= $establecimiento->getLocalizacion()?> "/></p>
 						
 					<label for="descripcion">Descripcion</label><?= isset($errors["descripcion"])?$errors["residencia"]:"" ?>
 						<input name="descripcion" class="registrar" type="text" id="descripcion" value="<?= $establecimiento->getDescripcion()?>"/></p>
 						
 					<label for="pass">Contraseña actual</label><?= isset($errors["passActual"])?$errors["passActual"]:"" ?>
-	                    <input name="passActual" class="registrar" type="password" id="passActual" / ></p>
+	                    <input name="passActual" class="registrar" type="password" id="passActual" required/ ></p>
 
 	                <label for="pass">Contraseña nueva</label>
 	                    <input name="passNew" class="registrar" type="password" id="passNew"/ ></p>

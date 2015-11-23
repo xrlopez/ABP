@@ -15,7 +15,7 @@
 		<form class="formLogin col-md-12" name="login" action="index.php?controller=users&amp;action=login" method="POST">
 			<div class="divFormulario">
 				<p>Usuario</p>
-              	<input type="text" class="login" name="username">
+              	<input type="text" class="login" name="username" required>
 			</div>
 			<div class="divFormulario">
 				<p>Contraseña</p>
