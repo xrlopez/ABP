@@ -112,7 +112,18 @@ require_once(__DIR__."/../model/Establecimiento.php");
 			foreach($req->fetchAll() as $pincho) {
 				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
 			}
+			return $list;
+		}
 
+		public static function allOrdenados() {
+			$list = [];
+			$db = PDOConnection::getInstance();
+			$req = $db->query('SELECT * FROM pincho WHERE validado = 1 ORDER BY num_votos DESC');
+			
+			// we create a list of Post objects from the database results
+			foreach($req->fetchAll() as $pincho) {
+				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+			}
 			return $list;
 		}
 

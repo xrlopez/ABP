@@ -4,6 +4,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/Organizador.php");
 require_once(__DIR__."/../model/JuradoProfesional.php");
+require_once(__DIR__."/../model/Pincho.php");
 
 class OrganizadorMapper {
 
@@ -64,6 +65,20 @@ class OrganizadorMapper {
       $stmt = $this->db->prepare("INSERT INTO asignar_jregistrado VALUES(?,?,?)");
       $stmt->execute(array($jpro->getId(), $pincho->getId(),$orga->getId()));
     }
+  }
+
+
+  public function votacionPro($ronda){
+    
+    $stmt = $this->db->prepare("SELECT *, SUM(votacion) as total FROM vota_pro WHERE ronda=?  GROUP BY FK_pincho_vota ORDER BY votacion DESC ");
+    $stmt->execute(array($ronda));
+    $list = [];
+    foreach($stmt->fetchAll() as $info){
+      $pincho = Pincho::find($info['FK_pincho_vota']);
+      $pincho->setVotos($info['total']);
+      $list[] = $pincho;
+    }
+    return $list;
   }
   
 }

@@ -69,5 +69,12 @@ require_once(__DIR__."/../controller/BaseController.php");
 			$this->view->redirect("organizador", "perfil"); 
 		}
 
+		public function votosJPop(){
+			$pinchos = Pincho::allOrdenados();
+			$this->view->setVariable("pinchos", $pinchos);
+			$this->view->render("pinchos", "votosPop");
+
+		}
+
 	}
 ?>

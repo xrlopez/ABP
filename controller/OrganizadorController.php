@@ -161,4 +161,17 @@ public function perfil(){
     $this->view->setVariable("pinchos", $pinchos);
     $this->view->render("organizador", "validarPincho");
   }
+
+  public function premios(){
+
+    $this->view->render("organizador", "gestionarPremios");
+  }
+
+  public function votacionPro(){
+    $ronda = $_GET['ronda'];
+    $pinchos = $this->organizadorMapper->votacionPro($ronda);
+    $this->view->setVariable("pinchos", $pinchos);
+    $this->view->setVariable("ronda", $ronda);
+    $this->view->render("organizador", "votosPro");
+  }
 }
