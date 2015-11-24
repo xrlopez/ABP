@@ -62,11 +62,9 @@ CREATE TABLE pincho(
 	celiaco BOOLEAN NOT NULL,
 	validado BOOLEAN NOT NULL,
 	num_votos INT,
-	FK_organizador_pinc VARCHAR(15) NOT NULL,
 	FK_concurso_pinc VARCHAR(15) NOT NULL,
 	FK_establecimiento_pinc VARCHAR(15) NOT NULL,
 	CONSTRAINT FK_establecimiento_pincho FOREIGN KEY  (FK_establecimiento_pinc) REFERENCES establecimiento(id_usuario),
-	CONSTRAINT FK_organizador_pincho FOREIGN KEY  (FK_organizador_pinc) REFERENCES organizador(id_usuario),
 	CONSTRAINT FK_concurso_pincho FOREIGN KEY  (FK_concurso_pinc) REFERENCES concurso(id_concurso)
 );
 
@@ -76,8 +74,8 @@ CREATE TABLE premio(
 );
 
 CREATE TABLE premiados(
-	FK_pincho_prem VARCHAR(15) NOT NULL,
-	FK_premio_prem INT NOT NULL,
+	FK_pincho_prem INT NOT NULL,
+	FK_premio_prem VARCHAR(10) NOT NULL,
 	posicion VARCHAR(15) NOT NULL,
 	CONSTRAINT PK_premiados PRIMARY KEY (FK_pincho_prem,FK_premio_prem),
 	CONSTRAINT FK_pincho_premiados FOREIGN KEY  (FK_pincho_prem) REFERENCES pincho(id_pincho),
