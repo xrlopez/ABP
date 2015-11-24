@@ -176,6 +176,19 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			}
 		}
 
+		public static function pinchoValido(Establecimiento $esta){
+			$db = PDOConnection::getInstance();
+			// we make sure $id is an integer
+			$req = $db->prepare("SELECT * FROM pincho WHERE FK_establecimiento_pinc =? AND valido=1");
+			$req->execute(array($esta->getId()));
+			$pincho = $req->fetch();
+			if($pincho!=NULL){
+					return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+			}else{
+				return NULL;
+			}
+		}
+
 		public static function noValidados(){
 			$list = [];
 			$db = PDOConnection::getInstance();
@@ -206,9 +219,21 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
     		$stmt->execute(array($pincho->getId())); 
  		}
 
+ 		public function pinchosNoAsignados($idJPro){
+ 			$list = [];
+			$db = PDOConnection::getInstance();
+			$req = $db->prepare("SELECT * FROM pincho WHERE pincho.validado=1 AND pincho.id_pincho NOT IN (SELECT asignar_jregistrado.FK_pincho_asig FROM asignar_jregistrado WHERE asignar_jregistrado.FK_juradoProfesional_asig=?)");
+			$req->execute(array($idJPro));
+			$pinchos =$req->fetchAll(PDO::FETCH_ASSOC);
+			if($pinchos!=null){
+				foreach($pinchos as $pincho) {
+					$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+	    		}
+   		 		return $list;
+			}else{
+				return NULL;
+			}
+ 		}
+
 	}
-
-
-
-
 ?>

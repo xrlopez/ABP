@@ -148,7 +148,17 @@ class EstablecimientoController extends BaseController {
 
   public function registerPincho(){
     $currentuser = $this->view->getVariable("currentusername");
-    $this->view->render("pinchos","registerPincho");
+    $establecimiento = $this->establecimientoMapper->findById($currentuser);
+    $this->view->setVariable("establecimiento",$establecimiento);
+    $this->view->render("establecimiento","registerPincho");
+  }
+
+  public function register(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $establecimiento = $this->establecimientoMapper->findById($currentuser);
+    //antes de todo comprobar que un establecimiento non teña un pincho xa registrado
+    //se checkbox marcado por celiaco a 1 se non a 0
+
   }
   
 }

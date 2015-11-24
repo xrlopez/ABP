@@ -24,6 +24,7 @@ class OrganizadorController extends BaseController {
   private $juradoProfesionalMapper;
   private $concursoMapper;
   private $userMapper;
+  private $pincho;
   
   public function __construct() { 
     parent::__construct();
@@ -35,6 +36,7 @@ class OrganizadorController extends BaseController {
     $this->concursoMapper = new ConcursoMapper();
     
     $this->userMapper = new UserMapper(); 
+    $this->pincho = new Pincho();
   }
   
   
@@ -57,8 +59,7 @@ class OrganizadorController extends BaseController {
     $jpopid = $_REQUEST["usuario"];
     $jpop = $this->juradoProfesionalMapper->findById($jpopid);
     $this->view->setVariable("jurado",$jpop);
-    // HAY QUE CAMBIAR LO SIGUIENTE PARA QUE DEVUELVA SOLO LOS PINCHOS QUE AUN NO HAN SIDO ASIGNADOS AL JURADO PROFESIONAL
-    $pinchos = Pincho::getPinchos();
+    $pinchos = $this->pincho->pinchosNoAsignados($jpopid);
     $this->view->setVariable("pinchos", $pinchos);
     $this->view->render("organizador","asignarPinchos");
 

@@ -59,6 +59,9 @@
 	    </div>
 	    <div class="divFormulario">
 	    	<p id="bot"><a href="index.php?controller=establecimiento&amp;action=modificar">Modificar</a></p>
+	    	<?php
+	    		//comprobar $pincho si es null no haces nada e se ten un pincho monstrar eliminar
+	    	?>
 		</div>
     </div>
 </div>

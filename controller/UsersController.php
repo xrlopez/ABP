@@ -99,6 +99,9 @@ class UsersController extends BaseController {
             break;
           case "establecimiento":
             $this->view->moveToFragment($currentuser);
+            //comprabar se ten pincho validado llamar a funcion pinchoValido en pIncho.php
+
+            $this->view->setVariable("pincho",$pincho);
             $this->view->redirect("establecimiento", "perfil");
             break;
           }
