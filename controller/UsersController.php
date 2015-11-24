@@ -243,7 +243,7 @@ public function registerProfesional() {
 
             $this->userMapper->save($jpop);
             $this->view->setFlash("Usuario ".$jpop->getId()." registrado.");
-            $this->view->redirect("users", "login");
+            $this->view->redirect("concurso", "index");
         } else {
           $errors = array();
           $errors["usuario"] = "El usuario ya existe";
