@@ -118,18 +118,18 @@ class UsersController extends BaseController {
    
 public function registerEstablecimiento() {
     
-    $jpop = new Establecimiento();
+    $esta = new Establecimiento();
     
     if (isset($_POST["usuario"])){ 
-      $jpop->setId($_POST["usuario"]);
-      $jpop->setNombre($_POST["nombre"]);
-      $jpop->setEmail($_POST["correo"]);
-	    $jpop->setDescripcion($_POST["descripcion"]);
-      $jpop->setLocalizacion($_POST["localizacion"]);
-      $jpop->setTipo("Establecimiento");
+      $esta->setId($_POST["usuario"]);
+      $esta->setNombre($_POST["nombre"]);
+      $esta->setEmail($_POST["correo"]);
+	  $esta->setDescripcion($_POST["descripcion"]);
+      $esta->setLocalizacion($_POST["localizacion"]);
+      $esta->setTipo("Establecimiento");
 
       if ($_POST["pass"]==$_POST["repass"]) {
-        $jpop->setPassword($_POST["pass"]);
+        $esta->setPassword($_POST["pass"]);
       }
       else{
         $errors["pass"] = "Las contraseñas tienen que ser iguales";
@@ -140,12 +140,12 @@ public function registerEstablecimiento() {
     
       
       try{
-	      $jpop->checkIsValidForCreate(); 
+	      $esta->checkIsValidForCreate(); 
     
       	if (!$this->userMapper->usernameExists($_POST["usuario"])){
 
-        	  $this->userMapper->save($jpop);
-	          $this->view->setFlash("Usuario ".$jpop->getId()." registrado.");
+        	  $this->userMapper->save($esta);
+	          $this->view->setFlash("Usuario ".$esta->getId()." registrado.");
 	          $this->view->redirect("users", "login");
   } else {
 	  $errors = array();
@@ -162,7 +162,6 @@ public function registerEstablecimiento() {
     $this->view->render("users", "registerEstablecimiento");
     
   }
-
   
 
   public function registerPopular() {
