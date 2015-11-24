@@ -2,6 +2,7 @@
 //require_once(__DIR__."/../view/pinchos/index.php");
 
 require_once(__DIR__."/../model/Pincho.php");
+require_once(__DIR__."/../model/EstablecimientoMapper.php");
 require_once(__DIR__."/../model/PinchoMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
@@ -9,11 +10,13 @@ require_once(__DIR__."/../controller/BaseController.php");
 	class PinchosController extends BaseController  {
 
 		private $pinchoMapper;    
+		private $establecimientoMapper;
 
 		public function __construct() {    
 			parent::__construct();
 
 			$this->pinchoMapper = new PinchoMapper();
+			$this->establecimientoMapper = new EstablecimientoMapper();
    
 		}
 

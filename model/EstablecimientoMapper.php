@@ -106,7 +106,16 @@ class EstablecimientoMapper {
     $stmt = $this->db->prepare("INSERT INTO pincho values (?,?,?,?,?,?,?,?)");
     $stmt->execute(array(NULL, $pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(), $pincho->getValidado(), 0,$pincho->getConcurso(), $pincho->getEstablecimiento()));
   
+  }
 
+  public function modPincho(Pincho $pincho){
+     $stmt = $this->db->prepare("UPDATE pincho set nombre=?, descripcion=?, celiaco=? where id_pincho=?");
+     $stmt->execute(array(NULL, $pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(),$pincho->getId()));
+  }
+
+  public function deletePincho(Pincho $pincho){  
+      $stmt = $this->db->prepare("DELETE from pincho WHERE id_pincho=?");
+      $stmt->execute(array($pincho->getId()));
   }
 
 }
