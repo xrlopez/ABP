@@ -104,4 +104,34 @@ class JuradoProfesionalController extends BaseController {
         $this->view->render("juradoProfesional", "modificar"); 
       }
   }
+
+    public function eliminar(){
+    $jproid = $_REQUEST["usuario"];
+    $juradoProfesional = $this->juradoProfesionalMapper->findById($jproid);
+    
+        
+    // Does the post exist?
+    if ($juradoProfesional == NULL) {
+      throw new Exception("No existe el usuario ".$jproid);
+    }
+    
+    // Delete the Jurado Popular object from the database
+    $this->juradoProfesionalMapper->delete($juradoProfesional);
+    
+    $this->view->setFlash(sprintf("Usuario \"%s\" eliminado.",$juradoProfesional ->getId()));
+    $this->view->redirect("organizador", "index");
+  }
+
+  public function listarEliminar(){
+    $juradoProfesional = $this->juradoProfesionalMapper->findAll();
+    $this->view->setVariable("juradoProfesional", $juradoProfesional);
+    $this->view->render("juradoProfesional", "listaEliminar");  
+  }
+    public function listar(){
+    $juradoProfesional = $this->juradoProfesionalMapper->findAll();
+    $this->view->setVariable("juradoProfesional", $juradoProfesional);
+    $this->view->render("juradoProfesional", "listar");  
+  }
+
+  
 }

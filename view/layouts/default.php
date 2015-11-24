@@ -34,7 +34,7 @@
 					<ul id="menu">
 						<!-- menu organizador -->
 						<?php if($tipoUsuario == "organizador"){ ?>
-							<li class="option"><a href="index.php?controller=users&amp;action=registerProfesional">Jurado profesional</a></li>
+							<li class="option"><a href="index.php?controller=organizador&amp;action=gestionJurado">Jurado profesional</a></li>
 							<li class="option"><a href="index.php?controller=organizador&amp;action=validar">Validar pinchos</a></li>
 							<li class="option"><a href="index.php?controller=organizador&amp;action=asignar">Asignar pinchos</a></li>
 							<li class="option"><a href="index.php?controller=organizador&amp;action=premios">Premios</a></li>

@@ -57,4 +57,10 @@ class JuradoProfesionalMapper {
     $stmt->execute(array($jPro->getProfesion(), $jPro->getId()));    
   }
   
+    public function delete(JuradoProfesional $jPro) {
+    $stmt = $this->db->prepare("DELETE from juradoprofesional WHERE id_usuario=?");
+    $stmt->execute(array($jPro->getId()));    
+    $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
+    $stmt->execute(array($jPro->getId()));    
+  }
 }
