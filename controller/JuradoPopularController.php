@@ -92,9 +92,11 @@ class JuradoPopularController extends BaseController {
               $jpop->setPassword($_POST["passNueva"]);
             }
             else{
-              $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+              $errors["pass"] = "Las contraseñas tienen que ser iguales";
               $this->view->setVariable("errors", $errors);
-              $this->view->redirect("juradoPopular", "modificar"); 
+              $this->view->setVariable("juradoPop", $jpop);
+              $this->view->render("juradoPopular", "modificar"); 
+              return false;
             }
           }
           
@@ -112,9 +114,9 @@ class JuradoPopularController extends BaseController {
     else{
         $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
         $this->view->setVariable("errors", $errors);
-        $this->view->redirect("juradoPopular", "modificar"); 
       }
-    $this->view->redirect("juradoPopular", "index"); 
+        $this->view->setVariable("juradoPop", $jpop);
+        $this->view->render("juradoPopular", "modificar"); 
   }
 
   public function introCodigos(){
@@ -127,6 +129,7 @@ class JuradoPopularController extends BaseController {
   public function addCodigos(){
     $jpopid = $_POST["usuario"];
     $jpop = $this->juradoPopularMapper->findById($jpopid);
+    $this->view->setVariable("juradoPop",$jpop);
     $errors = array();
     if ($jpop == NULL) {
       throw new Exception("No existe el usuario ".$jpopid);
@@ -154,33 +157,33 @@ class JuradoPopularController extends BaseController {
                 $this->view->setVariable("codigo2",$idPincho2);
                 $this->view->setVariable("codigo3",$idPincho3);
                 $this->view->setVariable("jPop",$jpop);
-              $this->view->setFlash(sprintf("Codigos introducidos correctamente."));
+              $this->view->setFlash("Codigos introducidos correctamente");
               $this->view->render("juradoPopular", "votaPopular"); 
             }catch(ValidationException $ex) {
               $errors = $ex->getErrors();
               $this->view->setVariable("errors", $errors);
             } 
           }else{
-            $errors["pincho3"] = "<span>El pincho 3 o no existe o esta usado</span>";
+            $errors["pincho3"] = "El pincho 3 o no existe o esta usado";
             $this->view->setVariable("errors", $errors);
-            $this->view->redirect("juradoPopular", "introCodigos");
+            $this->view->render("juradoPopular", "introCodigos");
           }
 
         }else{
-          $errors["pincho2"] = "<span>El pincho 2 o no existe o esta usado</span>";
+          $errors["pincho2"] = "El pincho 2 o no existe o esta usado";
           $this->view->setVariable("errors", $errors);
-          $this->view->redirect("juradoPopular", "introCodigos");
+          $this->view->render("juradoPopular", "introCodigos");
         }
 
       }else{
-        $errors["pincho1"] = "<span>El pincho 1 o no existe o esta usado</span>";
+        $errors["pincho1"] = "El pincho 1 o no existe o esta usado";
         $this->view->setVariable("errors", $errors);
-        $this->view->redirect("juradoPopular", "introCodigos");
+        $this->view->render("juradoPopular", "introCodigos");
       }
     }else{
-        $errors["pincho"] = "<span>Los pinchos tienen que ser distintos</span>";
+        $errors["pincho"] = "Los pinchos tienen que ser distintos";
         $this->view->setVariable("errors", $errors);
-        $this->view->redirect("juradoPopular", "introCodigos"); 
+        $this->view->render("juradoPopular", "introCodigos"); 
     }
 
   }

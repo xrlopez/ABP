@@ -67,7 +67,6 @@ class OrganizadorMapper {
     }
   }
 
-
   public function votacionPro($ronda){
     
     $stmt = $this->db->prepare("SELECT *, SUM(votacion) as total FROM vota_pro WHERE ronda=?  GROUP BY FK_pincho_vota ORDER BY votacion DESC ");

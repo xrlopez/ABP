@@ -121,7 +121,7 @@ public function registerEstablecimiento() {
       $jpop->setId($_POST["usuario"]);
       $jpop->setNombre($_POST["nombre"]);
       $jpop->setEmail($_POST["correo"]);
-	  $jpop->setDescripcion($_POST["descripcion"]);
+	    $jpop->setDescripcion($_POST["descripcion"]);
       $jpop->setLocalizacion($_POST["localizacion"]);
       $jpop->setTipo("Establecimiento");
 
@@ -129,9 +129,10 @@ public function registerEstablecimiento() {
         $jpop->setPassword($_POST["pass"]);
       }
       else{
-        $errors["pass"] = "<span>La contraseña es obligatoria</span>";
+        $errors["pass"] = "Las contraseñas tienen que ser iguales";
         $this->view->setVariable("errors", $errors);
-        $this->view->redirect("Establecimiento", "registerEstablecimiento"); 
+        $this->view->render("users", "registerEstablecimiento"); 
+        return false;
       }
     
       
@@ -142,22 +143,19 @@ public function registerEstablecimiento() {
 
         	  $this->userMapper->save($jpop);
 	          $this->view->setFlash("Usuario ".$jpop->getId()." registrado.");
-	} else {
+	          $this->view->redirect("users", "login");
+  } else {
 	  $errors = array();
 	  $errors["usuario"] = "El usuario ya existe";
 	  $this->view->setVariable("errors", $errors);
 	}
-    $this->view->redirect("users", "login");
       }catch(ValidationException $ex) {
       	$errors = $ex->getErrors();
       	$this->view->setVariable("errors", $errors);
       }
     }
     
-    // Put the User object visible to the view
     $this->view->setVariable("Establecimiento", $jpop);
-    
-    // render the view (/view/users/register.php)
     $this->view->render("users", "registerEstablecimiento");
     
   }
@@ -179,12 +177,12 @@ public function registerEstablecimiento() {
         $jpop->setPassword($_POST["pass"]);
       }
       else{
-        $errors["pass"] = "<span>La contraseña es obligatoria</span>";
-        $this->view->setVariable("errors", $errors);
-        $this->view->redirect("juradoPopular", "registerPopular"); 
+       $errors["pass"] = "Las contraseñas tienen que ser iguales";
+       $this->view->setVariable("errors", $errors);
+       $this->view->render("users", "registerPopular"); 
+       return false;
       }
     
-      
       try{
 	      $jpop->checkIsValidForCreate(); 
     
@@ -192,12 +190,12 @@ public function registerEstablecimiento() {
 
         	  $this->userMapper->save($jpop);
 	          $this->view->setFlash("Usuario ".$jpop->getId()." registrado.");
-	} else {
-	  $errors = array();
-	  $errors["usuario"] = "El usuario ya existe";
-	  $this->view->setVariable("errors", $errors);
-	}
-    $this->view->redirect("users", "login");
+            $this->view->redirect("users", "login");
+      	} else {
+      	  $errors = array();
+      	  $errors["usuario"] = "El usuario ya existe";
+      	  $this->view->setVariable("errors", $errors);
+      	}
       }catch(ValidationException $ex) {
       	$errors = $ex->getErrors();
       	$this->view->setVariable("errors", $errors);
@@ -206,9 +204,7 @@ public function registerEstablecimiento() {
     
     // Put the User object visible to the view
     $this->view->setVariable("juradoPopular", $jpop);
-    
-    // render the view (/view/users/register.php)
-    $this->view->render("users", "registerPopular");
+    $this->view->render("users", "registerPopular"); 
     
   }
 
@@ -227,50 +223,37 @@ public function registerProfesional() {
       if ($_POST["pass"]==$_POST["repass"]) {
         $jpop->setPassword($_POST["pass"]);
       }else{
-        $errors["pass"] = "<span>La contraseña es obligatoria</span>";
+        $errors["pass"] = "Las contraseñas tienen que ser iguales";
         $this->view->setVariable("errors", $errors);
-        $this->view->redirect("juradoProfesional", "registerProfesional"); 
+        $this->view->render("users", "registerProfesional"); 
+        return false;
       }
     
-      
-      try{
-        $jpop->checkIsValidForCreate();     
+    try{
+        $jpop->checkIsValidForCreate(); 
+    
         if (!$this->userMapper->usernameExists($_POST["usuario"])){
-          $this->userMapper->save($jpop);
-          $this->view->setFlash("Usuario ".$jpop->getId()." registrado.");
+
+            $this->userMapper->save($jpop);
+            $this->view->setFlash("Usuario ".$jpop->getId()." registrado.");
+            $this->view->redirect("users", "login");
         } else {
           $errors = array();
           $errors["usuario"] = "El usuario ya existe";
           $this->view->setVariable("errors", $errors);
         }
-        $this->view->redirect("users", "registerProfesional");
       }catch(ValidationException $ex) {
         $errors = $ex->getErrors();
         $this->view->setVariable("errors", $errors);
       }
     }
-    
-    // Put the User object visible to the view
+
     $this->view->setVariable("juradoProfesional", $jpop);
-    
-    // render the view (/view/users/register.php)
     $this->view->render("users", "registerProfesional");
     
   }
- /**
-   * Action to logout
-   * 
-   * This action should be called via GET
-   * 
-   * No HTTP parameters are needed.
-   *
-   * The views are:
-   * <ul>
-   * <li>users/login (via redirect)</li>
-   * </ul>
-   *
-   * @return void
-   */
+
+
   public function logout() {
     session_destroy();
     

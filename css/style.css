@@ -12,6 +12,9 @@ body{
 	padding-top: 0px;
 	margin-top: 0px;
 }
+.error{
+	color: red;
+}
 .nombre a{
 	text-decoration: none;
 }

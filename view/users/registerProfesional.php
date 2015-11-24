@@ -12,7 +12,7 @@
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 		<h2>Jurado Profesional</h2>
 			<form id="form-login" action="index.php?controller=users&amp;action=registerProfesional" method="POST">
-				<label for="usuario">Usuario</label>
+				<label for="usuario">Usuario</label><p class="error"><?= isset($errors["usuario"])?$errors["usuario"]:"" ?></p>
 					<input name="usuario" class="registrar" type="text" id="usuario" required/></p>
 
 				<label for="nombre">Nombre</label>
@@ -27,7 +27,7 @@
 				<label for="pass">Contraseña</label>
 					<input name="pass" class="registrar" type="password" id="pass" required/ ></p>
 
-				<label for="repass">Repetir contraseña</label>
+				<label for="repass">Repetir contraseña</label><p class="error"><?= isset($errors["pass"])?$errors["pass"]:"" ?></p>
 					<input name="repass" class="registrar" type="password" id="repass" required/></p>
 
 				<p id="bot"><input name="submit" type="submit" id="boton" value="Registrar" class="boton"/></p>

@@ -19,7 +19,7 @@ class EstablecimientoController extends BaseController {
   private $juradoPopularMapper;  
   private $codigoMapper;
   private $concursoMapper;  
-  private $pincho;
+  private $pincho;  
   private $userMapper;  
   
   public function __construct() { 
@@ -58,7 +58,7 @@ class EstablecimientoController extends BaseController {
     $this->view->render("establecimiento", "modificar");
   
   }
-
+  
   public function update(){
     $estid = $_REQUEST["usuario"];
     $est = $this->establecimientoMapper->findById($estid);
@@ -76,9 +76,11 @@ class EstablecimientoController extends BaseController {
               $est->setPassword($_POST["passNueva"]);
             }
             else{
-              $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+              $errors["pass"] = "Las contraseñas tienen que ser iguales";
               $this->view->setVariable("errors", $errors);
-              $this->view->redirect("establecimiento", "modificar"); 
+              $this->view->setVariable("establecimiento", $est);
+              $this->view->render("establecimiento", "modificar"); 
+              return false;
             }
           }
           
@@ -94,11 +96,11 @@ class EstablecimientoController extends BaseController {
 
     }
     else{
-        $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+        $errors["passActual"] = "La contraseña es obligatoria";
         $this->view->setVariable("errors", $errors);
-        $this->view->redirect("establecimiento", "modificar"); 
+        $this->view->setVariable("establecimiento", $est);
+        $this->view->render("establecimiento", "modificar"); 
       }
-    $this->view->redirect("establecimiento", "index"); 
   }
 
   public function generarCodigos(){

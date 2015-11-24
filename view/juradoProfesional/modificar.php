@@ -32,10 +32,10 @@
 					<label for="organizador">Organizador</label>
 	                    <input name="organizador" class="registrar" type="text" id="organizador" readonly = "readonly" value="<?= $juradoProfesional->getOrganizador()?>"/></p>
 						
-					<label for="passActual">Contraseña actual</label>
+					<label for="passActual">Contraseña actual</label><p class="error"><?= isset($errors["passActual"])?$errors["passActual"]:"" ?></p>
 	                    <input name="passActual" class="registrar" type="password" id="passActual" required/ ></p>
 
-	                <label for="passNueva">Contraseña nueva</label>
+	                <label for="passNueva">Contraseña nueva</label><p class="error"><?= isset($errors["pass"])?$errors["pass"]:"" ?></p>
 	                    <input name="passNueva" class="registrar" type="password" id="passNueva"/ ></p>
 
 	                <label for="passNew">Repetir contraseña nueva</label>

@@ -17,22 +17,22 @@
 		<h2>Jurado Popular</h2>
 			<div>
 				<form id="form-aceptar" action="index.php?controller=juradoPopular&amp;action=update" method="post" >
-					<label for="usuario">Usuario</label><?= isset($errors["usuario"])?$errors["usuario"]:"" ?>
+					<label for="usuario">Usuario</label>
 						<input name="usuario" class="registrar" type="text" id="usuario" readonly = "readonly" value="<?= $juradoPopular->getId()?>"/ ></p>
 						
-					<label for="nombre">Nombre</label><?= isset($errors["nombre"])?$errors["nombre"]:"" ?>
+					<label for="nombre">Nombre</label>
 	                    <input name="nombre" class="registrar" type="text" id="nombre" value="<?= $juradoPopular->getNombre()?> "/ ></p>
 					                    				 
-	                <label for="correo">Correo</label><?= isset($errors["correo"])?$errors["correo"]:"" ?>
+	                <label for="correo">Correo</label>
 	                    <input name="correo" class="registrar" type="email" id="correo" value="<?= $juradoPopular->getEmail()?>"/></p>
 					
-					<label for="residencia">Residencia</label><?= isset($errors["residencia"])?$errors["residencia"]:"" ?>
+					<label for="residencia">Residencia</label>
 	                    <input name="residencia" class="registrar" type="text" id="residencia" value="<?= $juradoPopular->getResidencia()?>"/></p>
 						
-					<label for="pass">Contraseña actual</label><?= isset($errors["passActual"])?$errors["passActual"]:"" ?>
+					<label for="pass">Contraseña actual</label><p class="error"><?= isset($errors["passActual"])?$errors["passActual"]:"" ?></p>
 	                    <input name="passActual" class="registrar" type="password" id="passActual" / required></p>
 
-	                <label for="pass">Contraseña nueva</label>
+	                <label for="pass">Contraseña nueva</label><p class="error"><?= isset($errors["pass"])?$errors["pass"]:"" ?></p>
 	                    <input name="passNew" class="registrar" type="password" id="passNew"/ ></p>
 
 	                <label for="repass">Repetir contraseña nueva</label>

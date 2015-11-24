@@ -131,9 +131,11 @@ public function perfil(){
               $jpop->setPassword($_POST["passNueva"]);
             }
             else{
-              $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+              $errors["pass"] = "Las contraseñas tienen que ser iguales";
               $this->view->setVariable("errors", $errors);
-              $this->view->redirect("organizador", "modificar"); 
+              $this->view->setVariable("organizador", $jpop);
+              $this->view->render("organizador", "modificar"); 
+              return false;
             }
           }
           
@@ -149,11 +151,11 @@ public function perfil(){
 
     }
     else{
-        $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+        $errors["passActual"] = "Contraseña incorrecta";
         $this->view->setVariable("errors", $errors);
-        $this->view->redirect("organizador", "modificar"); 
       }
-    $this->view->redirect("organizador", "index"); 
+        $this->view->setVariable("organizador", $jpop);
+        $this->view->render("organizador", "modificar"); 
   }
 
    public function validar(){
@@ -162,7 +164,7 @@ public function perfil(){
     $this->view->render("organizador", "validarPincho");
   }
 
-  public function premios(){
+   public function premios(){
 
     $this->view->render("organizador", "gestionarPremios");
   }
@@ -174,4 +176,5 @@ public function perfil(){
     $this->view->setVariable("ronda", $ronda);
     $this->view->render("organizador", "votosPro");
   }
+  
 }

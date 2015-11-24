@@ -72,7 +72,7 @@ foreach ($ingredientes as $ingrediente) {
 		</li>
 <?php
 }
-?>		
+?>	
 	</ul>
 	<!--sumario-->
 	<h6 class="landmark heading">Sumario</h6>

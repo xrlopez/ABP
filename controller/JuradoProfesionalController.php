@@ -78,9 +78,11 @@ class JuradoProfesionalController extends BaseController {
               $jpro->setPassword($_POST["passNueva"]);
             }
             else{
-              $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+              $errors["pass"] = "Las contraseñas tienen que ser iguales";
               $this->view->setVariable("errors", $errors);
-              $this->view->redirect("juradoProfesional", "modificar"); 
+              $this->view->setVariable("juradoPro", $jpro);
+              $this->view->render("juradoProfesional", "modificar"); 
+              return false;
             }
           }
           
@@ -98,8 +100,8 @@ class JuradoProfesionalController extends BaseController {
     else{
         $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
         $this->view->setVariable("errors", $errors);
-        $this->view->redirect("juradoProfesional", "modificar"); 
+        $this->view->setVariable("juradoPro", $jpro);
+        $this->view->render("juradoProfesional", "modificar"); 
       }
-    $this->view->redirect("juradoProfesional", "index"); 
   }
 }

@@ -19,7 +19,7 @@
 			</div>
 			<div class="divFormulario">
 				<p>Contraseña</p>
-				<input type="password" class="login" name="passwd">
+				<input type="password" class="login" name="passwd" required>
 			</div>
 			<div class="divFormulario">
 				<a href="index.php?controller=users&amp;action=register">Registrarse</a>
