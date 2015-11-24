@@ -6,15 +6,30 @@
 ?>
 
 <div class="row iniciarS">
-	<div class="divLoginRegistrar col-xs-12 col-sm-12 col-md-12">
+	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 		<h2>Gestionar Premios</h2>
-			<form class="formLogin col-md-12" name="login" method="post">
-				<div class="divFormulario">
-					<a href="index.php?controller=pinchos&amp;action=votosJPop">Votacion Jurado Popular</a>
-					<a href="index.php?controller=organizador&amp;action=votacionPro&amp;ronda=1">Votacion Jurado Profesional en Primera Ronda</a>
-					<a href="index.php?controller=organizador&amp;action=votacionPro&amp;ronda=2">Votacion Jurado Profesional en Segunda Ronda</a>
+			<div>
+
+				<div class="row consultarInfo">
+					<h4>Estado Actual</h4>
+					<div class="col-xs-4 col-sm-4 col-md-4 info">
+			    	Popular: 
+		    		</div>
+			    	<div class="col-xs-8 col-sm-8 col-md-8">
+				    	 <a href="index.php?controller=pinchos&amp;action=votosJPop">Estado actual</a>
+			    	</div>
 				</div>
-			</form>
+				<div class="row consultarInfo">
+					<div class="col-xs-4 col-sm-4 col-md-4 info">
+			    	Profesional: 
+		    		</div>
+			    	<div class="col-xs-8 col-sm-8 col-md-8">
+				    	 <a href="index.php?controller=organizador&amp;action=votacionPro&amp;ronda=1">Primera Ronda</a><br>
+				    	 <a href="index.php?controller=organizador&amp;action=votacionPro&amp;ronda=2">Segunda Ronda</a>
+			    	</div>
+
+				</div>
+			</div>
 	</div>
 </div>
 				
