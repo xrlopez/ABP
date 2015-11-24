@@ -10,6 +10,7 @@ require_once(__DIR__."/../model/JuradoProfesional.php");
 require_once(__DIR__."/../model/JuradoProfesionalMapper.php");
 require_once(__DIR__."/../model/Establecimiento.php");
 require_once(__DIR__."/../model/EstablecimientoMapper.php");
+require_once(__DIR__."/../model/Pincho.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
@@ -28,12 +29,16 @@ class UsersController extends BaseController {
    * 
    * @var UserMapper
    */  
-  private $userMapper;    
+  private $userMapper;  
+  private $pincho;  
+  private $establecimientoMapper;
   
   public function __construct() {    
     parent::__construct();
     
     $this->userMapper = new UserMapper();
+    $this->pincho = new Pincho();
+    $this->establecimientoMapper = new EstablecimientoMapper();
 
     // Users controller operates in a "welcome" layout
     // different to the "default" layout where the internal
@@ -98,11 +103,11 @@ class UsersController extends BaseController {
             $this->view->redirect("juradoProfesional", "perfil");
             break;
           case "establecimiento":
-            $this->view->moveToFragment($currentuser);
-            //comprabar se ten pincho validado llamar a funcion pinchoValido en pIncho.php
-
-            $this->view->setVariable("pincho",$pincho);
-            $this->view->redirect("establecimiento", "perfil");
+            $establecimiento=$this->establecimientoMapper->findById($currentuser);
+            $pincho = $this->pincho->pinchoValido($establecimiento);
+            $this->view->setVariable("establecimiento",$establecimiento);
+            $this->view->setVariable("pinchoEstab",$pincho);
+            $this->view->render("establecimiento", "perfil");
             break;
           }
 

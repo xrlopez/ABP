@@ -165,13 +165,15 @@ public function perfil(){
     $this->view->render("organizador", "validarPincho");
   }
 
-  public function premios(){
+   public function premios(){
     $this->view->render("organizador", "gestionarPremios");
   }
 
+  
   public function gestionJurado(){
     $this->view->render("organizador", "gestionarJuradoProfesional");
   }
+
 
   public function votacionPro(){
     $ronda = $_GET['ronda'];

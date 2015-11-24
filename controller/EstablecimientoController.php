@@ -58,6 +58,25 @@ class EstablecimientoController extends BaseController {
     $this->view->render("establecimiento", "modificar");
   
   }
+
+  public function eliminar(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $establecimiento = $this->establecimientoMapper->findById($currentuser);
+    
+        
+    // Does the post exist?
+    if ($establecimiento == NULL) {
+      throw new Exception("No existe el usuario ".$currentuser);
+    }
+    
+    // Delete the Jurado Popular object from the database
+    $this->establecimientoMapper->delete($establecimiento);
+    
+    $this->view->setFlash(sprintf("Usuario \"%s\" eliminado.",$establecimiento ->getId()));
+    session_unset();
+    session_destroy();
+    $this->view->redirect("concurso", "index");    
+  }
   
   public function update(){
     $estid = $_REQUEST["usuario"];
@@ -109,7 +128,7 @@ class EstablecimientoController extends BaseController {
     $concursos = $this->concursoMapper->findConcurso();   
     
     $pincho = $this->pincho->findByEstablecimiento($establecimiento);
-    if($pincho!=NULL){
+    if($pincho!=NULL && ($pincho->getValidado()==1)){
       $cods = $this->establecimientoMapper->generarCodigos($establecimiento);
       $this->codigoMapper->generarPDF($cods,$establecimiento->getNombre());  
     }else{
@@ -149,20 +168,58 @@ class EstablecimientoController extends BaseController {
   public function registerPincho(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
-    $this->view->setVariable("establecimiento",$establecimiento);
-    $this->view->render("establecimiento","registerPincho");
+    $concursos = $this->concursoMapper->findConcurso();
+    $pincho = $this->pincho->findByEstablecimiento($establecimiento);
+     if($pincho!=NULL){
+         $this->view->setFlash(sprintf("Ya hay un pincho registrado."));
+         $this->view->setVariable("concursos", $concursos);    
+         $this->view->render("concursos", "index");
+    }else{
+      $this->view->setVariable("establecimiento",$establecimiento);
+      $this->view->render("establecimiento","registerPincho"); 
+    }
   }
 
   public function register(){
     $currentuser = $this->view->getVariable("currentusername");
-    $establecimiento = $this->establecimientoMapper->findByEstablecimiento($currentuser);
-	if($establecimiento!=NULL){
-	     $this->view->setFlash(sprintf("Ya hay un pincho registrado."));
-	}else{
-		$pincho->setNombre($_POST["nombre"]);
-		$pincho->setCeliaco($_POST[checkbox]);
-		$pincho->setDescripcion($_POST["descripcion"]);
-		$pincho->setEstablecimiento($currentuser); 
-	}
+    $establecimiento = $this->establecimientoMapper->findById($currentuser);
+    $concursos = $this->concursoMapper->findConcurso();  
+    $concurso = $this->concursoMapper->findConcursoUn();
+    $this->view->setVariable("concursos", $concursos);     
+    //antes de todo comprobar que un establecimiento non teña un pincho xa registrado
+    //se checkbox marcado por celiaco a 1 se non a 0
+    $pincho = $this->pincho->findByEstablecimiento($establecimiento);
+    if($pincho!=NULL){
+         $this->view->setFlash(sprintf("Ya hay un pincho registrado."));
+         $this->view->render("concursos", "index");
+    }else{
+      if (isset($_POST["nombre"])){ 
+        $pinc = new Pincho();
+        $pinc->setNombre($_POST["nombre"]);
+        if(isset($_POST["celiaco"])){
+          $pinc->setCeliaco(1);
+        }else{
+          $pinc->setCeliaco(0);
+        }
+        $pinc->setDescripcion($_POST["descripcion"]);
+        $pinc->setValidado(0);
+        $pinc->setEstablecimiento($currentuser);
+        $pinc->setConcurso($concurso->getId());   
+      
+        try{
+            $this->establecimientoMapper->savePincho($pinc);
+            $this->view->setFlash("Pincho ".$pinc->getId()." registrado.");
+            }catch(ValidationException $ex) {
+              $errors = $ex->getErrors();
+              $this->view->setVariable("errors", $errors);
+            }
+        }
+    
+        $this->view->setVariable("pincho", $pinc);
+    
+         $this->view->render("concursos", "index");
+    }
+
+  }
   
 }

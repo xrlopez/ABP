@@ -3,11 +3,13 @@
  
  require_once(__DIR__."/../../core/ViewManager.php");
  require_once(__DIR__."/../../model/Establecimiento.php");
+ require_once(__DIR__."/../../model/Pincho.php");
  require_once(__DIR__."/../../model/EstablecimientoMapper.php");
  $view = ViewManager::getInstance();
  
  $currentuser = $view->getVariable("currentusername");
  $establecimiento = $view->getVariable("establecimiento");
+ $pincho = $view->getVariable("pinchoEstab");
  
  
 ?>
@@ -15,6 +17,7 @@
 <div class="row registrarE">
 <div class="divLogin col-xs-12 col-sm-12 col-md-12">
     <h2>Establecimiento</h2>
+    <form id="form-aceptar" method="POST" action="index.php?controller=establecimiento&amp;action=eliminar">
 	    <div>
 		    <div class="row consultarInfo">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
@@ -60,8 +63,11 @@
 	    <div class="divFormulario">
 	    	<p id="bot"><a href="index.php?controller=establecimiento&amp;action=modificar">Modificar</a></p>
 	    	<?php
-	    		//comprobar $pincho si es null no haces nada e se ten un pincho monstrar eliminar
+	    		if($pincho==NULL){ ?>
+	    			<p id="bot"><a href="#" onclick="if (confirm('estas seguro?')) {document.getElementById('form-aceptar').submit()}">Eliminar</a></p>
+	    	<?php }
 	    	?>
 		</div>
+    </form>
     </div>
 </div>

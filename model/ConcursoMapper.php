@@ -35,12 +35,14 @@ class ConcursoMapper {
 
     return $descripcion;
   }
-  
-  public function update(Concurso $concurso) {
-    $stmt = $this->db->prepare("UPDATE concurso set nombre=?, localizacion=?, descripcion=? where id_usuario=?");
-    $stmt->execute(array($concurso->getNombre(), $concurso->getLocalizacion(), $concurso->getDescripcion(), $concurso->getId()));    
-  }
 
+  public function findConcursoUn(){
+    $concursos = $this->findConcurso();
+    foreach ($concursos as $concurso):
+        return $concurso;
+    endforeach; 
+  }
+  
   public function buscarInfo($busqueda){
     
     $stmt = $this->db->prepare("SELECT * FROM establecimiento, usuario WHERE (usuario.nombre LIKE ? OR establecimiento.descripcion LIKE ?) AND establecimiento.id_usuario=usuario.id_usuario");

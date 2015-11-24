@@ -4,6 +4,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 
 require_once(__DIR__."/../model/Establecimiento.php");
 require_once(__DIR__."/../model/Codigo.php");
+require_once(__DIR__."/../model/Pincho.php");
 
 class EstablecimientoMapper {
 
@@ -12,9 +13,11 @@ class EstablecimientoMapper {
    * @var PDO
    */
   private $db;
-  
+  private $pincho;
+
   public function __construct() {
     $this->db = PDOConnection::getInstance();
+    $this->pincho = new Pincho();
   }
   
    public function findAll(){  
@@ -84,4 +87,26 @@ class EstablecimientoMapper {
     return $cods;
 
   }
+  public function delete(Establecimiento $esta) {
+    $pincho = $this->pincho->pinchoValido($esta);
+    if($pincho==NULL){
+      $stmt = $this->db->prepare("DELETE from pincho WHERE FK_establecimiento_pinc =?");
+      $stmt->execute(array($esta->getId()));    
+      $stmt = $this->db->prepare("DELETE from establecimiento WHERE id_usuario=?");
+      $stmt->execute(array($esta->getId()));     
+      $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
+      $stmt->execute(array($esta->getId())); 
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public function savePincho(Pincho $pincho){
+    $stmt = $this->db->prepare("INSERT INTO pincho values (?,?,?,?,?,?,?,?)");
+    $stmt->execute(array(NULL, $pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(), $pincho->getValidado(), 0,$pincho->getConcurso(), $pincho->getEstablecimiento()));
+  
+
+  }
+
 }

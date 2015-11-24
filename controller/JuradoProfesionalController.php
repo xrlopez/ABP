@@ -105,7 +105,7 @@ class JuradoProfesionalController extends BaseController {
       }
   }
 
-    public function eliminar(){
+   public function eliminar(){
     $jproid = $_REQUEST["usuario"];
     $juradoProfesional = $this->juradoProfesionalMapper->findById($jproid);
     
@@ -132,6 +132,4 @@ class JuradoProfesionalController extends BaseController {
     $this->view->setVariable("juradoProfesional", $juradoProfesional);
     $this->view->render("juradoProfesional", "listar");  
   }
-
-  
 }

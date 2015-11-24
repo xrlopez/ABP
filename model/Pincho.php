@@ -9,19 +9,21 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 		public $descripcion;
 		public $celiaco;
 		public $validado;
+		public $concurso;
 		public $num_votos;
 		public $establecimiento;
 		private $ingredientes;
 
 
-		public function __construct($nombre=NULL, $celiaco=NULL, $descripcion=NULL, $num_votos=NULL, $establecimiento=NULL, $id_pincho=NULL) {
+		public function __construct($nombre=NULL, $celiaco=NULL, $descripcion=NULL, $num_votos=NULL, $establecimiento=NULL, $id_pincho=NULL,$validado=NULL,$concurso=NULL) {
 			$this->nombre= $nombre;
 			$this->celiaco  = $celiaco;
 			$this->descripcion = $descripcion;
 			$this->num_votos = $num_votos;
 			$this->establecimiento = $establecimiento;
 			$this->id_pincho = $id_pincho;
-			$this->validado = 0;
+			$this->validado = $validado;
+			$this->concurso = $concurso;
 			$this->ingredientes = new IngredienteMapper();
 		}
 
@@ -50,6 +52,13 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 		
 		public function getId(){
 			return $this->id_pincho;
+		}
+
+		public function getConcurso(){
+			return $this->concurso;
+		}
+		public function setConcurso($concurso){
+			$this->concurso=$concurso;
 		}
 		
 		public function getEstablecimiento(){
@@ -124,7 +133,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$db = PDOConnection::getInstance();
 			$req = $db->query('SELECT * FROM pincho WHERE validado = 1 limit '.$inicio.', '.$limite.'');
 			foreach($req->fetchAll() as $pincho) {
-				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
 			}
 			return $list;
 		}
@@ -136,7 +145,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			
 			// we create a list of Post objects from the database results
 			foreach($req->fetchAll() as $pincho) {
-				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
 			}
 			return $list;
 		}
@@ -148,7 +157,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			
 			// we create a list of Post objects from the database results
 			foreach($req->fetchAll() as $pincho) {
-				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
 			}
 			return $list;
 		}
@@ -160,7 +169,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$req = $db->prepare('SELECT * FROM pincho WHERE id_pincho = '.$id);
 			$req->execute(array());
 			$pincho = $req->fetch();
-			return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+			return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
 		}
 
 		public static function findByEstablecimiento(Establecimiento $esta){
@@ -170,7 +179,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$req->execute(array($esta->getId()));
 			$pincho = $req->fetch();
 			if($pincho!=NULL){
-					return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+					return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
 			}else{
 				return NULL;
 			}
@@ -179,11 +188,11 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 		public static function pinchoValido(Establecimiento $esta){
 			$db = PDOConnection::getInstance();
 			// we make sure $id is an integer
-			$req = $db->prepare("SELECT * FROM pincho WHERE FK_establecimiento_pinc =? AND valido=1");
+			$req = $db->prepare("SELECT * FROM pincho WHERE validado=1 AND FK_establecimiento_pinc =?");
 			$req->execute(array($esta->getId()));
 			$pincho = $req->fetch();
 			if($pincho!=NULL){
-					return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+				return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
 			}else{
 				return NULL;
 			}
@@ -194,7 +203,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$db = PDOConnection::getInstance();
 			$req = $db->query('SELECT * FROM pincho WHERE validado = 0');
 			foreach($req->fetchAll() as $pincho) {
-				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
     		}
    		 	return $list;
 		}
@@ -227,7 +236,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$pinchos =$req->fetchAll(PDO::FETCH_ASSOC);
 			if($pinchos!=null){
 				foreach($pinchos as $pincho) {
-					$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho']);
+					$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
 	    		}
    		 		return $list;
 			}else{
