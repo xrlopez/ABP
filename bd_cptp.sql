@@ -56,7 +56,7 @@ CREATE TABLE establecimiento(
 
 
 CREATE TABLE pincho(
-	id_pincho VARCHAR(15) PRIMARY KEY NOT NULL,
+	id_pincho INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	nombre VARCHAR(15) NOT NULL,
 	descripcion VARCHAR(100) NOT NULL,
 	celiaco BOOLEAN NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE premio(
 
 CREATE TABLE premiados(
 	FK_pincho_prem VARCHAR(15) NOT NULL,
-	FK_premio_prem VARCHAR(15) NOT NULL,
+	FK_premio_prem INT NOT NULL,
 	posicion VARCHAR(15) NOT NULL,
 	CONSTRAINT PK_premiados PRIMARY KEY (FK_pincho_prem,FK_premio_prem),
 	CONSTRAINT FK_pincho_premiados FOREIGN KEY  (FK_pincho_prem) REFERENCES pincho(id_pincho),
@@ -96,7 +96,7 @@ CREATE TABLE codigo(
 
 CREATE TABLE vota_pro(
 	FK_juradoProfesional_vota VARCHAR(15) NOT NULL,
-	FK_pincho_vota VARCHAR(15) NOT NULL,
+	FK_pincho_vota INT NOT NULL,
 	votacion INT,
 	ronda VARCHAR(10) NOT NULL,
 	CONSTRAINT PK_vota_pro PRIMARY KEY (FK_juradoProfesional_vota,FK_pincho_vota),
@@ -106,7 +106,7 @@ CREATE TABLE vota_pro(
 
 CREATE TABLE asignar_jRegistrado(
 	FK_juradoProfesional_asig VARCHAR(15) NOT NULL,
-	FK_pincho_asig VARCHAR(15) NOT NULL,
+	FK_pincho_asig INT NOT NULL,
 	FK_organizador_asig VARCHAR(15) NOT NULL,
 	CONSTRAINT PK_asignar_jRegistrado PRIMARY KEY (FK_juradoProfesional_asig,FK_pincho_asig,FK_organizador_asig),
 	CONSTRAINT FK_juradoProfesional_asignar FOREIGN KEY  (FK_juradoProfesional_asig) REFERENCES juradoProfesional(id_usuario),
@@ -123,7 +123,8 @@ CREATE TABLE vota_pop(
 );
 
 CREATE TABLE ingrediente(
-    FK_pincho_ing VARCHAR(15) NOT NULL,
+    FK_pincho_ing INT NOT NULL,
     ingrediente VARCHAR(15) NOT NULL,
+	PRIMARY KEY (FK_pincho_ing,ingrediente),
     CONSTRAINT FK_pincho_ing FOREIGN KEY  (FK_pincho_ing) REFERENCES pincho(id_pincho)
 );
