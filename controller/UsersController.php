@@ -158,7 +158,7 @@ public function registerEstablecimiento() {
       }
     }
     
-    $this->view->setVariable("Establecimiento", $jpop);
+    $this->view->setVariable("Establecimiento", $esta);
     $this->view->render("users", "registerEstablecimiento");
     
   }
