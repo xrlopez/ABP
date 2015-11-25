@@ -16,7 +16,7 @@ $jurado = $view->getVariable("jurado");
 								foreach($pinchos as $pincho) {
 								?>
 
-			                    <p><input type="checkbox" name="selectedPinchos[]" value="<?= $pincho->id_pincho ?>"checked><?php echo $pincho->nombre ?></p>
+			                    <p><input type="checkbox" name="selectedPinchos[]" value="<?= $pincho->id_pincho ?>"><?php echo $pincho->nombre ?></p>
 
 								<?php
 								}
