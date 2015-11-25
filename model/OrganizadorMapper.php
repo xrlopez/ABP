@@ -116,5 +116,11 @@ class OrganizadorMapper {
 	  $jProPinchos_db = $stmt->fetch(PDO::FETCH_ASSOC);
 	  return $jProPinchos_db['rondaActual'];
    }
+   
+   public function numPinchos(){
+	  $stmt= $this->db->query("SELECT COUNT(*) AS numPinchos FROM pincho");
+	  $jProPinchos_db = $stmt->fetch(PDO::FETCH_ASSOC);
+	  return $jProPinchos_db['numPinchos'];
+   }
   
 }
