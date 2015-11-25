@@ -11,7 +11,7 @@ CREATE TABLE usuario(
 	id_usuario VARCHAR(15) PRIMARY KEY NOT NULL,
 	nombre VARCHAR(100) NOT NULL,
 	password CHAR(32) NOT NULL,
-	email VARCHAR(15) NOT NULL,
+	email VARCHAR(100) NOT NULL,
 	tipo ENUM('organizador','juradoPopular','juradoProfesional','establecimiento') NOT NULL
 	
 );
@@ -25,13 +25,13 @@ CREATE TABLE organizador(
 
 CREATE TABLE juradoPopular(
 	id_usuario VARCHAR(15) PRIMARY KEY NOT NULL,
-	residencia VARCHAR(30) NOT NULL,
+	residencia VARCHAR(100) NOT NULL,
 	CONSTRAINT FK_usuario_juradoPopular FOREIGN KEY  (id_usuario) REFERENCES usuario(id_usuario)
 );
 
 CREATE TABLE juradoProfesional(
 	id_usuario VARCHAR(15) PRIMARY KEY NOT NULL,
-	profesion VARCHAR(20) NOT NULL,
+	profesion VARCHAR(30) NOT NULL,
 	FK_organizador_jPro VARCHAR(15) NOT NULL,
 	CONSTRAINT FK_usuario_juradoProfesional FOREIGN KEY  (id_usuario) REFERENCES usuario(id_usuario),
 	CONSTRAINT FK_organizador_juradoProfesional FOREIGN KEY  (FK_organizador_jPro) REFERENCES organizador(id_usuario)
@@ -39,8 +39,8 @@ CREATE TABLE juradoProfesional(
 
 CREATE TABLE concurso(
 	id_concurso VARCHAR(15) PRIMARY KEY NOT NULL,
-	nombre VARCHAR(15) NOT NULL,
-	localizacion VARCHAR(30) NOT NULL,
+	nombre VARCHAR(100) NOT NULL,
+	localizacion VARCHAR(100) NOT NULL,
 	descripcion VARCHAR(300) NULL,
 	FK_organizador_conc VARCHAR(15) NOT NULL,
 	CONSTRAINT FK_organizador_concurso FOREIGN KEY  (FK_organizador_conc) REFERENCES organizador(id_usuario)
@@ -49,7 +49,7 @@ CREATE TABLE concurso(
 
 CREATE TABLE establecimiento(
 	id_usuario VARCHAR(15) PRIMARY KEY NOT NULL,
-	localizacion VARCHAR(30) NOT NULL,
+	localizacion VARCHAR(100) NOT NULL,
 	descripcion VARCHAR(300) NOT NULL,
 	CONSTRAINT FK_usuario_establecimiento FOREIGN KEY  (id_usuario) REFERENCES usuario(id_usuario)
 );
@@ -122,7 +122,7 @@ CREATE TABLE vota_pop(
 
 CREATE TABLE ingrediente(
     FK_pincho_ing INT NOT NULL,
-    ingrediente VARCHAR(15) NOT NULL,
+    ingrediente VARCHAR(20) NOT NULL,
 	PRIMARY KEY (FK_pincho_ing,ingrediente),
     CONSTRAINT FK_pincho_ing FOREIGN KEY  (FK_pincho_ing) REFERENCES pincho(id_pincho)
 );
