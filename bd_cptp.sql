@@ -70,7 +70,7 @@ CREATE TABLE pincho(
 
 CREATE TABLE premio(
 	id_premio VARCHAR(10) PRIMARY KEY NOT NULL,
-	tipo VARCHAR(15) NOT NULL
+	tipo VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE premiados(
