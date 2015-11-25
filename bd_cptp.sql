@@ -127,11 +127,11 @@ CREATE TABLE ingrediente(
     CONSTRAINT FK_pincho_ing FOREIGN KEY  (FK_pincho_ing) REFERENCES pincho(id_pincho)
 );
 
-
+/*
 -------------------------------------------------------------------------------------------
 ----------------------------------------- INSERTS -----------------------------------------
 -------------------------------------------------------------------------------------------
-
+*/
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `password`, `email`, `tipo`) VALUES
 ('manu', 'Manuel', 'manu', 'manu@manu.com', 'organizador'),
 ('isa', 'Isabel', 'isa', 'isa@isa.com', 'organizador'),
