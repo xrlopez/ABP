@@ -48,7 +48,7 @@ foreach($pinchos as $pincho) {
 		<h4 class="heading">
 			<a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?= $pincho->id_pincho ?>"><?php echo $pincho->nombre; ?></a>
 			por
-			<a class="login establecimiento" rel="establecimiento" href="establecimiento.html"><?= $pincho->getNombreEstablecimiento() ?></a>
+			<a class="login establecimiento" rel="establecimiento" href="index.php?controller=establecimiento&amp;action=info&amp;id=<?= $pincho->getEstablecimiento() ?>"><?= $pincho->getNombreEstablecimiento() ?></a>
 		</h4>
 	</div>
 	<!--ingredientes-->

@@ -50,6 +50,12 @@ class EstablecimientoController extends BaseController {
     $this->view->setVariable("establecimiento", $establecimiento);
     $this->view->render("establecimiento", "perfil");
   }
+  
+  public function info(){
+    $establecimiento = $this->establecimientoMapper->findById($_GET["id"]);
+    $this->view->setVariable("establecimiento", $establecimiento);
+    $this->view->render("establecimiento", "info");	
+  }
 
   public function modificar(){
     $currentuser = $this->view->getVariable("currentusername");

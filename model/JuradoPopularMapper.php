@@ -17,7 +17,7 @@ class JuradoPopularMapper {
   }
   
    public function findAll(){  
-    $stmt = $this->db->query("SELECT * FROM juradopopular, usuario WHERE usuario.id_usuario = juradopopular.id_usuario");    
+    $stmt = $this->db->query("SELECT * FROM juradoPopular, usuario WHERE usuario.id_usuario = juradoPopular.id_usuario");    
     $jPop_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
     $jPops = array();
@@ -31,7 +31,7 @@ class JuradoPopularMapper {
   
   
   public function findById($jPopid){
-    $stmt = $this->db->prepare("SELECT * FROM juradopopular, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradopopular.id_usuario");
+    $stmt = $this->db->prepare("SELECT * FROM juradoPopular, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradoPopular.id_usuario");
     $stmt->execute(array($jPopid));
     $jPop = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -49,13 +49,13 @@ class JuradoPopularMapper {
   public function update(JuradoPopular $jPop) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
     $stmt->execute(array($jPop->getNombre(), $jPop->getPassword(), $jPop->getEmail(), $jPop->getId())); 
-    $stmt = $this->db->prepare("UPDATE juradopopular set residencia=? where id_usuario=?");
+    $stmt = $this->db->prepare("UPDATE juradoPopular set residencia=? where id_usuario=?");
     $stmt->execute(array($jPop->getResidencia(), $jPop->getId()));    
   }
   
   public function delete(JuradoPopular $jPop) {
     $stmt = $this->db->query("SET FOREIGN_KEY_CHECKS=0");
-    $stmt = $this->db->prepare("DELETE from juradopopular WHERE id_usuario=?");
+    $stmt = $this->db->prepare("DELETE from juradoPopular WHERE id_usuario=?");
     $stmt->execute(array($jPop->getId()));    
     $stmt = $this->db->query("SET FOREIGN_KEY_CHECKS=1");  
     $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");

@@ -5,7 +5,7 @@
  * Default controller if any controller is passed in the URL
  */
 
-require_once(__DIR__."/controller/JuradoPopularController.php");
+require_once("__DIR__/controller/JuradoPopularController.php");
 define("DEFAULT_CONTROLLER", "concurso");
 /**
  * Default action if any action is passed in the URL
