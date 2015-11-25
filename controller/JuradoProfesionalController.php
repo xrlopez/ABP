@@ -132,4 +132,22 @@ class JuradoProfesionalController extends BaseController {
     $this->view->setVariable("juradoProfesional", $juradoProfesional);
     $this->view->render("juradoProfesional", "listar");  
   }
+  
+  public function votar(){
+		$currentuser = $this->view->getVariable("currentusername");
+		$juradoProfesional = $this->juradoProfesionalMapper->findById($currentuser);
+		$votos = $this->juradoProfesionalMapper->votos($currentuser);
+		$ronda = $this->juradoProfesionalMapper->getRonda($currentuser);
+		$this->view->setVariable("juradoPro", $juradoProfesional);
+		$this->view->setVariable("votos", $votos);
+		$this->view->setVariable("ronda", $ronda);
+		$this->view->render("juradoProfesional", "votar");
+  }
+  
+  public function votarPincho(){
+	  $currentuser = $this->view->getVariable("currentusername");
+	  $juradoProfesional = $this->juradoProfesionalMapper->findById($currentuser);
+	  $votos = $this->juradoProfesionalMapper->votar($_POST['currentusername'], $_POST['idPincho'], $_POST['voto']);
+	  $this->view->redirect("juradoProfesional", "votar");
+  }
 }
