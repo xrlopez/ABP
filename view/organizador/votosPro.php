@@ -1,9 +1,6 @@
 <?php 
 require_once(__DIR__."/../../model/Pincho.php");
-?>
 
-<div class="row index">
-<?php
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
@@ -40,6 +37,7 @@ foreach($pinchos as $pincho) {
 	</dl>
 	
 </li>
+</ol>
 <?php
 }
 ?>	

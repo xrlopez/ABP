@@ -36,6 +36,7 @@ class OrganizadorController extends BaseController {
     $this->concursoMapper = new ConcursoMapper();
     
     $this->userMapper = new UserMapper(); 
+    
     $this->pincho = new Pincho();
   }
   

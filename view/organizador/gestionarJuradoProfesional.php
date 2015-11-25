@@ -14,6 +14,6 @@
 					<p id="bot"><a href="index.php?controller=users&amp;action=registerProfesional">Alta Jurado</a></p>
 					<p id="bot"><a href="index.php?controller=juradoProfesional&amp;action=listarEliminar">Baja Jurado</a></p>
 				</div>
-				</div>
 			</div>
-	</div>
+		</div>
+</div>
