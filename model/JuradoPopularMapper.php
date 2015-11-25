@@ -54,10 +54,12 @@ class JuradoPopularMapper {
   }
   
   public function delete(JuradoPopular $jPop) {
+    $stmt = $this->db->query("SET FOREIGN_KEY_CHECKS=0");
     $stmt = $this->db->prepare("DELETE from juradopopular WHERE id_usuario=?");
     $stmt->execute(array($jPop->getId()));    
+    $stmt = $this->db->query("SET FOREIGN_KEY_CHECKS=1");  
     $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
-    $stmt->execute(array($jPop->getId()));    
+    $stmt->execute(array($jPop->getId()));  
   }
   
 }

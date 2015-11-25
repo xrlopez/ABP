@@ -98,7 +98,7 @@ CREATE TABLE vota_pro(
 	votacion INT,
 	ronda VARCHAR(10) NOT NULL,
 	CONSTRAINT PK_vota_pro PRIMARY KEY (FK_juradoProfesional_vota,FK_pincho_vota),
-	CONSTRAINT FK_juradoProfesional_vota_pro FOREIGN KEY  (FK_juradoProfesional_vota) REFERENCES juradoProfesional(id_usuario),
+	CONSTRAINT FK_juradoProfesional_vota_pro FOREIGN KEY  (FK_juradoProfesional_vota) REFERENCES juradoProfesional(id_usuario) ON DELETE CASCADE,
 	CONSTRAINT FK_pincho_vota_pro FOREIGN KEY  (FK_pincho_vota) REFERENCES pincho(id_pincho)
 );
 
@@ -107,7 +107,7 @@ CREATE TABLE asignar_jRegistrado(
 	FK_pincho_asig INT NOT NULL,
 	FK_organizador_asig VARCHAR(15) NOT NULL,
 	CONSTRAINT PK_asignar_jRegistrado PRIMARY KEY (FK_juradoProfesional_asig,FK_pincho_asig,FK_organizador_asig),
-	CONSTRAINT FK_juradoProfesional_asignar FOREIGN KEY  (FK_juradoProfesional_asig) REFERENCES juradoProfesional(id_usuario),
+	CONSTRAINT FK_juradoProfesional_asignar FOREIGN KEY  (FK_juradoProfesional_asig) REFERENCES juradoProfesional(id_usuario) ON DELETE CASCADE,
 	CONSTRAINT FK_pincho_asignar FOREIGN KEY  (FK_pincho_asig) REFERENCES pincho(id_pincho),
 	CONSTRAINT FK_organizador_asignar FOREIGN KEY  (FK_organizador_asig) REFERENCES organizador(id_usuario)
 );
@@ -187,10 +187,10 @@ INSERT INTO `concurso` (`id_concurso`, `nombre`, `localizacion`, `descripcion`, 
 ('pinchosOurense', 'Concurso de Pincho', 'Ourense', 'Concurso de pinchos de la ciudad de Ourense, vengan y disfruten de todos los sabores de la ciudad. Recorran los establecimientos, probando sus pinchos, votando por aquellos que mas le gusten. Sobretodo disfruten del buen comer.', 'manu');
 
 INSERT INTO `pincho` (`id_pincho`, `nombre`, `descripcion`, `celiaco`, `validado`, `num_votos`, `FK_concurso_pinc`, `FK_establecimiento_pinc`) VALUES
-('1', 'cappuccino de castaña', 'pincho de otoño, una manera diferente de tomar la castaña', 0, 0, 0, 'pinchosOurense', 'palleira'),
+('1', 'cappuccino de castaña', 'pincho de otoño, una manera diferente de tomar la castaña', 0, 1, 1, 'pinchosOurense', 'palleira'),
 ('2', 'tosta de lomo con queso', 'tosta de lomo de cerdo con queso de Arzua', 0, 0, 0, 'pinchosOurense', 'adegaCaneda'),
 ('3', 'chipirones con verduras', 'chipirones a la plancha con verduras cortadas muy pequeño', 0, 0, 0, 'pinchosOurense', 'soutoCadeas'),
-('4', 'tosta de hamburguesa', 'tosta de mini hamburquesa de ternera con queso de tetilla', 0, 0, 0, 'pinchosOurense', 'tamega'),
+('4', 'tosta de hamburguesa', 'tosta de mini hamburquesa de ternera con queso de tetilla', 0, 1, 0, 'pinchosOurense', 'tamega'),
 ('5', 'pulpo', 'pulpo cocino con pimentos, dulce o picante', 0, 0, 0, 'pinchosOurense', 'lousa');
 
 INSERT INTO `asignar_jregistrado` (`FK_juradoProfesional_asig`, `FK_pincho_asig`, `FK_organizador_asig`) VALUES

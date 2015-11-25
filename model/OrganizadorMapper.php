@@ -54,8 +54,10 @@ class OrganizadorMapper {
     $stmt->execute(array($orga->getDescripcionOrga(), $orga->getId()));    
   }
   public function delete(Organizador $orga) {
+    $stmt = $this->db->query("SET FOREIGN_KEY_CHECKS=0");
     $stmt = $this->db->prepare("DELETE from organizador WHERE id_usuario=?");
     $stmt->execute(array($orga->getId()));    
+    $stmt = $this->db->query("SET FOREIGN_KEY_CHECKS=1");
     $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
     $stmt->execute(array($orga->getId()));    
   }
