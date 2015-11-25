@@ -82,4 +82,37 @@ class OrganizadorMapper {
     return $list;
   }
   
+  public function getFinalistas($numFinalistas){
+	    $stmt = $this->db->prepare("SELECT * FROM vota_pro WHERE ronda = 1 ORDER BY votacion DESC LIMIT ?");
+		$stmt->execute(array($numFinalistas));
+		$votos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		echo "aaaa0 ";
+		$stmt = $this->db->query("SELECT * FROM juradoprofesional");
+		$jPros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach($votos as $voto){
+			foreach($jPros as $jPro){
+				echo "aaaa2 ";
+				$stmt = $this->db->prepare("INSERT INTO vota_pro VALUES(?,?,?,?)");
+				$stmt->execute(array($jPro['id_usuario'],$voto['FK_pincho_vota'],2,0));
+			}
+		}
+		
+   }
+   
+   public function votosNulos($ronda){
+	   $stmt = $this->db->query("SELECT * FROM vota_pro WHERE votacion = 0 AND ronda = $ronda");
+	   $num = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	   if($num == null){
+		   return 0;
+	   } else{
+	    return 1;
+	   }
+   }
+   
+   public function getRonda(){
+	  $stmt= $this->db->query("SELECT MAX(ronda) AS rondaActual FROM vota_pro");
+	  $jProPinchos_db = $stmt->fetch(PDO::FETCH_ASSOC);
+	  return $jProPinchos_db['rondaActual'];
+   }
+  
 }
