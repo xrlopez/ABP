@@ -74,13 +74,13 @@ require_once(__DIR__."/../controller/BaseController.php");
 		public function validarPincho(){
 			$id = $_POST['pinchoID'];
 			Pincho::validar($id);
-			$this->view->redirect("organizador", "perfil");
+			$this->view->redirect("organizador", "validar");
 		}
 
 		public function eliminar(){
 			$id = $_POST['pinchoID'];
 			Pincho::eliminar($id);
-			$this->view->redirect("organizador", "perfil"); 
+			$this->view->redirect("organizador", "validar"); 
 		}
 
 		public function votosJPop(){

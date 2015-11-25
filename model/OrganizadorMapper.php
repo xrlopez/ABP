@@ -59,7 +59,7 @@ class OrganizadorMapper {
     $stmt->execute(array($orga->getId()));    
     $stmt = $this->db->query("SET FOREIGN_KEY_CHECKS=1");
     $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
-    $stmt->execute(array($orga->getId()));     
+    $stmt->execute(array($orga->getId()));    
   }
 
   public function asignar(JuradoProfesional $jpro,$pinchos,Organizador $orga){

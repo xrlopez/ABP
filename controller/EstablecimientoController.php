@@ -216,7 +216,7 @@ class EstablecimientoController extends BaseController {
             }
         }
     
-        $this->view->setVariable("pincho", $pinc);
+            $this->view->setVariable("pincho", $pinc);
         $this->view->setVariable("concursos", $concursos);    
     
          $this->view->render("concursos", "index");
