@@ -196,19 +196,21 @@ public function perfil(){
   public function guardarFinalistas(){
 	 $currentuser = $this->view->getVariable("currentusername");
 	 $organizador = $this->organizadorMapper->findById($currentuser);
+	 $pinchos = $this->organizadorMapper->numPinchos();
 	 $numFinalistas = $_POST['quantity'];
-	 $votosNulos = $this->organizadorMapper->votosNulos(1);
-	 $ronda = $this->organizadorMapper->getRonda();
-	 
-	 if($votosNulos == 0 && $ronda == 1){
-		 $finalistas = $this->organizadorMapper->getFinalistas($numFinalistas);
-		 $this->view->redirect("organizador", "index");
+	 if($numFinalistas <= $pinchos){
+		 $votosNulos = $this->organizadorMapper->votosNulos(1);
+		 $ronda = $this->organizadorMapper->getRonda();
+		 
+		 if($votosNulos == 0 && $ronda == 1){
+			 $finalistas = $this->organizadorMapper->getFinalistas($numFinalistas);
+			 $this->view->redirect("organizador", "index");
+		 } else{
+			$this->view->redirect("organizador", "finalistas");
+		 }
 	 } else{
 		 $this->view->redirect("organizador", "finalistas");
 	 }
-		
-	 
-	 
   }
   
 }
