@@ -66,6 +66,8 @@ class OrganizadorMapper {
     foreach ($pinchos as $pincho) {
       $stmt = $this->db->prepare("INSERT INTO asignar_jregistrado VALUES(?,?,?)");
       $stmt->execute(array($jpro->getId(), $pincho->getId(),$orga->getId()));
+      $stmt = $this->db->prepare("INSERT INTO vota_pro VALUES(?,?,?,?)");
+      $stmt->execute(array($jpro->getId(), $pincho->getId(),1,0));
     }
   }
 
