@@ -33,7 +33,8 @@ class Premio{
 	public function getPosiciones(){
 		$list = array();
 		$db = PDOConnection::getInstance();
-		$req = $db->query('SELECT posicion as posicion, FK_pincho_prem as id_pincho FROM premiados WHERE FK_premio_prem='.$this->getId());
+		$req = $db->prepare('SELECT posicion as posicion, FK_pincho_prem as id_pincho FROM premiados WHERE FK_premio_prem =?');
+		$req->execute(array($this->getId()));
 		foreach($req->fetchAll() as $posicion) {
 			$list[] = array($posicion['posicion'],Pincho::find($posicion['id_pincho'])->getNombre());
 		}

@@ -26,8 +26,8 @@ class PremioMapper {
   }
 
   public function findById($id){
-  		$req = $this->db->query('SELECT * FROM premio WHERE id_premio = '.$id);
-		$req->execute(array());
+  	$req = $this->db->prepare('SELECT * FROM premio WHERE id_premio =?');
+		$req->execute(array($id));
 		$premio = $req->fetch();
 		return new Premio($premio['id_premio'], $premio['tipo']);
 
