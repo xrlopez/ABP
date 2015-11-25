@@ -95,9 +95,9 @@ CREATE TABLE codigo(
 CREATE TABLE vota_pro(
 	FK_juradoProfesional_vota VARCHAR(15) NOT NULL,
 	FK_pincho_vota INT NOT NULL,
+	ronda INT NOT NULL,
 	votacion INT,
-	ronda VARCHAR(10) NOT NULL,
-	CONSTRAINT PK_vota_pro PRIMARY KEY (FK_juradoProfesional_vota,FK_pincho_vota),
+	CONSTRAINT PK_vota_pro PRIMARY KEY (FK_juradoProfesional_vota,FK_pincho_vota, ronda),
 	CONSTRAINT FK_juradoProfesional_vota_pro FOREIGN KEY  (FK_juradoProfesional_vota) REFERENCES juradoProfesional(id_usuario) ON DELETE CASCADE,
 	CONSTRAINT FK_pincho_vota_pro FOREIGN KEY  (FK_pincho_vota) REFERENCES pincho(id_pincho)
 );
