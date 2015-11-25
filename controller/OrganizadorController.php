@@ -184,4 +184,26 @@ public function perfil(){
     $this->view->render("organizador", "votosPro");
   }
   
+  public function finalistas(){
+	 $currentuser = $this->view->getVariable("currentusername");
+	 $organizador = $this->organizadorMapper->findById($currentuser);
+	 $this->view->setVariable("organizador", $organizador);
+	 $this->view->render("organizador", "finalistas");
+  }
+  
+  public function guardarFinalistas(){
+	 $currentuser = $this->view->getVariable("currentusername");
+	 $organizador = $this->organizadorMapper->findById($currentuser);
+	 $numFinalistas = $_POST['quantity'];
+	 $votosNulos = $this->organizadorMapper->votosNulos(1);
+	 $ronda = $this->organizadorMapper->getRonda();
+	 
+	 if($votosNulos == 0 && $ronda == 1){
+		 $finalistas = $this->organizadorMapper->getFinalistas($numFinalistas);
+		 $this->view->redirect("organizador", "index");
+	 } else{
+		 $this->view->redirect("organizador", "finalistas");
+	 }
+  }
+  
 }
