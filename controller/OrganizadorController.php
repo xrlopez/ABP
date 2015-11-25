@@ -36,7 +36,6 @@ class OrganizadorController extends BaseController {
     $this->concursoMapper = new ConcursoMapper();
     
     $this->userMapper = new UserMapper(); 
-    
     $this->pincho = new Pincho();
   }
   
@@ -78,6 +77,9 @@ class OrganizadorController extends BaseController {
         $pincha[$i] = Pincho::find($pinchos[$i]);
     }
     $this->organizadorMapper->asignar($jpop,$pincha,$organizador);
+	//Añadido
+	//$this->organizadorMapper->votosPro($jpop,$pincha);
+	//Fin añadido
     $this->view->setVariable("pinchos", $pincha);
     $this->view->render("organizador","asignados");
   }
@@ -204,6 +206,9 @@ public function perfil(){
 	 } else{
 		 $this->view->redirect("organizador", "finalistas");
 	 }
+		
+	 
+	 
   }
   
 }
