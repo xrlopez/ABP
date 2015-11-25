@@ -110,7 +110,7 @@ class EstablecimientoMapper {
 
   public function modPincho(Pincho $pincho){
      $stmt = $this->db->prepare("UPDATE pincho set nombre=?, descripcion=?, celiaco=? where id_pincho=?");
-     $stmt->execute(array(NULL, $pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(),$pincho->getId()));
+     $stmt->execute(array($pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(),$pincho->getId()));
   }
 
   public function deletePincho(Pincho $pincho){  
