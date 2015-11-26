@@ -198,6 +198,7 @@ public function perfil(){
 	 if($numFinalistas <= $pinchos){
 		 $votosNulos = $this->organizadorMapper->votosNulos(1);
 		 $ronda = $this->organizadorMapper->getRonda();
+		 
 		 if($votosNulos == 0 && $ronda == 1){
 			 $finalistas = $this->organizadorMapper->getFinalistas($numFinalistas);
 			 $this->view->redirect("organizador", "index");

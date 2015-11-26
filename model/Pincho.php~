@@ -256,7 +256,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 		public function recuentoVotacionProfesional($pincho){
  			$list = [];
 			$db = PDOConnection::getInstance();
-			$req = $db->prepare("SELECT SUM(votacion) AS voto FROM vota_pro WHERE ronda=2 AND FK_pincho_vota=? ");
+			$req = $db->prepare("SELECT SUM(votacion) AS voto FROM vota_pro WHERE FK_pincho_vota=?");
 			$req->execute(array($pincho));
 			$votos = $req->fetch(PDO::FETCH_ASSOC);
 			   

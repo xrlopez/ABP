@@ -32,7 +32,7 @@ class UserMapper {
    */      
   public function save($user) {
     $stmt = $this->db->prepare("INSERT INTO usuario values (?,?,?,?,?)");
-    $stmt->execute(array($user->getId(), $user->getNombre(), $user->getPassword(), $user->getEmail(), $user->getTipo()));
+    $stmt->execute(array($user->getid(), $user->getNombre(), $user->getPassword(), $user->getEmail(), $user->getTipo()));
   
     switch ($this->userType($user->getId())) {
         case "juradoPopular":

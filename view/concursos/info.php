@@ -15,13 +15,15 @@
 <div class="row">
 	<div class="informacion col-xs-12 col-sm-12 col-md-12">
 		<h2>Resultados de la busqueda</h2>
-		<?= isset($errors["general"])?$errors["general"]:"" ?>
-		<?php if($resultados==null){?>
+		<?php 
+		$tam=sizeof($resultados);
+		if($tam==1){ ?>
 			<p>No se ha encontrado informacion</p>
-		<?php } ?>
-		<?php foreach ($resultados as $resultado): 
-					if($resultado=="cambiar"){
-						$flag=1;
+			<?php	$flag=1;
+		}
+		foreach ($resultados as $resultado): 
+					if($resultado=="cambiar"){ ?>
+						<?php	$flag=1;
 						continue;
 					}
 					if($flag==0){?>

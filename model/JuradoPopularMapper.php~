@@ -62,4 +62,46 @@ class JuradoPopularMapper {
     $stmt->execute(array($jPop->getId()));  
   }
   
+  public function votos($jProid){
+	  $stmt= $this->db->query("SELECT * FROM vota_pro, pincho 
+						WHERE FK_juradoProfesional_vota = '$jProid' AND ronda = 2 AND pincho.id_pincho = vota_pro.FK_pincho_vota");
+	  $jProPinchos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	  $pinchosVotos = array();
+	  
+	  if($jProPinchos_db == null){
+	
+		  $stmt = $this->db->query("SELECT * FROM vota_pro, pincho 
+									WHERE FK_juradoProfesional_vota = '$jProid' AND ronda = 1 AND pincho.id_pincho = vota_pro.FK_pincho_vota");
+		  $jProPinchos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	  }
+	 
+	  foreach($jProPinchos_db as $jProPinchos){
+			  array_push($pinchosVotos, $jProPinchos);
+	  }
+	  return $pinchosVotos;
+  }
+  
+  public function votar($jProid, $idPincho, $votacion){
+	  $stmt= $this->db->query("SELECT * FROM vota_pro 
+						WHERE FK_juradoProfesional_vota = '$jProid' AND ronda = 2");
+	  $jProPinchos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	  
+	  if($jProPinchos_db == null){
+	
+		  $stmt = $this->db->prepare("UPDATE vota_pro SET votacion = ? 
+									WHERE FK_juradoProfesional_vota = ? AND ronda = ? AND FK_pincho_vota = ?");
+		  $stmt->execute(array($votacion, $jProid, 1, $idPincho));
+	  } else{
+		  $stmt = $this->db->prepare("UPDATE vota_pro SET votacion = ? 
+									WHERE FK_juradoProfesional_vota = ? AND ronda = ? AND FK_pincho_vota = ?");
+		  $stmt->execute(array($votacion, $jProid, 2, $idPincho));
+	  }
+  }
+  
+  public function getRonda($jProid){
+	  $stmt= $this->db->query("SELECT MAX(ronda) AS rondaActual FROM vota_pro");
+	  $jProPinchos_db = $stmt->fetch(PDO::FETCH_ASSOC);
+	  return $jProPinchos_db['rondaActual'];
+  }
+  
 }

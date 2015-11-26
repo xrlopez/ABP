@@ -1,11 +1,11 @@
-drop database if exists cptp;
-create database cptp default character set utf8 default collate utf8_spanish_ci;
-grant usage on *.* to 'usercptp'@'localhost';
-drop user 'usercptp'@'localhost';
-create user 'usercptp'@'localhost' identified by 'usercptp';
-grant all on cptp.* to 'usercptp'@'localhost';
+drop database if exists G33cptp;
+create database G33cptp default character set utf8 default collate utf8_spanish_ci;
+grant usage on *.* to 'G33usercptp'@'localhost';
+drop user 'G33usercptp'@'localhost';
+create user 'G33usercptp'@'localhost' identified by 'G33usercptp';
+grant all on G33cptp.* to 'G33usercptp'@'localhost';
 
-use cptp;
+use G33cptp;
 
 CREATE TABLE usuario(
 	id_usuario VARCHAR(15) PRIMARY KEY NOT NULL,
@@ -305,27 +305,27 @@ INSERT INTO `concurso` (`id_concurso`, `nombre`, `localizacion`, `descripcion`, 
 ('pinchosOurense', 'Concurso de Pincho', 'Ourense', 'Concurso de pinchos de la ciudad de Ourense, vengan y disfruten de todos los sabores de la ciudad. Recorran los establecimientos, probando sus pinchos, votando por aquellos que mas le gusten. Sobretodo disfruten del buen comer.', 'manu');
 
 INSERT INTO `pincho` (`id_pincho`, `nombre`, `descripcion`, `celiaco`, `validado`, `num_votos`, `FK_concurso_pinc`, `FK_establecimiento_pinc`) VALUES
-('1', 'cappuccino de castaña', 'pincho de otoño, una manera diferente de tomar la castaña', 0, 1, 1, 'pinchosOurense', 'palleira'),
-('2', 'tosta de lomo con queso', 'tosta de lomo de cerdo con queso de Arzua', 0, 0, 0, 'pinchosOurense', 'adegaCaneda'),
-('3', 'chipirones con verduras', 'chipirones a la plancha con verduras cortadas muy pequeño', 0, 0, 0, 'pinchosOurense', 'soutoCadeas'),
-('4', 'tosta de hamburguesa', 'tosta de mini hamburquesa de ternera con queso de tetilla', 0, 1, 0, 'pinchosOurense', 'tamega'),
-('5', 'pulpo', 'pulpo cocino con pimentos, dulce o picante', 0, 0, 0, 'pinchosOurense', 'lousa'),
-('6', 'Carpaccio con nueces', 'Carpaccio con tapenade de nueces en hojaldre', 1, 0, 0, 'pinchosOurense', 'cafeCosta'),
-('7', 'Hojaldre con paté de perdiz', 'Maravilloso paté de perdiz, manzana y trufa sobre una fina capa de hojaldre', 0, 0, 0, 'pinchosOurense', 'cafeRubi'),
-('8', 'pimientos con salsa', 'Fabulosos pimientos del piquillo con salsa de ostras', 0, 1, 0, 'pinchosOurense', 'BeerParaCreer'),
-('9', 'Calamares encebollados', 'Calamares encebollados al albariño con jamón', 0, 0, 0, 'pinchosOurense', 'cafeDulce'),
-('10', 'Higos, mozzaralla y albahaca', 'Brocheta de higos, mozzarella y albahaca aderezados con aceita de oliva', 1, 1, 0, 'pinchosOurense', 'laCantina36'),
-('11', 'Pinchos de melón con anchoa y mermelada de cebolla', 'Combinación de sabores dulces y salados que resulta elegante al paladar', 1, 1, 0, 'pinchosOurense', 'ElPaso10'),
-('12', 'Tofu a la parrilla', 'Tofu a la parrilla con falsa mahosena de jenjibre y ajo', 1, 0, 0, 'pinchosOurense', 'barMou'),
-('13', 'Huevos rellenos', 'Deliciosos huevos rellenos de boletus y trufa', 0, 0, 0, 'pinchosOurense', 'elChiringuito85'),
-('14', 'Corte de mousse', 'Magnífico corte de mousse de foie y boniato', 0, 1, 0, 'pinchosOurense', 'granVia27'),
-('15', 'Pincho de tortilla de patata', 'Pinchos de tortilla de patata violeta con cebolla caramelizada y cabrales', 1, 1, 0, 'pinchosOurense', 'laParada5'),
-('16', 'Seta de cardo', 'Rica seta de cardo confitada con romero y ajo', 1, 1, 0, 'pinchosOurense', 'laPlaza74'),
-('17', 'Tramezzini', 'Tramezzini con pavo ahumado y pesto trapanese', 0, 1, 0, 'pinchosOurense', 'casablanca_86'),
-('18', 'Palitos de polenta', 'Palitos de polenta con parmesano y romero', 0, 0, 0, 'pinchosOurense', 'mundo_92'),
-('19', 'Hojas de cogollo con aguacate y tomate', 'Fabulosas hojas de cogollo con aguacate, tomate y maíz', 0, 0, 0, 'pinchosOurense', 'elquetedije50'),
-('20', 'Sepia con jenjibre', 'Sepia con jenjibre y leche de coco', 1, 1, 0, 'pinchosOurense', 'porCopas2'),
-('21', 'Patatas', 'Patatas al horno con pasta de soja y guindilla', 0, 0, 0, 'pinchosOurense', 'losada_33');
+(1, 'cappuccino de castaña', 'pincho de otoño, una manera diferente de tomar la castaña', 0, 1, 3, 'pinchosOurense', 'palleira'),
+(2, 'tosta de lomo con queso', 'tosta de lomo de cerdo con queso de Arzua', 0, 0, 0, 'pinchosOurense', 'adegaCaneda'),
+(3, 'chipirones con verduras', 'chipirones a la plancha con verduras cortadas muy pequeño', 0, 0, 0, 'pinchosOurense', 'soutoCadeas'),
+(4, 'tosta de hamburguesa', 'tosta de mini hamburquesa de ternera con queso de tetilla', 0, 1, 4, 'pinchosOurense', 'tamega'),
+(5, 'pulpo', 'pulpo cocino con pimentos, dulce o picante', 0, 0, 0, 'pinchosOurense', 'lousa'),
+(6, 'Carpaccio con nueces', 'Carpaccio con tapenade de nueces en hojaldre', 1, 0, 0, 'pinchosOurense', 'cafeCosta'),
+(7, 'Hojaldre con paté de perdiz', 'Maravilloso paté de perdiz, manzana y trufa sobre una fina capa de hojaldre', 0, 0, 0, 'pinchosOurense', 'cafeRubi'),
+(8, 'pimientos con salsa', 'Fabulosos pimientos del piquillo con salsa de ostras', 0, 1, 0, 'pinchosOurense', 'BeerParaCreer'),
+(9, 'Calamares encebollados', 'Calamares encebollados al albariño con jamón', 0, 0, 0, 'pinchosOurense', 'cafeDulce'),
+(10, 'Higos, mozzaralla y albahaca', 'Brocheta de higos, mozzarella y albahaca aderezados con aceita de oliva', 1, 1, 0, 'pinchosOurense', 'laCantina36'),
+(11, 'Pinchos de melón con anchoa y mermelada de cebolla', 'Combinación de sabores dulces y salados que resulta elegante al paladar', 1, 1, 0, 'pinchosOurense', 'ElPaso10'),
+(12, 'Huevos rellenos', 'Deliciosos huevos rellenos de boletus y trufa', 0, 0, 0, 'pinchosOurense', 'elChiringuito85'),
+(13, 'Corte de mousse', 'Magnífico corte de mousse de foie y boniato', 0, 1, 0, 'pinchosOurense', 'granVia27'),
+(14, 'Pincho de tortilla de patata', 'Pinchos de tortilla de patata violeta con cebolla caramelizada y cabrales', 1, 1, 0, 'pinchosOurense', 'laParada5'),
+(15, 'Seta de cardo', 'Rica seta de cardo confitada con romero y ajo', 1, 1, 0, 'pinchosOurense', 'laPlaza74'),
+(16, 'Tramezzini', 'Tramezzini con pavo ahumado y pesto trapanese', 0, 1, 0, 'pinchosOurense', 'casablanca_86'),
+(17, 'Palitos de polenta', 'Palitos de polenta con parmesano y romero', 0, 0, 0, 'pinchosOurense', 'mundo_92'),
+(18, 'Hojas de cogollo con aguacate y tomate', 'Fabulosas hojas de cogollo con aguacate, tomate y maíz', 0, 0, 0, 'pinchosOurense', 'elquetedije50'),
+(19, 'Sepia con jenjibre', 'Sepia con jenjibre y leche de coco', 1, 1, 0, 'pinchosOurense', 'porCopas2'),
+(20, 'Patatas', 'Patatas al horno con pasta de soja y guindilla', 0, 0, 0, 'pinchosOurense', 'losada_33');
+
 
 INSERT INTO `codigo` (`FK_establecimiento_cod`, `id_codigo`, `usado`) VALUES
 ('palleira', 1, 1),
@@ -337,12 +337,12 @@ INSERT INTO `codigo` (`FK_establecimiento_cod`, `id_codigo`, `usado`) VALUES
 ('palleira', 7, 0),
 ('palleira', 8, 0),
 ('palleira', 9, 0),
-('palleira', 10, 0),
-('palleira', 11, 0),
-('palleira', 12, 0),
-('palleira', 13, 0),
-('palleira', 14, 0),
-('palleira', 15, 0),
+('palleira', 10, 1),
+('palleira', 11, 1),
+('palleira', 12, 1),
+('palleira', 13, 1),
+('palleira', 14, 1),
+('palleira', 15, 1),
 ('palleira', 16, 0),
 ('palleira', 17, 0),
 ('palleira', 18, 0),
@@ -477,18 +477,18 @@ INSERT INTO `codigo` (`FK_establecimiento_cod`, `id_codigo`, `usado`) VALUES
 ('tamega', 147, 0),
 ('tamega', 148, 0),
 ('tamega', 149, 0),
-('tamega', 150, 0),
-('tamega', 151, 0),
-('tamega', 152, 0),
-('tamega', 153, 0),
-('tamega', 154, 0),
-('tamega', 155, 0),
-('tamega', 156, 0),
-('tamega', 157, 0),
-('tamega', 158, 0),
-('tamega', 159, 0),
-('tamega', 160, 0),
-('tamega', 161, 0),
+('tamega', 150, 1),
+('tamega', 151, 1),
+('tamega', 152, 1),
+('tamega', 153, 1),
+('tamega', 154, 1),
+('tamega', 155, 1),
+('tamega', 156, 1),
+('tamega', 157, 1),
+('tamega', 158, 1),
+('tamega', 159, 1),
+('tamega', 160, 1),
+('tamega', 161, 1),
 ('tamega', 162, 0),
 ('tamega', 163, 0),
 ('tamega', 164, 0),
@@ -529,5 +529,46 @@ INSERT INTO `codigo` (`FK_establecimiento_cod`, `id_codigo`, `usado`) VALUES
 ('tamega', 199, 0),
 ('tamega', 200, 0);
 
-INSERT INTO `vota_pop` (`FK_juradoPopular_vot`, `FK_cod`) VALUES
-('xeila', 1);
+--
+-- Volcado de datos para la tabla `vota_pro`
+--
+
+INSERT INTO `vota_pro` (`FK_juradoProfesional_vota`, `FK_pincho_vota`, `ronda`, `votacion`) VALUES
+('adrianef', 1, 1, 3),
+('adrianef', 4, 1, 2),
+('adrianef', 8, 1, 1),
+('adrianef', 10, 1, 5),
+('adrianef', 11, 1, 4),
+('alex', 14, 1, 0),
+('alex', 15, 1, 0),
+('alex', 16, 1, 3),
+('alex', 17, 1, 2),
+('alex', 20, 1, 1),
+('aliciajs', 4, 1, 1),
+('aliciajs', 8, 1, 2),
+('aliciajs', 10, 1, 3),
+('ana_45', 14, 1, 4),
+('ana_45', 16, 1, 5),
+('ana_45', 20, 1,4),
+('aranchaJ', 8, 1, 3),
+('aranchaJ', 11, 1, 2),
+('aranchaJ', 15, 1, 1),
+('beliguntum', 10, 1, 1),
+('beliguntum', 14, 1, 2),
+('beliguntum', 15, 1, 3),
+('borja35', 8, 1, 4),
+('borja35', 10, 1, 5),
+('borja35', 15, 1, 4),
+('carla83', 4, 1, 3),
+('carla83', 10, 1, 2),
+('carla83', 11, 1, 1),
+('carla83', 15, 1, 2),
+('carla83', 16, 1, 3),
+('carla83', 17, 1, 4),
+('carlos_ou', 14, 1, 3),
+('carlos_ou', 15, 1, 4),
+('carlos_ou', 17, 1, 5);
+
+INSERT INTO `premio` (`id_premio`, `tipo`) VALUES
+('ganadorPop', 'popular'),
+('ganadorPro', 'profesional');

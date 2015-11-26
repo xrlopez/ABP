@@ -33,7 +33,7 @@
 			    	<div class="divFormulario">
 						<p id="bot"><a href="index.php?controller=premios&amp;action=lista">Listar Premios</a></p>
 						<p id="bot"><a href="index.php?controller=premios&amp;action=registerPremio">Alta premio</a></p>
-						<p id="bot"><a href="index.php?controller=premios&amp;action=asignarPremio">Asignar Premio</a></p>
+						<p id="bot"><a href="index.php?controller=premios&amp;action=asig">Asignar Premio</a></p>
 					</div>
 				</div>
 			</div>

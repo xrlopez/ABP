@@ -10,7 +10,7 @@ $tipo = $view->getVariable("tipo");
 <div class="row registrarE">
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 		<h2>Selecciona un premio a asignar</h2>
-			<form id="asignarPincho" action="index.php?controller=premios&amp;action=<?= $tipo ?>" method="post" >
+			<form id="asignarPincho" action="index.php?controller=premios&amp;action<?= $tipo ?>" method="post" >
 				<?php
 				foreach ($premios as $premio) {
 				?>	

@@ -37,27 +37,21 @@ class PremiosController extends BaseController {
 
 	public function register() {
 		$premio = new Premio();
-		if($this->premioMapper->findById($_POST["id_premio"])){
-		    $this->view->setFlash("Premio ".$premio->getId()." ya esta registrado.");
-			$this->view->render("premios", "registerPremio");
+		if(isset($_POST["id_premio"],$_POST["tipo"]))
+		{
+			$premio->setId($_POST["id_premio"]);
+			$premio->setTipo($_POST["tipo"]);
+			try{
+	            $this->premioMapper->save($premio);
+	            $this->view->setFlash("Premio ".$premio->getId()." registrado.");
+            }catch(ValidationException $ex) {
+				$errors = $ex->getErrors();
+				$this->view->setVariable("errors", $errors);
+            }
+        }
+		$this->view->setVariable("premio", $premio);
 
-		}else{
-			if(isset($_POST["id_premio"],$_POST["tipo"]))
-			{
-				$premio->setId($_POST["id_premio"]);
-				$premio->setTipo($_POST["tipo"]);
-				try{
-		            $this->premioMapper->save($premio);
-		            $this->view->setFlash("Premio ".$premio->getId()." registrado.");
-	            }catch(ValidationException $ex) {
-					$errors = $ex->getErrors();
-					$this->view->setVariable("errors", $errors);
-	            }
-	        }
-			$this->view->setVariable("premio", $premio);
-
-			$this->view->render("organizador", "gestionarPremios");
-		}
+		$this->view->render("organizador", "gestionarPremios");
 	}
 
 	public function asignarPremio(){
@@ -66,7 +60,7 @@ class PremiosController extends BaseController {
 			$this->view->setFlash(sprintf("No hay premios registrados."));
 			$this->view->render("organizador", "gestionarPremios");	
 		}else{
-			if($this->organizadorMapper->votosNulos(2)==0 && $this->organizadorMapper->votosNulos(1)==0){ 
+			if($this->organizadorMapper->votosNulos(2)==0){ 
 				$this->view->render("premios", "asig");
 			}else{
 			$this->view->setFlash(sprintf("Las votaciones no han terminado."));
@@ -103,7 +97,7 @@ class PremiosController extends BaseController {
 	    	$idpinchos = $this->organizadorMapper->getPinchosPremios();
 		$pinchos = array();
 		foreach($idpinchos as $pincho){
-			$new = Pincho::find($pincho);
+			$new = Pincho::find($idpinchos);
 			$new->setVotPro();
 			array_push($pinchos,$new);
 		}

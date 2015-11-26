@@ -19,7 +19,7 @@ class JuradoProfesionalMapper {
   }
   
    public function findAll(){  
-    $stmt = $this->db->query("SELECT * FROM juradoProfesional, usuario WHERE usuario.id_usuario = juradoProfesional.id_usuario");    
+    $stmt = $this->db->query("SELECT * FROM juradoprofesional, usuario WHERE usuario.id_usuario = juradoprofesional.id_usuario");    
     $jPro_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
     $jPros = array();
@@ -34,7 +34,7 @@ class JuradoProfesionalMapper {
   
   
   public function findById($jProid){
-    $stmt = $this->db->prepare("SELECT * FROM juradoProfesional, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradoProfesional.id_usuario");
+    $stmt = $this->db->prepare("SELECT * FROM juradoprofesional, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradoprofesional.id_usuario");
     $stmt->execute(array($jProid));
     $jPro = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -53,12 +53,12 @@ class JuradoProfesionalMapper {
   public function update(JuradoProfesional $jPro) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
     $stmt->execute(array($jPro->getNombre(), $jPro->getPassword(), $jPro->getEmail(), $jPro->getId())); 
-    $stmt = $this->db->prepare("UPDATE juradoProfesional set profesion=? where id_usuario=?");
+    $stmt = $this->db->prepare("UPDATE juradoprofesional set profesion=? where id_usuario=?");
     $stmt->execute(array($jPro->getProfesion(), $jPro->getId()));    
   }
   
   public function delete(JuradoProfesional $jPro) {
-    $stmt = $this->db->prepare("DELETE from juradoProfesional WHERE id_usuario=?");
+    $stmt = $this->db->prepare("DELETE from juradoprofesional WHERE id_usuario=?");
     $stmt->execute(array($jPro->getId()));    
     $stmt = $this->db->prepare("DELETE from usuario WHERE id_usuario=?");
     $stmt->execute(array($jPro->getId()));    

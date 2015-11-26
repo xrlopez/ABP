@@ -15,7 +15,7 @@
 				<label for="id_premio">ID premio</label>
 					<input name="id_premio" class="registrar" type="text" id="id_premio" required/></p>
 				<label for="tipo">Tipo</label>
-					<SELECT NAME="tipo" class="registrar" SIZE="1" required> 
+					<SELECT NAME="tipo" SIZE="1" required> 
 					   <OPTION VALUE="popular">Popular</OPTION> 
 					   <OPTION VALUE="profesional">Profesional</OPTION> 
 					</SELECT>

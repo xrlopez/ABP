@@ -34,15 +34,6 @@ class PremioMapper {
     }
     return $premios;
   }
- public function findPro(){
-  	$stmt = $this->db->query("SELECT * FROM premio WHERE tipo=\"profesional\"");    
-    $premio_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $premios = array();    
-    foreach ($premio_db as $premio) {
-      array_push($premios, new Premio($premio["id_premio"], $premio["tipo"]));
-    }
-    return $premios;
-  }
 
 
   public function findById($id){

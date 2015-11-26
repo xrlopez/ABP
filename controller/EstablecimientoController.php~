@@ -248,7 +248,7 @@ class EstablecimientoController extends BaseController {
   public function register(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
-    $concursos = $this->concursoMapper->findConcurso();
+    $concursos = $this->concursoMapper->findConcurso()<
     $this->view->setVariable("concursos", $concursos);    
     $pincho = $this->pincho->findByEstablecimiento($establecimiento);
     if($pincho!=NULL){

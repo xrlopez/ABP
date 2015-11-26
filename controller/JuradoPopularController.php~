@@ -181,7 +181,7 @@ class JuradoPopularController extends BaseController {
         $this->view->render("juradoPopular", "introCodigos");
       }
     }else{
-        $errors["pincho"] = "Los codigos tienen que ser distintos";
+        $errors["pincho"] = "Los pinchos tienen que ser distintos";
         $this->view->setVariable("errors", $errors);
         $this->view->render("juradoPopular", "introCodigos"); 
     }
