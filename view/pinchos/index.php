@@ -86,7 +86,7 @@ foreach ($ingredientes as $ingrediente) {
 		<dt class"votos">Votos:</dt>
 		<dd class"votos"><?php echo $pincho->num_votos; ?></dd>
 		<dt class"comentarios">Comentarios:</dt>
-		<dd class"comentarios"><a href="/pinchos/15comentarios">14</a></dd>
+		<dd class"comentarios">14</dd>
 	</dl>
 	
 </li>
