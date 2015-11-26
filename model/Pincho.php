@@ -122,7 +122,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 		public static function getNumPinchos()
 		{
 			$db = PDOConnection::getInstance();
-			$query = $db->query('SELECT count(*) as num FROM pincho');
+			$query = $db->query('SELECT count(*) as num FROM pincho WHERE validado = 1');
 			$num_pinchos = $query->fetch(PDO::FETCH_ASSOC);
 			return $num_pinchos;
 		}
