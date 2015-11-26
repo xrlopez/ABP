@@ -95,9 +95,9 @@ CREATE TABLE codigo(
 CREATE TABLE vota_pro(
 	FK_juradoProfesional_vota VARCHAR(15) NOT NULL,
 	FK_pincho_vota INT NOT NULL,
-	ronda INT NOT NULL,
 	votacion INT,
-	CONSTRAINT PK_vota_pro PRIMARY KEY (FK_juradoProfesional_vota,FK_pincho_vota, ronda),
+	ronda VARCHAR(10) NOT NULL,
+	CONSTRAINT PK_vota_pro PRIMARY KEY (FK_juradoProfesional_vota,FK_pincho_vota),
 	CONSTRAINT FK_juradoProfesional_vota_pro FOREIGN KEY  (FK_juradoProfesional_vota) REFERENCES juradoProfesional(id_usuario) ON DELETE CASCADE,
 	CONSTRAINT FK_pincho_vota_pro FOREIGN KEY  (FK_pincho_vota) REFERENCES pincho(id_pincho)
 );
@@ -169,14 +169,14 @@ INSERT INTO `establecimiento` (`id_usuario`, `localizacion`, `descripcion`) VALU
 ('tamega', 'Avd de Sousas N 83', 'Taperia, disponemos de menu del dia.'),
 ('lousa', 'Castelao 3', 'Churrasqueria, tapas y cocina gallega.');
 
-INSERT INTO `juradopopular` (`id_usuario`, `residencia`) VALUES
+INSERT INTO `juradoPopular` (`id_usuario`, `residencia`) VALUES
 ('miriam', 'Ourense'),
 ('xeila', 'Verin'),
 ('abel', 'Ourense'),
 ('dani', 'Ourense'),
 ('cris', 'Ourense');
 
-INSERT INTO `juradoprofesional` (`id_usuario`, `profesion`, `FK_organizador_jPro`) VALUES
+INSERT INTO `juradoProfesional` (`id_usuario`, `profesion`, `FK_organizador_jPro`) VALUES
 ('diego', 'cocinero', 'manu'),
 ('lucia', 'camarero', 'isa'),
 ('alex', 'dueño restaurante', 'miguel'),
@@ -193,7 +193,7 @@ INSERT INTO `pincho` (`id_pincho`, `nombre`, `descripcion`, `celiaco`, `validado
 ('4', 'tosta de hamburguesa', 'tosta de mini hamburquesa de ternera con queso de tetilla', 0, 1, 0, 'pinchosOurense', 'tamega'),
 ('5', 'pulpo', 'pulpo cocino con pimentos, dulce o picante', 0, 0, 0, 'pinchosOurense', 'lousa');
 
-INSERT INTO `asignar_jregistrado` (`FK_juradoProfesional_asig`, `FK_pincho_asig`, `FK_organizador_asig`) VALUES
+INSERT INTO `asignar_jRegistrado` (`FK_juradoProfesional_asig`, `FK_pincho_asig`, `FK_organizador_asig`) VALUES
 ('diego', 1, 'manu'),
 ('orcar', 1, 'manu'),
 ('diego', 4, 'manu'),
