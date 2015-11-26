@@ -70,7 +70,7 @@ CREATE TABLE pincho(
 
 CREATE TABLE premio(
 	id_premio VARCHAR(10) PRIMARY KEY NOT NULL,
-	tipo VARCHAR(100) NOT NULL
+	tipo ENUM('popular','profesional') NOT NULL
 );
 
 CREATE TABLE premiados(
