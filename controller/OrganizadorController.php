@@ -206,9 +206,11 @@ public function perfil(){
 			 $finalistas = $this->organizadorMapper->getFinalistas($numFinalistas);
 			 $this->view->redirect("organizador", "index");
 		 } else{
+      $this->view->setFlash(sprintf("No todos los pinchos estan votados"));
 			$this->view->redirect("organizador", "finalistas");
 		 }
 	 } else{
+     $this->view->setFlash(sprintf("Hay menos pinchos que finalistas quieres asignar"));
 		 $this->view->redirect("organizador", "finalistas");
 	 }
   }

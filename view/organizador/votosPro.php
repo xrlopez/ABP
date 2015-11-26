@@ -9,35 +9,30 @@ $pinchos = $view->getVariable("pinchos");
 $ronda = $view->getVariable("ronda");
 
 ?>
-<h2 class="heading">Lista de Pinchos por Votación Profesional Ronda <?= $ronda ?></h2>
-<ol class="pinchos index group">
-<?php
-foreach($pinchos as $pincho) {
-?>
-					
-<li id="pincho_1" class="pinchos blurb group" role="informacion">
-	<!-- Tiltulo, establecimiento-->
-	<div class="header module">
-		<h4 class="heading">
-			<a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?= $pincho->id_pincho ?>"><?php echo $pincho->nombre; ?></a>
-			por
-			<a class="login establecimiento" rel="establecimiento" href="establecimiento.html"><?= $pincho->getNombreEstablecimiento() ?></a>
-		</h4>
-	</div>
-	<!--ingredientes-->
-	
-	<!--sumario-->
+<div class="row index">
+	<h2 class="heading">Lista de Pinchos por Votación Profesional Ronda <?= $ronda ?></h2>
+	<?php
+	foreach($pinchos as $pincho) {
+	?>
+		<div class="pinchos">
+			<!-- Tiltulo, establecimiento-->
+			<div class="header module">
+				<h4 class="heading">
+					<a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?= $pincho->id_pincho ?>"><?php echo $pincho->nombre; ?></a>
+					por
+					<a class="login establecimiento" rel="establecimiento" href="establecimiento.html"><?= $pincho->getNombreEstablecimiento() ?></a>
+				</h4>
+			</div>
 
-	<!--stats-->
-	<dl class="stats">
-		<dt class"votos">Votos:</dt>
-		<dd class"votos"><?php echo $pincho->getVotos(); ?></dd>
-		<dt class"comentarios">Comentarios:</dt>
-		<dd class"comentarios"><a href="/pinchos/15comentarios">14</a></dd>
-	</dl>
-	
-</li>
-</ol>
+			<!--stats-->
+			<div class="stats">
+				<span class"votos">Votos:</span>
+				<span class"votos"><?php echo $pincho->num_votos; ?></span>
+				<span class"comentarios">Comentarios:</span>
+				<span class"comentarios">14</span>
+			</div>
+		</div>	
 <?php
 }
-?>	
+?>
+</div>

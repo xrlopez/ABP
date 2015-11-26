@@ -34,7 +34,7 @@
 			<div class="row">
 				<div class="col-xs-8 col-sm-8 col-md-8">
 					<h4 class="heading">
-						<a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?php $idPincho ?>"><?php echo $nombrePincho ?></a> 
+						<a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?= $idPincho ?>"><?php echo $nombrePincho ?></a> 
 					</h4>
 				</div>	
 				<div class="col-xs-4 col-sm-4 col-md-4">

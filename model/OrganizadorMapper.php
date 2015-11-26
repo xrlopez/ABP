@@ -73,7 +73,7 @@ class OrganizadorMapper {
 
   public function votacionPro($ronda){
     
-    $stmt = $this->db->prepare("SELECT *, SUM(votacion) as total FROM vota_pro WHERE ronda=?  GROUP BY FK_pincho_vota ORDER BY votacion DESC ");
+    $stmt = $this->db->prepare("SELECT *, SUM(votacion) as total FROM vota_pro WHERE ronda=?  GROUP BY FK_pincho_vota ORDER BY votacion ASC ");
     $stmt->execute(array($ronda));
     $list = [];
     foreach($stmt->fetchAll() as $info){
@@ -88,12 +88,10 @@ class OrganizadorMapper {
 	    $stmt = $this->db->prepare("SELECT * FROM vota_pro WHERE ronda = 1 ORDER BY votacion DESC LIMIT ?");
 		$stmt->execute(array($numFinalistas));
 		$votos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		echo "aaaa0 ";
 		$stmt = $this->db->query("SELECT * FROM juradoprofesional");
 		$jPros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		foreach($votos as $voto){
 			foreach($jPros as $jPro){
-				echo "aaaa2 ";
 				$stmt = $this->db->prepare("INSERT INTO vota_pro VALUES(?,?,?,?)");
 				$stmt->execute(array($jPro['id_usuario'],$voto['FK_pincho_vota'],2,0));
 			}

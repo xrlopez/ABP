@@ -367,11 +367,11 @@ ul.ingredientes li{
 .lista{
 	text-align: left;
 }
-.pinchos {
-
-}
-.pinchos li{
+.pinchos{
 	background-color: #D0B498;
+	margin: 5px;
+	padding: 10px;
+	border: 4px;
 
 }
 

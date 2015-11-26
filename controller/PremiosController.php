@@ -2,6 +2,7 @@
 
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
+require_once(__DIR__."/../controller/OrganizadorController.php");
 
 require_once(__DIR__."/../model/Premio.php");
 require_once(__DIR__."/../model/PremioMapper.php");
@@ -51,8 +52,13 @@ class PremiosController extends BaseController {
 
 	public function asignarPremio(){
 		$premios = $this->premioMapper->findAll();
-		$this->view->setVariable("premios", $premios);  
-		$this->view->render("premios", "asignar");
+		if($premios==NULL){
+			$this->view->setFlash(sprintf("No hay premios asignados"));
+			$this->view->render("organizador", "gestionarPremios");	
+		}else{
+			$this->view->setVariable("premios", $premios);  
+			$this->view->render("premios", "asignar");	
+		}
 	}
 
 	public function asignarPinchos(){

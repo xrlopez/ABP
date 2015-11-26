@@ -12,7 +12,7 @@ $pincho = $view->getVariable("pincho");
 			<h4 class="heading">
 				<h2><?php echo $pincho->nombre ?></h2>
 				por
-				<a class="login establecimiento" rel="establecimiento" href="establecimiento.html"><?= $pincho->getNombreEstablecimiento() ?></a>
+				<a class="login establecimiento" rel="establecimiento" href="index.php?controller=establecimiento&amp;action=info&amp;id=<?= $pincho->getEstablecimiento() ?>"><?= $pincho->getNombreEstablecimiento() ?></a>
 			</h4>
 		</div>
 		<!--ingredientes-->
