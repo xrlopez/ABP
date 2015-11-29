@@ -12,7 +12,7 @@ $paginas = ceil($numPinchos['num']/5);
 ?>
 
 <div class="row index">
-	<div>
+	<div class="col-xs-12 col-sm-12 col-md-12">
 		<h2 class="heading"><?php echo $pinchoInicio ?> - <?php echo $pinchoFin ?> de  <?php echo $numPinchos['num'] ?> Pinchos</h2>
 		<ol class="navegacion acciones" title="paginacion" role="navegacion">
 
@@ -38,7 +38,7 @@ $paginas = ceil($numPinchos['num']/5);
 	</div>
 	
 	<?php foreach($pinchos as $pincho): ?>
-	<div class="pinchos blurb">
+	<div class="pinchos blurb col-xs-12 col-sm-12 col-md-12">
 		<div class="header module">
 			<h4 class="heading">
 				<a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?= $pincho->id_pincho ?>"><?php echo $pincho->nombre; ?></a>
@@ -85,7 +85,7 @@ $paginas = ceil($numPinchos['num']/5);
 		
 	</div>
 	<?php endforeach; ?>	
-	<div>
+	<div class="col-xs-12 col-sm-12 col-md-12">
 		<ol class="navegacion acciones" title="paginacion" role="navegacion">
 
 			<?php if ($numPagina == 1 ) { ?>

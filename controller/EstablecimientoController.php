@@ -149,7 +149,7 @@ class EstablecimientoController extends BaseController {
   }
 
   public function listar(){
-    $establecimientos = $this->establecimientoMapper->findAll();  
+    $establecimientos = $this->establecimientoMapper->findAllValidados();  
     $this->view->setVariable("establecimientos", $establecimientos); 
     $this->view->render("establecimiento", "listar");
 
@@ -158,9 +158,13 @@ class EstablecimientoController extends BaseController {
   public function findPincho(){
     $estab = $_GET["id"];
     $establecimiento = $this->establecimientoMapper->findById($estab);
+    $concursos = $this->concursoMapper->findConcurso();   
     $pincho = $this->pincho->findByEstablecimiento($establecimiento);
     if($pincho == NULL){
-      throw new Exception("No existe el pincho");
+    $this->view->setFlash(sprintf("No tiene pincho."));
+    $establecimientos = $this->establecimientoMapper->findAll();  
+    $this->view->setVariable("establecimientos", $establecimientos); 
+    $this->view->render("establecimiento", "listar");
     }
     $this->view->setVariable("pincho", $pincho); 
     $this->view->render("pinchos", "pincho");

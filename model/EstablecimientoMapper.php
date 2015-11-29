@@ -20,7 +20,7 @@ class EstablecimientoMapper {
     $this->pincho = new Pincho();
   }
   
-   public function findAll(){  
+  public function findAll(){  
     $stmt = $this->db->query("SELECT * FROM establecimiento, usuario WHERE usuario.id_usuario = establecimiento.id_usuario");    
     $esta_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
@@ -30,6 +30,19 @@ class EstablecimientoMapper {
       array_push($estas, new Establecimiento($esta["id_usuario"], $esta["nombre"], $esta["password"], $esta["email"], $esta["localizacion"], $esta["descripcion"], $esta["tipo"]));
     }   
 	
+    return $estas;
+  }
+
+  public function findAllValidados(){  
+    $stmt = $this->db->query("SELECT * FROM establecimiento, usuario WHERE usuario.id_usuario = establecimiento.id_usuario AND establecimiento.id_usuario IN (SELECT FK_establecimiento_pinc FROM pincho WHERE validado=1)");    
+    $esta_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+   
+    $estas = array();
+    
+    foreach ($esta_db as $esta) {
+      array_push($estas, new Establecimiento($esta["id_usuario"], $esta["nombre"], $esta["password"], $esta["email"], $esta["localizacion"], $esta["descripcion"], $esta["tipo"]));
+    }   
+  
     return $estas;
   }
   
