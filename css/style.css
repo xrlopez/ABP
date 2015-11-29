@@ -25,6 +25,13 @@ body{
 #news{
 	padding-top: 50px;
 }
+.ventana{
+	color: #D0B498;
+	background-color: #724E29;
+	text-align: center;
+	padding-top: 20px;
+	
+}
 
 #menu{
 	color: #D0B498;

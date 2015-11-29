@@ -13,6 +13,12 @@
 ?><!DOCTYPE html>
 <html>
   <head>
+  	<script>
+		function popup()
+		{
+			window.open("ventana.php","","width=500,height=200");
+		}
+	</script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <link href='https://fonts.googleapis.com/css?family=Lato:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
       <!-- Latest compiled and minified CSS -->
@@ -60,7 +66,7 @@
 						<!-- menu establecimiento -->
 						<?php } else if($tipoUsuario == "establecimiento"){ ?>
 							<li class="option"><a href="index.php?controller=establecimiento&amp;action=registerPincho">Proponer Pincho</a></li>
-							<li class="option"><a href="index.php?controller=establecimiento&amp;action=generarCodigos">Generar códigos</a></li>
+							<li class="option"><a onclick="popup()">Generar códigos</a></li>
 							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
 							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a></li>
 							<li><a  href="index.php?controller=users&amp;action=logout">Salir</a></li>

@@ -60,7 +60,7 @@ class EstablecimientoMapper {
     $stmt->execute(array($esta->getLocalizacion(), $esta->getDescripcion(), $esta->getId()));    
   }
   
-  public function generarCodigos(Establecimiento $esta){
+  public function generarCodigos(Establecimiento $esta,$numCod){
     $pr=1;
     $stmt = $this->db->prepare("SELECT * FROM codigo WHERE ?"); 
           $stmt->execute(array($pr));   
@@ -71,7 +71,7 @@ class EstablecimientoMapper {
           $num = $cod["id_codigo"];
       }
     }
-    for ($i = 1; $i <= 100; $i++) {
+    for ($i = 1; $i <= $numCod; $i++) {
           $stmt = $this->db->prepare("INSERT INTO codigo(FK_establecimiento_cod, id_codigo, usado) VALUES (?,NULL,0)");
           $stmt->execute(array($esta->getId()));
     }
