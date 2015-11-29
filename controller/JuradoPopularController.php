@@ -35,7 +35,7 @@ class JuradoPopularController extends BaseController {
   public function index() {
   
     $juradoPopular = $this->juradoPopularMapper->findAll(); 
-    $concursos = $this->concursoMapper->findConcurso();   
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");   
     $this->view->setVariable("juradoPopular", $juradoPopular);
     $this->view->setVariable("concursos", $concursos);    
     

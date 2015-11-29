@@ -4,7 +4,7 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
  
- $concursos = $view->getVariable("concursos");
+ $concurso = $view->getVariable("concursos");
  $currentuser = $view->getVariable("currentusername");
  
  $view->setVariable("title", "Concurso");
@@ -15,8 +15,10 @@
 	<div class="informacion col-xs-12 col-sm-12 col-md-12">
 		<h2>Informacion del concurso</h2>
 		<?= isset($errors["general"])?$errors["general"]:"" ?>
-		<?php foreach ($concursos as $concurso): ?>
-			<p><?= $concurso->getDescripcionConcurso()?></p>
-		<?php endforeach; ?>
+		<?php if($concurso==NULL){?>
+			EN ESTE MOMENTO NO HAY CONCURSO
+		<?php }else{?>
+		<p><?= $concurso->getDescripcionConcurso()?></p>
+		<?php }?>
 	</div>
 </div>

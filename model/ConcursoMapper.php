@@ -22,25 +22,13 @@ class ConcursoMapper {
   }
 
   
-  public function findConcurso() {   
-    $stmt = $this->db->query("SELECT * FROM concurso, organizador WHERE organizador.id_usuario = concurso.FK_organizador_conc");    
-    $concurso_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-   
-    $descripcion = array();
-    
-    foreach ($concurso_db as $concur) {
-      $orga = new Organizador($concur["id_usuario"]);
-      array_push($descripcion, new Concurso($concur["id_concurso"], $concur["nombre"], $concur["localizacion"], $concur["descripcion"], $orga));
-    }   
-
-    return $descripcion;
-  }
-
-  public function findConcursoUn(){
-    $concursos = $this->findConcurso();
-    foreach ($concursos as $concurso):
-        return $concurso;
-    endforeach; 
+  public function findConcurso($id_concurso) {   
+    $stmt = $this->db->prepare("SELECT * FROM concurso WHERE id_concurso=?");  
+    $stmt->execute(array($id_concurso)); 
+    $concurso_db = $stmt->fetch(PDO::FETCH_ASSOC);    
+    if($concurso_db!=NULL) {
+      return new Concurso($concurso_db["id_concurso"], $concurso_db["nombre"], $concurso_db["localizacion"], $concurso_db["descripcion"], $concurso_db["FK_organizador_conc"]);
+    }
   }
   
   public function buscarInfo($busqueda){

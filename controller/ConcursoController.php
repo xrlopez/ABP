@@ -18,8 +18,7 @@ class ConcursoController extends BaseController {
   
   
   public function index() {
-
-    $concursos = $this->concursoMapper->findConcurso();    
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");    
     $this->view->setVariable("concursos", $concursos);    
     $this->view->render("concursos", "index");
 
@@ -28,7 +27,7 @@ class ConcursoController extends BaseController {
   public function buscarInfo(){
     $busqueda = $_POST['busqueda'];
     $result = $this->concursoMapper->buscarInfo($busqueda);
-    $concursos = $this->concursoMapper->findConcurso();    
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");    
     $this->view->setVariable("concursos", $concursos);  
     $this->view->setVariable("informacion",$result);
     $this->view->render("concursos","info");

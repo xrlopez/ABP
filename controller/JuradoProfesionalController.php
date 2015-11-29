@@ -37,7 +37,7 @@ class JuradoProfesionalController extends BaseController {
   
     // obtain the data from the database
     $juradoProfesional = $this->juradoProfesionalMapper->findAll();
-	   $concursos = $this->concursoMapper->findConcurso();     
+	   $concursos = $this->concursoMapper->findConcurso("pinchosOurense");     
     
     // put the array containing Post object to the view
     $this->view->setVariable("juradoProfesional", $juradoProfesional);    

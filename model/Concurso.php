@@ -12,7 +12,7 @@ class Concurso {
   private $descripcion;
   private $organizador;
   
-  public function __construct($id_concurso=NULL, $nombre=NULL, $localizacion=NULL, $descripcion=NULL, Organizador $organizador=NULL) {
+  public function __construct($id_concurso=NULL, $nombre=NULL, $localizacion=NULL, $descripcion=NULL, $organizador=NULL) {
     $this->id_concurso = $id_concurso;
     $this->nombre = $nombre;
     $this->localizacion = $localizacion;

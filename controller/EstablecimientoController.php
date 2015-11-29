@@ -36,7 +36,7 @@ class EstablecimientoController extends BaseController {
   public function index() {
   
     $establecimiento = $this->establecimientoMapper->findAll();  
-    $concursos = $this->concursoMapper->findConcurso();   
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");   
     $this->view->setVariable("establecimiento", $establecimiento); 
     $this->view->setVariable("concursos", $concursos);    
     
@@ -135,7 +135,7 @@ class EstablecimientoController extends BaseController {
     }
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
-    $concursos = $this->concursoMapper->findConcurso();   
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");   
     
     $pincho = $this->pincho->findByEstablecimiento($establecimiento);
     if($pincho!=NULL && ($pincho->getValidado()==1)){
@@ -158,7 +158,7 @@ class EstablecimientoController extends BaseController {
   public function findPincho(){
     $estab = $_GET["id"];
     $establecimiento = $this->establecimientoMapper->findById($estab);
-    $concursos = $this->concursoMapper->findConcurso();   
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");   
     $pincho = $this->pincho->findByEstablecimiento($establecimiento);
     if($pincho == NULL){
     $this->view->setFlash(sprintf("No tiene pincho."));
@@ -182,7 +182,7 @@ class EstablecimientoController extends BaseController {
   public function registerPincho(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
-    $concursos = $this->concursoMapper->findConcurso();
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");
     $pincho = $this->pincho->findByEstablecimiento($establecimiento);
      if($pincho!=NULL){
         if($pincho->getValidado()==0){
@@ -210,7 +210,7 @@ class EstablecimientoController extends BaseController {
   public function modificarPincho(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
-    $concursos = $this->concursoMapper->findConcurso();
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");
     $pinc = $this->pincho->findByEstablecimiento($establecimiento);
       if (isset($_POST["nombre"])){
         $pinc->setNombre($_POST["nombre"]);
@@ -256,7 +256,7 @@ class EstablecimientoController extends BaseController {
   public function register(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
-    $concursos = $this->concursoMapper->findConcurso();
+    $concursos = $this->concursoMapper->findConcurso("pinchosOurense");
     $this->view->setVariable("concursos", $concursos);    
     $pincho = $this->pincho->findByEstablecimiento($establecimiento);
     if($pincho!=NULL){
