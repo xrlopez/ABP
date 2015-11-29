@@ -60,6 +60,8 @@ class OrganizadorController extends BaseController {
     $jpop = $this->juradoProfesionalMapper->findById($jpopid);
     $this->view->setVariable("jurado",$jpop);
     $pinchos = $this->pincho->pinchosNoAsignados($jpopid);
+    $pinchosAsignados = $this->pincho->pinchosAsignados($jpopid);
+    $this->view->setVariable("pinchosAsignados",$pinchosAsignados);
     $this->view->setVariable("pinchos", $pinchos);
     $this->view->render("organizador","asignarPinchos");
 

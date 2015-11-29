@@ -252,6 +252,22 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 				return NULL;
 			}
  		}
+
+ 		public function pinchosAsignados($idJPro){
+ 			$list = [];
+			$db = PDOConnection::getInstance();
+			$req = $db->prepare("SELECT * FROM pincho WHERE pincho.validado=1 AND pincho.id_pincho IN (SELECT vota_pro.FK_pincho_vota FROM vota_pro WHERE vota_pro.FK_juradoProfesional_vota=?)");
+			$req->execute(array($idJPro));
+			$pinchos =$req->fetchAll(PDO::FETCH_ASSOC);
+			if($pinchos!=null){
+				foreach($pinchos as $pincho) {
+					$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
+	    		}
+   		 		return $list;
+			}else{
+				return NULL;
+			}
+ 		}
 		
 		public function recuentoVotacionProfesional($pincho){
  			$list = [];

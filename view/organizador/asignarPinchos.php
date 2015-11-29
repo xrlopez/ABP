@@ -2,6 +2,7 @@
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $pinchos = $view->getVariable("pinchos");
+$pinchosAsignados = $view->getVariable("pinchosAsignados");
 $jurado = $view->getVariable("jurado");
 
 ?>
@@ -26,6 +27,16 @@ $jurado = $view->getVariable("jurado");
 			                </form>
 						<?php }else{ ?>
 							<p>No hay pinchos que asignar a <?=$jurado->getId()?></p>
+						<?php }
+					?>
+				<h2>Pinchos asignados</h2>
+					<?php 
+						if($pinchosAsignados!=NULL){?>
+							<?php foreach($pinchosAsignados as $pinchoAsignado) { ?>
+									<p><?php echo $pinchoAsignado->nombre ?></p>
+							<?php } ?>
+						<?php }else{ ?>
+							<p>No hay pinchos asignados a <?=$jurado->getNombre()?></p>
 						<?php }
 					?>
 			</div>
