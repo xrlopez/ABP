@@ -17,7 +17,7 @@ $jurado = $view->getVariable("jurado");
 								foreach($pinchos as $pincho) {
 								?>
 
-			                    <p><input type="checkbox" name="selectedPinchos[]" value="<?= $pincho->id_pincho ?>"><?php echo $pincho->nombre ?></p>
+			                    <p><input type="checkbox" name="selectedPinchos[]" value="<?= $pincho->id_pincho ?>"><?php echo $pincho->nombre ?></i></p>
 
 								<?php
 								}
@@ -26,7 +26,7 @@ $jurado = $view->getVariable("jurado");
 			                    <p id="bot"><input name="submit" type="submit" id="boton" value="Validar" class="boton"/></p>
 			                </form>
 						<?php }else{ ?>
-							<p> <i style="color:red;font-size:20px;"> No hay pinchos que asignar a <?=$jurado->getId()?></p>
+							<p> <i style="color:red;font-size:20px;"> No hay pinchos que asignar a <?=$jurado->getId()?></i></p>
 						<?php }
 					?>
 				<h2>Pinchos asignados</h2>
@@ -36,7 +36,7 @@ $jurado = $view->getVariable("jurado");
 									<p><?php echo $pinchoAsignado->nombre ?></p>
 							<?php } ?>
 						<?php }else{ ?>
-							<p>No hay pinchos asignados a <?=$jurado->getNombre()?></p>
+							<p><i style="color:red;font-size:20px;">No hay pinchos asignados a <?=$jurado->getNombre()?></p>
 						<?php }
 					?>
 			</div>
