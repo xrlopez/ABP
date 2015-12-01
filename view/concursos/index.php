@@ -16,7 +16,8 @@
 		<h2>Informacion del concurso</h2>
 		<?= isset($errors["general"])?$errors["general"]:"" ?>
 		<?php if($concurso==NULL){?>
-			EN ESTE MOMENTO NO HAY CONCURSO
+			<i style="color:black;font-size:30px;">
+      			EN ESTE MOMENTO NO HAY CONCURSO </i>
 		<?php }else{?>
 		<p><?= $concurso->getDescripcionConcurso()?></p>
 		<?php }?>
