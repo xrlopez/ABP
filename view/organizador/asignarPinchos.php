@@ -26,7 +26,7 @@ $jurado = $view->getVariable("jurado");
 			                    <p id="bot"><input name="submit" type="submit" id="boton" value="Validar" class="boton"/></p>
 			                </form>
 						<?php }else{ ?>
-							<p>No hay pinchos que asignar a <?=$jurado->getId()?></p>
+							<p> <i style="color:red;font-size:20px;"> No hay pinchos que asignar a <?=$jurado->getId()?></p>
 						<?php }
 					?>
 				<h2>Pinchos asignados</h2>
