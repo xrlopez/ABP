@@ -54,7 +54,7 @@
 	    			}
 
 	    		}else{ ?>
-	    			<p>No hay ningun pincho premiado</p>
+	    			<p><i style="color:red;font-size:20px;">No hay ningun pincho premiado</i></p>
 	    		<?php }
 	    		?>
 	    		<br>
