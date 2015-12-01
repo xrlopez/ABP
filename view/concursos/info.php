@@ -18,7 +18,8 @@
 		<?php 
 		$tam=sizeof($resultados);
 		if($tam==1){ ?>
-			<p>No se ha encontrado informacion</p>
+			<p><i style="color:red;font-size:30px;">
+      			No se ha encontrado informacion </i></p>
 			<?php	$flag=1;
 		}
 		foreach ($resultados as $resultado): 
