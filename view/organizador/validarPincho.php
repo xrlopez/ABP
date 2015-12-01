@@ -16,7 +16,8 @@ foreach ($pinchos as $pincho) {
 ?>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
-						<?php echo $pincho->getNombre() ?>
+						<a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?= $pincho->getID() ?>"><?php echo $pincho->getNombre() ?></a>
+						
 					
 					</div>	
 					<div class="col-xs-2 col-sm-2 col-md-2">

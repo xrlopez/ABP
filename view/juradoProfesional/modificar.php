@@ -17,6 +17,7 @@
 		<h2>Jurado Profesional</h2>
 			<div>
 				<form id="form-aceptar" action="index.php?controller=juradoProfesional&amp;action=update" method="post" >
+					
 					<label for="usuario">Usuario</label></br>
 						<input name="usuario" class="registrar" type="text" id="usuario" readonly = "readonly" value="<?= $juradoProfesional->getId()?>"/ ></p>
 						
@@ -32,7 +33,7 @@
 					<label for="organizador">Organizador</label>
 	                    <input name="organizador" class="registrar" type="text" id="organizador" readonly = "readonly" value="<?= $juradoProfesional->getOrganizador()?>"/></p>
 						
-					<label for="passActual">Contraseña actual</label><p class="error"><?= isset($errors["passActual"])?$errors["passActual"]:"" ?></p>
+					<label for="passActual">Contraseña actual</label><label style="color:red">*</label><p class="error"><?= isset($errors["passActual"])?$errors["passActual"]:"" ?></p>
 	                    <input name="passActual" class="registrar" type="password" id="passActual" required/ ></p>
 
 	                <label for="passNueva">Contraseña nueva</label><p class="error"><?= isset($errors["pass"])?$errors["pass"]:"" ?></p>

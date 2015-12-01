@@ -32,7 +32,7 @@
 					<label for="descripcion">Descripcion</label>
 						<input name="descripcion" class="registrar" type="text" id="descripcion" value="<?= $establecimiento->getDescripcion()?>"/></p>
 						
-					<label for="pass">Contraseña actual</label><p class="error"><?= isset($errors["passActual"])?$errors["passActual"]:"" ?></p>
+					<label for="pass">Contraseña actual</label><label style="color:red">*</label><p class="error"><?= isset($errors["passActual"])?$errors["passActual"]:"" ?></p>
 	                    <input name="passActual" class="registrar" type="password" id="passActual" required/ ></p>
 
 	                <label for="pass">Contraseña nueva</label><p class="error"><?= isset($errors["pass"])?$errors["pass"]:"" ?></p>
