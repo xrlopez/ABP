@@ -9,7 +9,7 @@ $jurado = $view->getVariable("jurado");
 
 		<div class="row registrarE">
 			<div class="divLogin col-xs-12 col-sm-12 col-md-12">
-				<h2>Introduce los pinchos a asignar</h2>
+				<h2>Introduce los pinchos a asignar a <?php echo $jurado->getNombre() ?></h2>
 					<?php 
 						if($pinchos!=NULL){?>
 							<form id="asignarPinchos2" action="index.php?controller=organizador&amp;action=asignarPinchos" method="post" >
@@ -36,8 +36,12 @@ $jurado = $view->getVariable("jurado");
 									<p><?php echo $pinchoAsignado->nombre ?></p>
 							<?php } ?>
 						<?php }else{ ?>
-							<p><i style="color:red;font-size:20px;">No hay pinchos asignados a <?=$jurado->getNombre()?></p>
+							<p><i style="color:red;font-size:20px;">No hay pinchos asignados a <?=$jurado->getNombre()?></i></p>
 						<?php }
 					?>
+					<form id="asignarPinchos2" action="index.php?controller=organizador&action=asignar" method="post" >
+			 						 
+			            <p id="bot"><input name="submit" type="submit" id="boton" value="Atras" class="boton"/></p>
+			        </form>
 			</div>
 		</div>

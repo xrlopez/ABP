@@ -50,8 +50,19 @@
 								<input type="submit" name="voto" value="4"/>
 								<input type="submit" name="voto" value="5"/>
 							</form>	
-					<?php	} else{ 
-						 echo '<h4>Puntuacion: '.$votacion.'</h4>';
+					<?php	} else{  ?>
+								<form class="votarPincho" action="index.php?controller=juradoProfesional&amp;action=votarPincho" method="post">
+
+								<input type="hidden" name="currentusername" value= <?php echo "\"$currentuser\""; ?> />
+								<input type="hidden" name="idPincho" value= <?php echo "\"$idPincho\""; ?> />
+								<input type="submit" name="voto" value="1"/>
+								<input type="submit" name="voto" value="2"/>
+								<input type="submit" name="voto" value="3"/>
+								<input type="submit" name="voto" value="4"/>
+								<input type="submit" name="voto" value="5"/>
+								<?php echo '<h4 class="votacion">Puntos: '.$votacion.'</h4>'; ?>
+							</form>
+						 <?php
 					}
 					?>
 					
