@@ -9,6 +9,8 @@ require_once(__DIR__."/../model/JuradoPopular.php");
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/JuradoPopularMapper.php");
+require_once(__DIR__."/../model/Pincho.php");
+require_once(__DIR__."/../model/EstablecimientoMapper.php");
 
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
@@ -20,7 +22,8 @@ class JuradoPopularController extends BaseController {
   private $juradoPopularMapper;
   private $concursoMapper; 
   private $userMapper;  
-  private $codigoMapper;  
+  private $codigoMapper;
+  private $establecimientoMapper;  
   
   public function __construct() { 
     parent::__construct();
@@ -29,6 +32,7 @@ class JuradoPopularController extends BaseController {
     $this->concursoMapper = new ConcursoMapper();   
     $this->userMapper = new UserMapper(); 
     $this->codigoMapper = new CodigoMapper();
+    $this->establecimientoMapper = new EstablecimientoMapper();
   }
   
   
@@ -153,6 +157,18 @@ class JuradoPopularController extends BaseController {
               $this->codigoMapper->update($idPincho1);
               $this->codigoMapper->update($idPincho2);
               $this->codigoMapper->update($idPincho3);
+
+              $est1 = $this->establecimientoMapper->findById($idPincho1->getEstablecimiento());
+              $est2 = $this->establecimientoMapper->findById($idPincho2->getEstablecimiento());
+              $est3 = $this->establecimientoMapper->findById($idPincho3->getEstablecimiento());
+
+              $pincho1 = Pincho::findByEstablecimiento($est1);
+              $pincho2 = Pincho::findByEstablecimiento($est2);
+              $pincho3 = Pincho::findByEstablecimiento($est3);
+                $this->view->setVariable("pincho1",$pincho1);
+                $this->view->setVariable("pincho2",$pincho2);
+                $this->view->setVariable("pincho3",$pincho3);
+
                 $this->view->setVariable("codigo1",$idPincho1);
                 $this->view->setVariable("codigo2",$idPincho2);
                 $this->view->setVariable("codigo3",$idPincho3);
