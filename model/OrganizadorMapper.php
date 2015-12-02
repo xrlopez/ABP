@@ -83,7 +83,7 @@ class OrganizadorMapper {
   }
   
   public function getFinalistas($numFinalistas){
-	    $stmt = $this->db->prepare("SELECT DISTINCT * FROM vota_pro WHERE ronda = 1 ORDER BY votacion DESC LIMIT ?");
+		$stmt = $this->db->prepare("SELECT FK_pincho_vota, avg(votacion) FROM vota_pro WHERE ronda=1 GROUP BY FK_pincho_vota DESC LIMIT ?");
 		$stmt->execute(array($numFinalistas));
 		$votos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$stmt = $this->db->query("SELECT * FROM juradoProfesional");
