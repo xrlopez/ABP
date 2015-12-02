@@ -26,26 +26,10 @@ $pincho3 = $view->getVariable("pincho3");
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 		<h2>Vota por un pincho</h2>
 			<form id="votarPincho" action="index.php?controller=juradoPopular&amp;action=votar" method="post" >
-				<?php 
-			if($pincho1 == $pincho2 AND $pincho2 == $pincho3){ ?>
-				<p><input type="radio" name="pincho" value="<?= $codigo1->getId()?>" checked/><?= $pincho1->getNombre() ?></p>
-			
-			<?php
-			}else if($pincho2 == $pincho3){ ?>
-				<p><input type="radio" name="pincho" value="<?= $codigo1->getId()?>" checked/><?= $pincho1->getNombre() ?></p>
-				<p><input type="radio" name="pincho" value="<?= $codigo2->getId()?>" checked/><?= $pincho2->getNombre() ?></p>
-			<?php
-			}else if($pincho1 == $pincho2 OR $pincho1 == $pincho3){ ?>
-				<p><input type="radio" name="pincho" value="<?= $codigo2->getId()?>" checked/><?= $pincho2->getNombre() ?></p>
-				<p><input type="radio" name="pincho" value="<?= $codigo3->getId()?>" checked/><?= $pincho3->getNombre() ?></p>
-			<?php
-			}else{ ?>
-				<p><input type="radio" name="pincho" value="<?= $codigo1->getId()?>" checked/><?= $pincho1->getNombre() ?></p>
-				<p><input type="radio" name="pincho" value="<?= $codigo2->getId()?>" checked/><?= $pincho2->getNombre() ?></p>
-				<p><input type="radio" name="pincho" value="<?= $codigo3->getId()?>" checked/><?= $pincho3->getNombre() ?></p>
-			<?php
-			}
-			?>
+				
+				<p><input type="radio" name="pincho" value="<?= $codigo1->getId()?>" checked/><?= $pincho1->getNombre() ?>: <?=$codigo1->getId() ?>.</p>
+				<p><input type="radio" name="pincho" value="<?= $codigo2->getId()?>" checked/><?= $pincho2->getNombre() ?>: <?=$codigo2->getId() ?>.</p>
+				<p><input type="radio" name="pincho" value="<?= $codigo3->getId()?>" checked/><?= $pincho3->getNombre() ?>: <?=$codigo3->getId() ?>.</p>
 
                 <input type="hidden" name="usuario" value="<?= $juradoPopulars->getId() ?>"/>
                 <p id="bot"><input name="submit" type="submit" id="boton" value="Votar" class="boton"/></p>
