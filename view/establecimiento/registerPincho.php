@@ -13,12 +13,12 @@
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 		<h2>Pincho</h2>
 			<form id="form-login" action="index.php?controller=establecimiento&amp;action=register" method="POST">
-				<label for="nombre">Nombre</label>
+				<label for="nombre">Nombre *</label>
 					<input name="nombre" class="registrar" type="text" id="nombre" required/></p>
 												 
-				<label for="descripcion">Descripcion</label>
+				<label for="descripcion">Descripcion *</label>
 					<input name="descripcion" class="registrar" type="text" id="descripcion" required/></p>
-				<label for="celiaco">Celiaco</label>
+				<label for="celiaco">Celiaco *</label>
 					<input name="celiaco" class="registrar" type="checkbox" id="celaico"/></p>
 					
 				<!--<label for="ingredientes">Ingredientes </label>
