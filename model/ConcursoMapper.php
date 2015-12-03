@@ -21,7 +21,7 @@ class ConcursoMapper {
     $this->db = PDOConnection::getInstance();
   }
 
-  
+  //devuelve un codigo especifico
   public function findConcurso($id_concurso) {   
     $stmt = $this->db->prepare("SELECT * FROM concurso WHERE id_concurso=?");  
     $stmt->execute(array($id_concurso)); 
@@ -31,6 +31,7 @@ class ConcursoMapper {
     }
   }
   
+  //devuelve el resultado del formulario de busqueda
   public function buscarInfo($busqueda){
     
     $stmt = $this->db->prepare("SELECT * FROM establecimiento, usuario WHERE (usuario.nombre LIKE ? OR establecimiento.descripcion LIKE ?) AND establecimiento.id_usuario=usuario.id_usuario");

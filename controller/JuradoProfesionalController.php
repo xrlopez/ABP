@@ -14,12 +14,6 @@ require_once(__DIR__."/../controller/UsersController.php");
 
 class JuradoProfesionalController extends BaseController {
   
-  /**
-   * Reference to the PostMapper to interact
-   * with the database
-   * 
-   * @var PostMapper
-   */
   private $juradoProfesionalMapper;  
   private $userMapper;
   private $concursoMapper;
@@ -33,20 +27,19 @@ class JuradoProfesionalController extends BaseController {
   }
   
   
+  /*redirecciona a la página principal del sitio web*/
   public function index() {
   
-    // obtain the data from the database
     $juradoProfesional = $this->juradoProfesionalMapper->findAll();
 	   $concursos = $this->concursoMapper->findConcurso("pinchosOurense");     
     
-    // put the array containing Post object to the view
     $this->view->setVariable("juradoProfesional", $juradoProfesional);    
     $this->view->setVariable("concursos", $concursos); 
 	
-    // render the view (/view/posts/index.php)
     $this->view->render("concursos", "index");
   }
   
+  /*redirecciona a la vista del perfil del jurado profesional*/
   public function perfil(){
     $currentuser = $this->view->getVariable("currentusername");
     $juradoProfesional = $this->juradoProfesionalMapper->findById($currentuser);
@@ -54,6 +47,7 @@ class JuradoProfesionalController extends BaseController {
     $this->view->render("juradoProfesional", "perfil");
   }
 
+  /*redirecciona al formulario de modificacion de los datos de un jurado profesional*/
   public function modificar(){
     $currentuser = $this->view->getVariable("currentusername");
     $juradoProfesional = $this->juradoProfesionalMapper->findById($currentuser);
@@ -61,6 +55,9 @@ class JuradoProfesionalController extends BaseController {
     $this->view->render("juradoProfesional", "modificar");
   }
 	
+  /*Recupera los datos del formulario de modificacion de un jurado profesional,
+  comprueba que son correctos y llama a update() de JuradoProfesionalMapper.php
+  donde se realiza la actualizacion de los datos.*/
   public function update(){
     $jproid = $_REQUEST["usuario"];
     $jpro = $this->juradoProfesionalMapper->findById($jproid);
@@ -105,6 +102,8 @@ class JuradoProfesionalController extends BaseController {
       }
   }
 
+  /*Llama a delete() de JuradoProfesionalMapper.php que elimina un jurado profesional y las votaciones
+  que este realizó.*/
    public function eliminar(){
     $jproid = $_REQUEST["usuario"];
     $juradoProfesional = $this->juradoProfesionalMapper->findById($jproid);
@@ -122,21 +121,29 @@ class JuradoProfesionalController extends BaseController {
     $this->view->redirect("organizador", "index");
   }
 
+  /*lista los jurado profesionales para eliminarlos*/
   public function listarEliminar(){
     $juradoProfesional = $this->juradoProfesionalMapper->findAll();
     $this->view->setVariable("juradoProfesional", $juradoProfesional);
     $this->view->render("juradoProfesional", "listaEliminar");  
   }
+
+  /*lista los jurados profesionales*/
     public function listar(){
     $juradoProfesional = $this->juradoProfesionalMapper->findAll();
     $this->view->setVariable("juradoProfesional", $juradoProfesional);
     $this->view->render("juradoProfesional", "listar");  
   }
   
+  /*redirecciona a la vista de votar de un jurado profesional*/
   public function votar(){
 		$currentuser = $this->view->getVariable("currentusername");
 		$juradoProfesional = $this->juradoProfesionalMapper->findById($currentuser);
+
+    //devuelve los pinchos con sus votos de un jurado profesional
 		$votos = $this->juradoProfesionalMapper->votos($currentuser);
+
+    //devuelve la ronda en la que esta el jurado profesional
 		$ronda = $this->juradoProfesionalMapper->getRonda($currentuser);
 		$this->view->setVariable("juradoPro", $juradoProfesional);
 		$this->view->setVariable("votos", $votos);
@@ -144,6 +151,7 @@ class JuradoProfesionalController extends BaseController {
 		$this->view->render("juradoProfesional", "votar");
   }
   
+  /*modifica el pincho y su voto correspondiente de un jurado profesional*/
   public function votarPincho(){
 	  $currentuser = $this->view->getVariable("currentusername");
 	  $juradoProfesional = $this->juradoProfesionalMapper->findById($currentuser);

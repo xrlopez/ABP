@@ -29,7 +29,9 @@ class UserMapper {
    * @param User $user The user to be saved
    * @throws PDOException if a database error occurs
    * @return void
-   */      
+   */   
+
+  //crea los usuarios
   public function save($user) {
     $stmt = $this->db->prepare("INSERT INTO usuario values (?,?,?,?,?)");
     $stmt->execute(array($user->getId(), $user->getNombre(), $user->getPassword(), $user->getEmail(), $user->getTipo()));
@@ -51,12 +53,7 @@ class UserMapper {
 
   }
   
-  /**
-   * Checks if a given username is already in the database
-   * 
-   * @param string $username the username to check
-   * @return boolean true if the username exists, false otherwise
-   */
+  //comprueba que el nombre de usuario existe
   public function usernameExists($username) {
     $stmt = $this->db->prepare("SELECT count(id_usuario) FROM usuario where id_usuario=?");
     $stmt->execute(array($username));
@@ -66,6 +63,7 @@ class UserMapper {
     } 
   }
   
+  //devuelve el tipo de usuario, del usuario indicado
   public function userType($username){
     $stmt = $this->db->prepare("SELECT * FROM usuario where usuario.id_usuario=?");
 	$stmt->execute(array($username));
@@ -83,6 +81,8 @@ class UserMapper {
    * @param string $passwd the password
    * @return boolean true the username/passwrod exists, false otherwise.
    */
+
+  //comprueba que el nombre de usuario y la constraseña son correctos
   public function isValidUser($username, $passwd) {
     $stmt = $this->db->prepare("SELECT count(id_usuario) FROM usuario where id_usuario=? and password=?");
     $stmt->execute(array($username, $passwd));

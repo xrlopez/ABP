@@ -36,6 +36,7 @@ class JuradoPopularController extends BaseController {
   }
   
   
+  /*redirecciona a la página principal del sitio web*/
   public function index() {
   
     $juradoPopular = $this->juradoPopularMapper->findAll(); 
@@ -46,6 +47,8 @@ class JuradoPopularController extends BaseController {
     $this->view->render("concursos", "index");
   }
 
+
+  /*redirecciona a la vista del perfil del jurado popular*/
   public function perfil(){
     $currentuser = $this->view->getVariable("currentusername");
     $juradoPopular = $this->juradoPopularMapper->findById($currentuser);
@@ -53,13 +56,16 @@ class JuradoPopularController extends BaseController {
     $this->view->render("juradoPopular", "perfil");
   }
 
+  /*redirecciona al formulario de modificacion de los datos de un jurado popular*/
   public function modificar(){
     $currentuser = $this->view->getVariable("currentusername");
     $juradoPopular = $this->juradoPopularMapper->findById($currentuser);
     $this->view->setVariable("juradoPop", $juradoPopular);
     $this->view->render("juradoPopular", "modificar");
   }
-  
+
+  /*Llama a delete() de JuradoPopularMapper.php, donde se elimina un jurado popular indicado,
+  se destruye la sesion de dicho jurado popular y se redirecciona a la página principal del sitio web.*/
   public function eliminar(){
     $currentuser = $this->view->getVariable("currentusername");
     $juradoPopular = $this->juradoPopularMapper->findById($currentuser);
@@ -79,6 +85,9 @@ class JuradoPopularController extends BaseController {
     $this->view->redirect("concurso", "index");
   }
 
+  /*Recupera los datos del formulario de modificacion de un Jurado Popular,
+  comprueba que son correctos y llama a update() de JuradoPopularMapper.php
+  donde se realiza la actualizacion de los datos.*/
   public function update(){
     $jpopid = $_REQUEST["usuario"];
     $jpop = $this->juradoPopularMapper->findById($jpopid);
@@ -123,6 +132,7 @@ class JuradoPopularController extends BaseController {
         $this->view->render("juradoPopular", "modificar"); 
   }
 
+  /*Redirecciona a la vista para introducir los códigos de los pinchos*/
   public function introCodigos(){
     $currentuser = $this->view->getVariable("currentusername");
     $juradoPopular = $this->juradoPopularMapper->findById($currentuser);
@@ -130,6 +140,8 @@ class JuradoPopularController extends BaseController {
     $this->view->render("juradoPopular", "introCodigos");
   }
 
+  /*Recupera los codigos de los pinchos del formulario, comprueba que sean correctos y redirecciona
+  a la vista de la votacion de jurado popular*/
   public function addCodigos(){
     $jpopid = $_POST["usuario"];
     $jpop = $this->juradoPopularMapper->findById($jpopid);
@@ -204,6 +216,7 @@ class JuradoPopularController extends BaseController {
 
   }
 
+  /*Recupera el código del pincho votado por el jurado popular y lo suma al pincho correspondiente.*/
   public function votar(){
 
     $jpopid = $_POST["usuario"];

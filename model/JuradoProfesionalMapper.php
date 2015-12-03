@@ -18,6 +18,7 @@ class JuradoProfesionalMapper {
     $this->db = PDOConnection::getInstance();
   }
   
+  //recupera todos los jurados profesionales
    public function findAll(){  
     $stmt = $this->db->query("SELECT * FROM juradoProfesional, usuario WHERE usuario.id_usuario = juradoProfesional.id_usuario");    
     $jPro_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -32,7 +33,7 @@ class JuradoProfesionalMapper {
     return $jPros;
   }
   
-  
+  //recupera un jurado profesional por su identificador
   public function findById($jProid){
     $stmt = $this->db->prepare("SELECT * FROM juradoProfesional, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradoProfesional.id_usuario");
     $stmt->execute(array($jProid));
@@ -50,6 +51,7 @@ class JuradoProfesionalMapper {
 	);}
   }
   
+  //modifica un jurado profesional
   public function update(JuradoProfesional $jPro) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
     $stmt->execute(array($jPro->getNombre(), $jPro->getPassword(), $jPro->getEmail(), $jPro->getId())); 
@@ -57,6 +59,7 @@ class JuradoProfesionalMapper {
     $stmt->execute(array($jPro->getProfesion(), $jPro->getId()));    
   }
   
+  //elimina un jurado profesional
   public function delete(JuradoProfesional $jPro) {
     $stmt = $this->db->prepare("DELETE from juradoProfesional WHERE id_usuario=?");
     $stmt->execute(array($jPro->getId()));    
@@ -64,6 +67,7 @@ class JuradoProfesionalMapper {
     $stmt->execute(array($jPro->getId()));    
   }
   
+  /*recupera los votos(de la ronda actual) de un jurado profesional*/
   public function votos($jProid){
 	  $stmt= $this->db->query("SELECT * FROM vota_pro, pincho 
 						WHERE FK_juradoProfesional_vota = '$jProid' AND ronda = 2 AND pincho.id_pincho = vota_pro.FK_pincho_vota");
@@ -83,6 +87,7 @@ class JuradoProfesionalMapper {
 	  return $pinchosVotos;
   }
   
+  //guarda la votacion de la ronda correspondiente
   public function votar($jProid, $idPincho, $votacion){
 	  $stmt= $this->db->query("SELECT * FROM vota_pro 
 						WHERE FK_juradoProfesional_vota = '$jProid' AND ronda = 2");
@@ -100,9 +105,26 @@ class JuradoProfesionalMapper {
 	  }
   }
   
+  //devuelve la ronda actual de un jurado profesional
   public function getRonda($jProid){
 	  $stmt= $this->db->query("SELECT MAX(ronda) AS rondaActual FROM vota_pro");
 	  $jProPinchos_db = $stmt->fetch(PDO::FETCH_ASSOC);
 	  return $jProPinchos_db['rondaActual'];
+  }
+
+  //devuelve el numero de jurados profesionales asignados a un pincho indicado
+  public function getNumAsig($pincho){
+	  $stmt= $this->db->prepare("SELECT count(FK_juradoProfesional_vota) AS numJpro FROM vota_pro where FK_pincho_vota=?");
+	  $stmt->execute(array($pincho));
+	  $numJpro_db = $stmt->fetch(PDO::FETCH_ASSOC);
+	  return $numJpro_db['numJpro'];
+  }
+
+  //devuelve el numero maximo de jurados profesionales que se puede asignar a un pincho
+  public function numAsigMax(){
+	  $stmt= $this->db->query("SELECT count(id_usuario) AS numAsig FROM juradoProfesional");
+	  $jProPinchos_db = $stmt->fetch(PDO::FETCH_ASSOC);
+	  $num = ceil($jProPinchos_db['numAsig']/2);
+	  return $num;
   }
 }

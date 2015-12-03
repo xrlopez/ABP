@@ -12,6 +12,11 @@ $pinchos = $view->getVariable("pinchos");
 		<div class="divLogin col-xs-12 col-sm-12 col-md-12">
 			<h2>Valida los pinchos</h2>
 <?php
+if($pinchos==null){ ?>
+<div class="row">
+	<span>No hay pinchos por validar</span>
+</div>
+<?php }else{
 foreach ($pinchos as $pincho) {
 ?>
 				<div class="row">
@@ -35,6 +40,7 @@ foreach ($pinchos as $pincho) {
 				</div>
 
 <?php	
+}
 }
 ?>
 		    </div>

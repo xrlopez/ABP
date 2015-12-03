@@ -76,15 +76,7 @@ class Establecimiento {
     $this->tipo = $tipo;
   }
   
-  /**
-   * Checks if the current instance is valid
-   * for being updated in the database.
-   * 
-   * @throws ValidationException if the instance is
-   * not valid
-   * 
-   * @return void
-   */    
+
   public function checkIsValidForCreate() {
       $errors = array();
       if (strlen(trim($this->nombre)) == 0 ) {
@@ -111,31 +103,4 @@ class Establecimiento {
       }
   }
 
-  /**
-   * Checks if the current instance is valid
-   * for being updated in the database.
-   * 
-   * @throws ValidationException if the instance is
-   * not valid
-   * 
-   * @return void
-   */
-  public function checkIsValidForUpdate() {
-    $errors = array();
-    
-    if (!isset($this->id)) {      
-      $errors["id"] = "id is mandatory";
-    }
-    
-    try{
-      $this->checkIsValidForCreate();
-    }catch(ValidationException $ex) {
-      foreach ($ex->getErrors() as $key=>$error) {
-	$errors[$key] = $error;
-      }
-    }    
-    if (sizeof($errors) > 0) {
-      throw new ValidationException($errors, "Establecimiento no valido");
-    }
-  }
 }

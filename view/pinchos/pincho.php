@@ -41,8 +41,6 @@ $pincho = $view->getVariable("pincho");
 		<dl class="stats">
 			<dt class"votos">Votos:</dt>
 			<dd class"votos"><?php echo $pincho->num_votos; ?></dd>
-			<dt class"comentarios">Comentarios:</dt>
-			<dd class"comentarios"><a href="/pinchos/15comentarios">14</a></dd>
 		</dl>
 
 	</div>

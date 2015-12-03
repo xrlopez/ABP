@@ -16,7 +16,7 @@ class ConcursoController extends BaseController {
             
   }
   
-  
+  /*redirecciona a la página principal del sitio web*/
   public function index() {
     $concursos = $this->concursoMapper->findConcurso("pinchosOurense");    
     $this->view->setVariable("concursos", $concursos);    
@@ -24,6 +24,8 @@ class ConcursoController extends BaseController {
 
   }
 
+  /*recupera del formulario de busqueda, el valor a buscar y llama a findConcurso() de
+  ConcursoMapper.php, que devuelve el resultado de la busqueda*/
   public function buscarInfo(){
     $busqueda = $_POST['busqueda'];
     $result = $this->concursoMapper->buscarInfo($busqueda);

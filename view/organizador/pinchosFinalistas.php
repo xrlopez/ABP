@@ -7,17 +7,21 @@
  $view = ViewManager::getInstance();
  
  $currentuser = $view->getVariable("currentusername");
- $votos = $view->getVariable("votos");
+ $pinchos = $view->getVariable("pinchos");
+ 
  
 ?>
 
 <div class="row">
-	<h2>Elegir finalistas</h2>
+	<h2>Pinchos finalistas</h2>
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
-		<form class="votarPincho" action="index.php?controller=organizador&amp;action=guardarFinalistas" method="post">
-			<input type="number" name="quantity" min="1" max="99">
-			<input type="submit" name="finalistas" value="Aceptar"/>
-		</form>
-		
+		<?php
+		foreach($pinchos as $pincho) {
+		?>
+        <p><a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?= $pincho->getID() ?>"><?php echo $pincho->nombre ?></a></p>
+
+		<?php
+		}
+		?>
 	</div>
 </div>

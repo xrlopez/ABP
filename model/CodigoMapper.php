@@ -18,6 +18,7 @@ class CodigoMapper {
     $this->db = PDOConnection::getInstance();
   }
   
+  //devuelve un codigo concreto
   public function findById($codigo){
     $stmt = $this->db->prepare("SELECT * FROM codigo WHERE id_codigo=?");
     $stmt->execute(array($codigo));
@@ -31,11 +32,13 @@ class CodigoMapper {
 	);}
   }
   
+  //modifica un codigo concreto
   public function update(Codigo $cod) {
     $stmt = $this->db->prepare("UPDATE codigo set usado=? where id_codigo=?");
     $stmt->execute(array($cod->getUsado(), $cod->getId()));
   
   }
+  //registra la votacion por ese codigo
   public function votar(Codigo $cod,JuradoPopular $jpop){
     $stmt = $this->db->prepare("INSERT INTO vota_pop values(?,?)");
     $stmt->execute(array($jpop->getId(), $cod->getId()));
@@ -44,6 +47,7 @@ class CodigoMapper {
 
   }
 
+  //genera el pdf con los codigos generados
   public function generarPDF($codigos,$estab){
     $pdf=new FPDF();
     $pdf->AddPage();

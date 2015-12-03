@@ -58,15 +58,6 @@ $paginas = ceil($numPinchos['num']/5);
 							}
 						?>	
 					</li>
-					<?php
-					$ingredientes = $pincho->getIngredientes();
-					foreach ($ingredientes as $ingrediente):
-					?>
-						<li class="ingrediente">
-						<?= $ingrediente->getIngrediente() ?>
-						</li>
-					
-					<?php endforeach; ?>
 					
 				</ul>
 				<h6 class="landmark heading">Sumario</h6>

@@ -110,24 +110,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			return $this->ingredientes->getIngredientes($this->id_pincho);
 		}
 
-		public function checkIsValidForCreate() {
-			$errors = array();
-			if (strlen(trim($this->nombre)) == 0 ) {
-				$errors["nombre"] = "Nombre es obligatorio";
-			}
-			if (strlen(trim($this->celiaco)) == 0 ) {
-				$errors["celiaco"] = "Celiaco es obligatorio";
-			}
-			if (strlen(trim($this->descripcion)) == 0 ) {
-				$errors["descripcion"] = "Descripcion es obligatorio";
-			}
-			if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "Pincho no valido");
-			}
-		}
-
-
-
+		//devuelve el numero de pinchos validados
 		public static function getNumPinchos()
 		{
 			$db = PDOConnection::getInstance();
@@ -136,6 +119,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			return $num_pinchos;
 		}
 
+		//devuelve un numero de pinchos indicados
 		public static function getPinchos($inicio = 0, $limite = 5)
 		{
 			$list = [];
@@ -147,6 +131,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			return $list;
 		}
 
+		//devuelve todos los pinchos validados
 		public static function all() {
 			$list = [];
 			$db = PDOConnection::getInstance();
@@ -159,6 +144,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			return $list;
 		}
 
+		//devuelve todos los pinchos validados ordenados por numero de votos
 		public static function allOrdenados() {
 			$list = [];
 			$db = PDOConnection::getInstance();
@@ -171,6 +157,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			return $list;
 		}
 
+		//devuelve un pincho especifico
 		public static function find($id) {
 			$db = PDOConnection::getInstance();
 			// we make sure $id is an integer
@@ -181,9 +168,9 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
 		}
 
+		//devuelve un pincho de un determinado establecimiento
 		public static function findByEstablecimiento(Establecimiento $esta){
 			$db = PDOConnection::getInstance();
-			// we make sure $id is an integer
 			$req = $db->prepare("SELECT * FROM pincho WHERE FK_establecimiento_pinc =?");
 			$req->execute(array($esta->getId()));
 			$pincho = $req->fetch();
@@ -194,9 +181,9 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			}
 		}
 
+		//devuelve el pincho valido de un establecimiento
 		public static function pinchoValido(Establecimiento $esta){
 			$db = PDOConnection::getInstance();
-			// we make sure $id is an integer
 			$req = $db->prepare("SELECT * FROM pincho WHERE validado=1 AND FK_establecimiento_pinc =?");
 			$req->execute(array($esta->getId()));
 			$pincho = $req->fetch();
@@ -207,6 +194,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			}
 		}
 
+		//devuelve los pinchos no validados
 		public static function noValidados(){
 			$list = [];
 			$db = PDOConnection::getInstance();
@@ -217,6 +205,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
    		 	return $list;
 		}
 
+		//valida un pincho
 		public static function validar($id){
 			$db = PDOConnection::getInstance();
 			// we make sure $id is an integer
@@ -225,6 +214,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
     		$stmt->execute(array());
 		}
 
+		//elimina un pincho
 		public function eliminar($id){
 		    $pincho = Pincho::find($id);   
 		    if ($pincho == NULL) {
@@ -237,6 +227,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
     		$stmt->execute(array($pincho->getId())); 
  		}
 
+ 		//devuelve los pinchos no asignados de un determinado jurado profesional
  		public function pinchosNoAsignados($idJPro){
  			$list = [];
 			$db = PDOConnection::getInstance();
@@ -253,6 +244,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			}
  		}
 
+ 		//devuelve los pinchos asignados de un determinado jurado profesional
  		public function pinchosAsignados($idJPro){
  			$list = [];
 			$db = PDOConnection::getInstance();
@@ -268,7 +260,23 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 				return NULL;
 			}
  		}
+
+ 		//devuelve los pinchos de la segunda ronda
+ 		public function pinchosSegunda(){
+ 			
+			$db = PDOConnection::getInstance();
+			$req = $db->query("SELECT DISTINCT FK_pincho_vota AS pinchos FROM vota_pro WHERE ronda=2");
+			$pinchos_db = $req->fetchAll(PDO::FETCH_ASSOC);
+			$pinchos = array();
+    
+			foreach ($pinchos_db as $pincho) {
+	      		array_push($pinchos,$pincho['pinchos']);
+	    	} 
+
+			return $pinchos;
+ 		}
 		
+		//devuelve la suma de los votos de un determinado pincho, de la votacion profesional
 		public function recuentoVotacionProfesional($pincho){
  			$list = [];
 			$db = PDOConnection::getInstance();

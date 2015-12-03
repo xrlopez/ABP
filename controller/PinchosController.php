@@ -3,34 +3,25 @@
 
 require_once(__DIR__."/../model/Pincho.php");
 require_once(__DIR__."/../model/EstablecimientoMapper.php");
-require_once(__DIR__."/../model/PinchoMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
 	class PinchosController extends BaseController  {
 
-		private $pinchoMapper;    
 		private $establecimientoMapper;
 
 		public function __construct() {    
 			parent::__construct();
 
-			$this->pinchoMapper = new PinchoMapper();
 			$this->establecimientoMapper = new EstablecimientoMapper();
    
 		}
 
-
+		/*lista todos los pinchos validados*/
 		public function index(){
 			$pinchos = Pincho::getPinchos();
 
-			//$this->view->setLayout("welcome");
-
-			//calling a method to get the records with the limit set
 			$numPinchos = Pincho::getNumPinchos();		
-			//$this->view->setVariable("num_pinchos", $numPinchos);
-			// render the view (/view/users/login.php)
-			//$this->view->render("layouts", "pagination");
 			$this->view->setVariable("num_pagina", 1);
 
 			if (5 < $numPinchos ) {
@@ -45,6 +36,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 			$this->view->render("pinchos", "index");     
 		}
 
+		/*crea las paginas del listado de pinchos*/
 		public function page()
 		{
 			$numPage = $_GET['page'];
@@ -63,6 +55,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 			$this->view->render("pinchos", "index"); 
 		}
 
+		/*devuelve los datos de un pincho indicado*/
 		public function pinchoEspecifico()
 		{
 			$id = $_GET['id'];
@@ -71,18 +64,21 @@ require_once(__DIR__."/../controller/BaseController.php");
 			$this->view->render("pinchos", "pincho");
 		}
 
+		/*valida un pincho*/
 		public function validarPincho(){
 			$id = $_POST['pinchoID'];
 			Pincho::validar($id);
 			$this->view->redirect("organizador", "validar");
 		}
 
+		/*al invalidar un pincho lo elimina*/
 		public function eliminar(){
 			$id = $_POST['pinchoID'];
 			Pincho::eliminar($id);
 			$this->view->redirect("organizador", "validar"); 
 		}
 
+		/*lista los pinchos ordenados por votos de los jurados populares*/
 		public function votosJPop(){
 			$pinchos = Pincho::allOrdenados();
 			$this->view->setVariable("pinchos", $pinchos);

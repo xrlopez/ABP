@@ -20,6 +20,7 @@ class EstablecimientoMapper {
     $this->pincho = new Pincho();
   }
   
+  //recupera todos los establecimientos
   public function findAll(){  
     $stmt = $this->db->query("SELECT * FROM establecimiento, usuario WHERE usuario.id_usuario = establecimiento.id_usuario");    
     $esta_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -33,6 +34,7 @@ class EstablecimientoMapper {
     return $estas;
   }
 
+  //recupera los establecimientos con pinchos validados
   public function findAllValidados(){  
     $stmt = $this->db->query("SELECT * FROM establecimiento, usuario WHERE usuario.id_usuario = establecimiento.id_usuario AND establecimiento.id_usuario IN (SELECT FK_establecimiento_pinc FROM pincho WHERE validado=1)");    
     $esta_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -46,7 +48,7 @@ class EstablecimientoMapper {
     return $estas;
   }
   
-  
+  //recupera un establecimiento por su identificador
   public function findById($establecimiento){
     $stmt = $this->db->prepare("SELECT * FROM establecimiento, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = establecimiento.id_usuario");
     $stmt->execute(array($establecimiento));
@@ -65,7 +67,7 @@ class EstablecimientoMapper {
   }
 
 
-  
+  //modifica un establecimiento
   public function update(Establecimiento $esta) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
     $stmt->execute(array($esta->getNombre(), $esta->getPassword(), $esta->getEmail(), $esta->getId())); 
@@ -73,6 +75,7 @@ class EstablecimientoMapper {
     $stmt->execute(array($esta->getLocalizacion(), $esta->getDescripcion(), $esta->getId()));    
   }
   
+  //genera el número de códigos indicados, para el establecimiento indicado
   public function generarCodigos(Establecimiento $esta,$numCod){
     $pr=1;
     $stmt = $this->db->prepare("SELECT * FROM codigo WHERE ?"); 
@@ -100,6 +103,8 @@ class EstablecimientoMapper {
     return $cods;
 
   }
+
+  //elimina un establecimiento y su pincho
   public function delete(Establecimiento $esta) {
     $pincho = $this->pincho->pinchoValido($esta);
     if($pincho==NULL){
@@ -115,17 +120,20 @@ class EstablecimientoMapper {
     }
   }
 
+  //inserta un establecimiento
   public function savePincho(Pincho $pincho){
     $stmt = $this->db->prepare("INSERT INTO pincho values (?,?,?,?,?,?,?,?)");
     $stmt->execute(array(NULL, $pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(), $pincho->getValidado(), 0,$pincho->getConcurso(), $pincho->getEstablecimiento()));
   
   }
 
+  //modifica un pincho antes de que no este validado
   public function modPincho(Pincho $pincho){
      $stmt = $this->db->prepare("UPDATE pincho set nombre=?, descripcion=?, celiaco=? where id_pincho=?");
      $stmt->execute(array($pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(),$pincho->getId()));
   }
 
+  //elimina un pincho antes de que no este validado
   public function deletePincho(Pincho $pincho){  
       $stmt = $this->db->prepare("DELETE from pincho WHERE id_pincho=?");
       $stmt->execute(array($pincho->getId()));

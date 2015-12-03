@@ -33,6 +33,7 @@ class EstablecimientoController extends BaseController {
   }
   
   
+  /*redirecciona a la página principal del sitio web*/
   public function index() {
   
     $establecimiento = $this->establecimientoMapper->findAll();  
@@ -44,6 +45,7 @@ class EstablecimientoController extends BaseController {
     
   }
 
+  /*redirecciona a la vista del perfil del establecimiento*/
   public function perfil(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
@@ -51,12 +53,14 @@ class EstablecimientoController extends BaseController {
     $this->view->render("establecimiento", "perfil");
   }
   
+  /*recupera la informacion de un establecimiento y la muestra en la vista de la informacion*/
   public function info(){
     $establecimiento = $this->establecimientoMapper->findById($_GET["id"]);
     $this->view->setVariable("establecimiento", $establecimiento);
     $this->view->render("establecimiento", "info");	
   }
 
+  /*redirecciona al formulario de modificacion de los datos de un establecimiento*/
   public function modificar(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
@@ -65,6 +69,8 @@ class EstablecimientoController extends BaseController {
   
   }
 
+  /*Llama a delete() de EstablecimientoMapper.php, donde se elimina un establecimiento indicado,
+  se destruye la sesion de dicho establecimiento y se redirecciona a la página principal del sitio web.*/
   public function eliminar(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
@@ -84,6 +90,9 @@ class EstablecimientoController extends BaseController {
     $this->view->redirect("concurso", "index");    
   }
   
+  /*Recupera los datos del formulario de modificacion de un establecimiento,
+  comprueba que son correctos y llama a update() de EstablecimientoMapper.php
+  donde se realiza la actualizacion de los datos.*/
   public function update(){
     $estid = $_REQUEST["usuario"];
     $est = $this->establecimientoMapper->findById($estid);
@@ -128,6 +137,7 @@ class EstablecimientoController extends BaseController {
       }
   }
 
+  /*Genera un número de codigos, indicado por el establecimiento, para el pincho de dicho establecimiento.*/
   public function generarCodigos(){
     $num=$_POST["numero"];
     if($num==null){
@@ -142,12 +152,12 @@ class EstablecimientoController extends BaseController {
       $cods = $this->establecimientoMapper->generarCodigos($establecimiento,$num);
       $this->codigoMapper->generarPDF($cods,$establecimiento->getNombre());  
     }else{
-      $this->view->setFlash(sprintf("No tienes un pincho valido."));
-      $this->view->setVariable("concursos", $concursos);    
-      $this->view->render("concursos", "index");
+      header("Location: noPin.php");
     }
   }
 
+  /*Recupera los datos de todos los establecimiento con pinchos validados y
+  redireccionan a la vista donde los lista.*/
   public function listar(){
     $establecimientos = $this->establecimientoMapper->findAllValidados();  
     $this->view->setVariable("establecimientos", $establecimientos); 
@@ -155,6 +165,7 @@ class EstablecimientoController extends BaseController {
 
   }
 
+  /*Recupera los datos del pincho de un determinado establecimiento*/
   public function findPincho(){
     $estab = $_GET["id"];
     $establecimiento = $this->establecimientoMapper->findById($estab);
@@ -171,6 +182,7 @@ class EstablecimientoController extends BaseController {
       
   }
 
+  /*Recupera la información de un establecimiento*/
   public function getInfo(){
     $estab = $_GET["id"];
     $establecimiento = $this->establecimientoMapper->findById($estab);
@@ -179,6 +191,9 @@ class EstablecimientoController extends BaseController {
 
   }
 
+  /*-En caso de que no haya un pincho registrado, redirecciona al formulario de registro.
+    -En caso de que haya un pincho registrado y no validado, deja modificar los datos.
+    -En caso de que haya un pincho valido, muestra un mensaje.*/
   public function registerPincho(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
@@ -200,6 +215,7 @@ class EstablecimientoController extends BaseController {
     }
   }
 
+  /*Redirecciona al formulario de modificacion*/
   public function modPincho(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
@@ -207,6 +223,9 @@ class EstablecimientoController extends BaseController {
     $this->view->setVariable("pincho",$pincho);
     $this->view->render("establecimiento", "modPincho");
   }
+
+  /*Recupera los datos del formulario de modificacion de un pincho, comprueba que los
+  datos sean correctos y llama a modPincho() de EstablecimientoMapper.php, que los modifica.*/
   public function modificarPincho(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
@@ -237,6 +256,7 @@ class EstablecimientoController extends BaseController {
 
   }
 
+  /*En caso de que haya un pincho sin validar lo elimina*/
   public function eliminarPincho(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);
@@ -253,6 +273,8 @@ class EstablecimientoController extends BaseController {
 
   }
 
+  /*Recupera los datos del formulario de registro de un pincho, comprueba que los
+  datos sean correctos y llama a savePincho() de EstablecimientoMapper.php, que lo registra.*/
   public function register(){
     $currentuser = $this->view->getVariable("currentusername");
     $establecimiento = $this->establecimientoMapper->findById($currentuser);

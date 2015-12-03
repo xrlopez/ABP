@@ -14,9 +14,13 @@
 	<div class="informacion col-xs-12 col-sm-12 col-md-12">
 		<h2>Pinchos asignados a <?php echo $jurado->getNombre() ?></h2>
 		<?= isset($errors["general"])?$errors["general"]:"" ?>
-		<?php foreach ($pinchos as $pincho): ?>
+		<?php
+		if($pinchos!=null){
+		 foreach ($pinchos as $pincho): ?>
 			<p><?= $pincho->nombre?></p>
-		<?php endforeach; ?>
-		
+		<?php endforeach; 
+		}else{?>
+			<p>No se ha seleccionado ningun pincho.</p>
+		<?php }?>
 	</div>
 </div>

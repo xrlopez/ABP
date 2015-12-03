@@ -16,6 +16,7 @@ class JuradoPopularMapper {
     $this->db = PDOConnection::getInstance();
   }
   
+  //recupera todo los jurados populares
    public function findAll(){  
     $stmt = $this->db->query("SELECT * FROM juradoPopular, usuario WHERE usuario.id_usuario = juradoPopular.id_usuario");    
     $jPop_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +30,7 @@ class JuradoPopularMapper {
     return $jPops;
   }
   
-  
+  //recupera un jurado popular por su identificador
   public function findById($jPopid){
     $stmt = $this->db->prepare("SELECT * FROM juradoPopular, usuario WHERE usuario.id_usuario=? AND usuario.id_usuario = juradoPopular.id_usuario");
     $stmt->execute(array($jPopid));
@@ -46,6 +47,7 @@ class JuradoPopularMapper {
 	);}
   }
   
+  //modifica un jurado popular
   public function update(JuradoPopular $jPop) {
     $stmt = $this->db->prepare("UPDATE usuario set nombre=?, password=?, email=? where id_usuario=?");
     $stmt->execute(array($jPop->getNombre(), $jPop->getPassword(), $jPop->getEmail(), $jPop->getId())); 
@@ -53,6 +55,7 @@ class JuradoPopularMapper {
     $stmt->execute(array($jPop->getResidencia(), $jPop->getId()));    
   }
   
+  //elimina un jurado popular
   public function delete(JuradoPopular $jPop) {
     $stmt = $this->db->query("SET FOREIGN_KEY_CHECKS=0");
     $stmt = $this->db->prepare("DELETE from juradoPopular WHERE id_usuario=?");

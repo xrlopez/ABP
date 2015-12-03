@@ -40,6 +40,7 @@ class OrganizadorController extends BaseController {
   }
   
   
+  /*redirecciona a la página principal del sitio web*/
   public function index() {
   
     $organizador = $this->organizadorMapper->findAll(); 
@@ -49,17 +50,30 @@ class OrganizadorController extends BaseController {
     $this->view->render("concursos", "index");
   }
   
+  /*redirecciona a la vista para seleccionar el jurado profesional
+  al que se le va asignar los pinchos*/
   public function asignar(){
     $juradosPro = $this->juradoProfesionalMapper->findAll();
     $this->view->setVariable("juradosProfesionales", $juradosPro);
     $this->view->render("organizador","asignar");
   }
 
+  /*Recupera los pinchos disponibles para asignar a un jurado profesional*/
   public function asignarJurado(){
     $jpopid = $_REQUEST["usuario"];
     $jpop = $this->juradoProfesionalMapper->findById($jpopid);
     $this->view->setVariable("jurado",$jpop);
-    $pinchos = $this->pincho->pinchosNoAsignados($jpopid);
+    $pinchos_no = $this->pincho->pinchosNoAsignados($jpopid);
+    $numAsigMax = $this->juradoProfesionalMapper->numAsigMax();
+    $pinchos=array();
+    if($pinchos_no!=null){  
+      foreach($pinchos_no as $pincho) {
+        $numAsig = $this->juradoProfesionalMapper->getNumAsig($pincho->getId());
+        if($numAsig < $numAsigMax){
+            array_push($pinchos, $pincho);
+        }
+      }
+    }
     $pinchosAsignados = $this->pincho->pinchosAsignados($jpopid);
     $this->view->setVariable("pinchosAsignados",$pinchosAsignados);
     $this->view->setVariable("pinchos", $pinchos);
@@ -67,23 +81,28 @@ class OrganizadorController extends BaseController {
 
   }
 
+   /*Recupera los pinchos seleccionados para asignar a un jurado profesional
+    y se lo asigna*/
   public function asignarPinchos(){
     $jpopid = $_REQUEST["usuario"];
     $jpop = $this->juradoProfesionalMapper->findById($jpopid);
     $currentuser = $this->view->getVariable("currentusername");
     $organizador = $this->organizadorMapper->findById($currentuser);
     $this->view->setVariable("jurado",$jpop);
-    $pinchos = $_REQUEST["selectedPinchos"];
-    $pincha = array();
-    for ($i=0; $i < count($pinchos) ; $i++) { 
-        $pincha[$i] = Pincho::find($pinchos[$i]);
+    $pincha=array();
+    if(isset($_REQUEST["selectedPinchos"])){
+      $pinchos = $_REQUEST["selectedPinchos"];
+      for ($i=0; $i < count($pinchos) ; $i++) { 
+          $pincha[$i] = Pincho::find($pinchos[$i]);
+      }
+      $this->organizadorMapper->asignar($jpop,$pincha,$organizador);
     }
-    $this->organizadorMapper->asignar($jpop,$pincha,$organizador);
     $this->view->setVariable("pinchos", $pincha);
     $this->view->render("organizador","asignados");
   }
 
 
+  /*redirecciona a la vista del perfil del organizador*/
 public function perfil(){
     $currentuser = $this->view->getVariable("currentusername");
     $organizador = $this->organizadorMapper->findById($currentuser);
@@ -91,6 +110,7 @@ public function perfil(){
     $this->view->render("organizador", "perfil");
   }
   
+  /*redirecciona al formulario de modificacion de los datos de un organizador*/
   public function modificar(){
     $currentuser = $this->view->getVariable("currentusername");
     $organizador = $this->organizadorMapper->findById($currentuser);
@@ -98,6 +118,8 @@ public function perfil(){
     $this->view->render("organizador", "modificar");
   }
 
+  /*Llama a delete() de OrganizadorMapper.php, donde se elimina un organizador indicado,
+  se destruye la sesion de dicho organizador y se redirecciona a la página principal del sitio web.*/
   public function eliminar(){
     $currentuser = $this->view->getVariable("currentusername");
     $organizador = $this->organizadorMapper->findById($currentuser);
@@ -108,7 +130,6 @@ public function perfil(){
       throw new Exception("No existe el usuario ".$currentuser);
     }
     
-    // Delete the Jurado Popular object from the database
     $this->organizadorMapper->delete($organizador);
     
     $this->view->setFlash(sprintf("Usuario \"%s\" eliminado.",$organizador ->getId()));
@@ -117,6 +138,9 @@ public function perfil(){
     $this->view->redirect("concurso", "index");
   }
 
+  /*Recupera los datos del formulario de modificacion de un organizador,
+  comprueba que son correctos y llama a update() de OrganizadorMapper.php
+  donde se realiza la actualizacion de los datos.*/
   public function update(){
     $jpopid = $_REQUEST["usuario"];
     $jpop = $this->organizadorMapper->findById($jpopid);
@@ -161,22 +185,22 @@ public function perfil(){
         $this->view->render("organizador", "modificar"); 
   }
 
+  /*Redirecciona a la vista de validar pinchos*/
    public function validar(){
     $pinchos = Pincho::noValidados();
     $this->view->setVariable("pinchos", $pinchos);
     $this->view->render("organizador", "validarPincho");
   }
 
-   public function premios(){
-    $this->view->render("organizador", "gestionarPremios");
-  }
-
   
+  /*Redirecciona a la vista de la gestion de los jurados profesionales*/
   public function gestionJurado(){
+    $ronda = $this->organizadorMapper->getRonda();
+    $this->view->setVariable("ronda",$ronda);
     $this->view->render("organizador", "gestionarJuradoProfesional");
   }
 
-
+  /*recuper las votaciones de los jurados profesionales*/
   public function votacionPro(){
     $ronda = $_GET['ronda'];
     $pinchos = $this->organizadorMapper->votacionPro($ronda);
@@ -185,13 +209,30 @@ public function perfil(){
     $this->view->render("organizador", "votosPro");
   }
   
+  /*-Si esta en la ronda uno, pide el numero de finalistas.
+    -Si esta en la ronda dos, lista los pinchos finalistas.*/
   public function finalistas(){
 	 $currentuser = $this->view->getVariable("currentusername");
 	 $organizador = $this->organizadorMapper->findById($currentuser);
-	 $this->view->setVariable("organizador", $organizador);
-	 $this->view->render("organizador", "finalistas");
+   $ronda = $this->organizadorMapper->getRonda();
+   $pinchos = array();
+   if($ronda==2){
+     $pinchosId = $this->pincho->pinchosSegunda();
+    foreach($pinchosId as $pinchoId) {
+      array_push($pinchos,$this->pincho->find($pinchoId));
+      
+    }
+     $this->view->setVariable("organizador", $organizador);
+     $this->view->setVariable("pinchos", $pinchos);
+     $this->view->render("organizador", "pinchosFinalistas"); 
+   }else{
+     $this->view->setVariable("organizador", $organizador);
+     $this->view->render("organizador", "finalistas"); 
+   }
   }
   
+  /*En caso de que se haya terminado la ronda uno y que el numero de finalistas indicado sea valido,
+  crea la segunda ronda.*/
   public function guardarFinalistas(){
 	 $currentuser = $this->view->getVariable("currentusername");
 	 $organizador = $this->organizadorMapper->findById($currentuser);
@@ -200,13 +241,28 @@ public function perfil(){
 	 if($numFinalistas <= $pinchos){
 		 $votosNulos = $this->organizadorMapper->votosNulos(1);
 		 $ronda = $this->organizadorMapper->getRonda();
-		 if($votosNulos == 0 && $ronda == 1){
-			 $finalistas = $this->organizadorMapper->getFinalistas($numFinalistas);
-			 $this->view->redirect("organizador", "index");
-		 } else{
-      			$this->view->setFlash(sprintf("No todos los pinchos estan votados"));
-			$this->view->redirect("organizador", "finalistas");
-		 }
+     $numAsigMax = $this->juradoProfesionalMapper->numAsigMax();
+     $pinchosSin =$this->pincho->all();
+     $pin=array();
+     foreach($pinchosSin as $pinchosSin) {
+      $numAsig = $this->juradoProfesionalMapper->getNumAsig($pinchosSin->getId());
+      if($numAsig < $numAsigMax){
+          array_push($pin, $pinchosSin);
+      }
+    }
+    if($pin==NULL){
+       if($votosNulos == 0 && $ronda == 1){
+         $finalistas = $this->organizadorMapper->getFinalistas($numFinalistas);
+         $this->view->redirect("organizador", "index");
+       } else{
+        $this->view->setFlash(sprintf("No todos los pinchos estan votados"));
+        $this->view->redirect("organizador", "finalistas");
+       }
+    }else{
+        $this->view->setFlash(sprintf("Hay pinchos que no tienen el número de jurados totales, todos deben tener ".$numAsigMax." jurados."));
+     $this->view->redirect("organizador", "finalistas");
+
+    }
 	 } else{
      		$this->view->setFlash(sprintf("Hay menos pinchos que finalistas quieres asignar"));
 		 $this->view->redirect("organizador", "finalistas");

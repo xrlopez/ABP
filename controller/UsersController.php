@@ -46,6 +46,7 @@ class UsersController extends BaseController {
     $this->view->setLayout("welcome");     
   }
 
+  //redirecciona a cada tipo de usuario con su index
   public function login() {
     if (isset($_POST["username"])){ // reaching via HTTP Post...
       //process login form    
@@ -54,7 +55,6 @@ class UsersController extends BaseController {
 	$_SESSION["currentuser"]=$_POST["username"];
   $_SESSION["tipoUsuario"] = $this->userMapper->userType($_POST["username"]);
 	
-	// send user to the restricted area (HTTP 302 code)
 	
 	switch ($this->userMapper->userType($_POST["username"])) {
 		    case "organizador":
@@ -86,6 +86,7 @@ class UsersController extends BaseController {
     $this->view->render("users", "login");    
   }
 
+  //redirecciona a cada tipo de usuario con su perfil correcto
   public function info(){
       $currentuser = $this->view->getVariable("currentusername");
     
@@ -113,14 +114,15 @@ class UsersController extends BaseController {
 
   }
 
-   
+   //redirecciona a la vista de registro
    public function register() { 
     $this->view->render("users", "register");
     
   }
    
    
-   
+   /*recupera los datos del formulario de registro de un establecimiento, comprueba que sean correctos
+   y registra el establecimiento.*/
 public function registerEstablecimiento() {
     
     $esta = new Establecimiento();
@@ -168,7 +170,8 @@ public function registerEstablecimiento() {
     
   }
   
-
+/*recupera los datos del formulario de registro de un jurado popular, comprueba que sean correctos
+   y registra el jurado popular.*/
   public function registerPopular() {
     
     $jpop = new JuradoPopular();
@@ -215,6 +218,8 @@ public function registerEstablecimiento() {
     
   }
 
+/*recupera los datos del formulario de registro de un jurado profesional, comprueba que sean correctos
+   y registra el jurado profesional.*/
 public function registerProfesional() {
     
     $jpop = new JuradoProfesional();

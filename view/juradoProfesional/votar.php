@@ -26,7 +26,8 @@
 	}
 	?>
 	<div class="divLogin col-xs-12 col-sm-12 col-md-12">
-		<?php foreach($votos as $voto){
+		<?php if($votos!=null){
+		foreach($votos as $voto){
 			$nombrePincho = $voto['nombre'];
 			$votacion = $voto['votacion'];
 			$idPincho = $voto['FK_pincho_vota'];
@@ -68,6 +69,9 @@
 					
 				</div>	
 			</div>
+		<?php } 
+		}else{?>
+			<p>No tienes pinchos asignados.</p>
 		<?php } ?>
 	</div>
 </div>
