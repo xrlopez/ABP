@@ -60,7 +60,9 @@ require_once(__DIR__."/../controller/BaseController.php");
 		{
 			$id = $_GET['id'];
 			$pincho = Pincho::find($id);
+			$comentarios = Pincho::getComentario($id);
 			$this->view->setVariable("pincho", $pincho);
+			$this->view->setVariable("comentarios", $comentarios);
 			$this->view->render("pinchos", "pincho");
 		}
 

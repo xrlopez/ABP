@@ -130,5 +130,14 @@ class OrganizadorMapper {
 	  $jProPinchos_db = $stmt->fetch(PDO::FETCH_ASSOC);
 	  return $jProPinchos_db['numPinchos'];
    }
-  
+  public function getPinchosPremios(){
+    $stmt= $this->db->query("SELECT DISTINCT FK_pincho_vota AS pinchos FROM vota_pro WHERE ronda=2 AND votacion>0");
+    $jProPinchos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $pinchos = array();
+    
+      foreach ($jProPinchos_db as $jPop) {
+        array_push($pinchos,$jPop['pinchos']);
+      } 
+  return $pinchos;
+   }
 }

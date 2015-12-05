@@ -70,7 +70,7 @@ $paginas = ceil($numPinchos['num']/5);
 					<dt class"votos">Votos:</dt>
 					<dd class"votos"><?php echo $pincho->num_votos; ?></dd>
 					<dt class"comentarios">Comentarios:</dt>
-					<dd class"comentarios">14</dd>
+					<dd class"comentarios"><?php echo $pincho->getNumComentarios(); ?></dd>
 				</dl>
 		</div>
 		

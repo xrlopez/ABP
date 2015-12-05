@@ -33,6 +33,19 @@ body{
 	padding-top: 20px;
 	
 }
+.coment{
+	border-radius: 4px;
+	margin: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 20px;
+	background-color: #D0B498;
+	clear:both;
+}
+.coment span{
+	margin-left: 10px;
+}
 
 #menu{
 	color: #D0B498;
@@ -186,6 +199,7 @@ ul.menuAux li a:hover{
 }
 #bot{
 	text-align: center;
+	padding-left: 10px;
 }
 #votarPincho{
 	margin: 20px;
@@ -216,7 +230,21 @@ input[type="radio"]{
 	border-radius: 4px;
 
 }
-.establecimientos a{
+.comentarios{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin: 20px;
+	background-color: #AD8D6B;
+	border-radius: 4px;
+	text-align: center;
+}
+.comentarios span{
+	font-size: 20px;
+}
+.comentarios textarea{
+	margin-bottom: 10px;
+}
+.establecimientos a, .comentarios a{
 	color: white;
 	margin-right: 5px;
 	
@@ -226,6 +254,10 @@ input[type="radio"]{
 }
 .des{
 	padding-left: 15px;
+}
+.desd{
+	padding-left: 15px;
+	font-size: 15px;
 }
 
 @media (max-width: 420px){

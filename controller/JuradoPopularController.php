@@ -56,6 +56,37 @@ class JuradoPopularController extends BaseController {
     $this->view->render("juradoPopular", "perfil");
   }
 
+  
+  public function comentar(){
+    if(isset($_POST["submit"])){
+      if(isset($_POST["coment"])){
+        $juradoPopular = $this->juradoPopularMapper->findById($_POST["usuario"]);
+        $pinchos = $this->juradoPopularMapper->getPinchosProbados($_POST["usuario"]);
+        $this->juradoPopularMapper->comentar($_POST["usuario"],$_POST["pincho"],$_POST["coment"]);
+        $this->view->setVariable("juradoPop", $juradoPopular);
+        $this->view->setVariable("pinchos", $pinchos);
+        $this->view->render("juradoPopular", "comentar");
+      }else{
+        $juradoPopular = $this->juradoPopularMapper->findById($_POST["usuario"]);
+        $pincho = Pincho::find($_POST["pincho"]);
+        $comentario=$this->juradoPopularMapper->getComentario($_POST["usuario"],$_POST["pincho"]);
+        $this->view->setVariable("juradoPop", $juradoPopular);
+        $this->view->setVariable("pincho", $pincho);
+        $this->view->setVariable("comentario", $comentario);
+        $this->view->render("juradoPopular", "comentarPincho"); 
+      }
+
+    }else{
+    $currentuser = $this->view->getVariable("currentusername");
+    $juradoPopular = $this->juradoPopularMapper->findById($currentuser);
+    $pinchos = $this->juradoPopularMapper->getPinchosProbados($currentuser);
+    $this->view->setVariable("juradoPop", $juradoPopular);
+    $this->view->setVariable("pinchos", $pinchos);
+    $this->view->render("juradoPopular", "comentar");
+
+    }
+  }
+
   /*redirecciona al formulario de modificacion de los datos de un jurado popular*/
   public function modificar(){
     $currentuser = $this->view->getVariable("currentusername");
@@ -166,9 +197,9 @@ class JuradoPopularController extends BaseController {
             $idPincho2->setUsado(1);
             $idPincho3->setUsado(1);
              try{
-              $this->codigoMapper->update($idPincho1);
-              $this->codigoMapper->update($idPincho2);
-              $this->codigoMapper->update($idPincho3);
+              $this->codigoMapper->update($idPincho1,$jpop);
+              $this->codigoMapper->update($idPincho2,$jpop);
+              $this->codigoMapper->update($idPincho3,$jpop);
 
               $est1 = $this->establecimientoMapper->findById($idPincho1->getEstablecimiento());
               $est2 = $this->establecimientoMapper->findById($idPincho2->getEstablecimiento());
@@ -177,6 +208,25 @@ class JuradoPopularController extends BaseController {
               $pincho1 = Pincho::findByEstablecimiento($est1);
               $pincho2 = Pincho::findByEstablecimiento($est2);
               $pincho3 = Pincho::findByEstablecimiento($est3);
+
+              $isP1 = $this->codigoMapper->isProbado($jpop,$pincho1);
+              $isP2 = $this->codigoMapper->isProbado($jpop,$pincho2);
+              $isP3 = $this->codigoMapper->isProbado($jpop,$pincho3);
+
+              if($isP1==NULL){
+                $this->codigoMapper->insertProbados($jpop,$pincho1);
+              }
+              if($isP2==NULL){
+                if(($pincho1->getId()!=$pincho2->getId())){
+                  $this->codigoMapper->insertProbados($jpop,$pincho2);
+                }
+              } 
+              if($isP3==NULL){
+                if(($pincho2->getId()!=$pincho3->getId())&&($pincho1->getId()!=$pincho3->getId())){
+                  $this->codigoMapper->insertProbados($jpop,$pincho3);
+                }
+              }
+
                 $this->view->setVariable("pincho1",$pincho1);
                 $this->view->setVariable("pincho2",$pincho2);
                 $this->view->setVariable("pincho3",$pincho3);

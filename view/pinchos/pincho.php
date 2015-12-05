@@ -1,8 +1,10 @@
 <?php 
 require_once(__DIR__."/../../model/Pincho.php");
+require_once(__DIR__."/../../model/Comentario.php");
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $pincho = $view->getVariable("pincho");
+$comentarios = $view->getVariable("comentarios");
 
 ?>
 <div class="divInfo col-xs-12 col-sm-12 col-md-12">
@@ -42,6 +44,17 @@ $pincho = $view->getVariable("pincho");
 			<dt class"votos">Votos:</dt>
 			<dd class"votos"><?php echo $pincho->num_votos; ?></dd>
 		</dl>
-
 	</div>
 </div>
+
+<?php if($comentarios!=null){ ?>
+	<div>
+		<h2>Comentarios</h2>
+		<?php foreach ($comentarios as $comentario): ?>
+				<div class="coment">
+					<h2><?php echo $comentario->getJpop()?></h2>
+					<span><?php echo $comentario->getComentario()?></span>
+				</div>
+		<?php endforeach; ?>
+	</div>
+<?php }?>

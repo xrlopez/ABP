@@ -44,7 +44,7 @@
 							<li class="option"><a href="index.php?controller=organizador&amp;action=validar">Validar pinchos</a></li>
 							<li class="option"><a href="index.php?controller=organizador&amp;action=asignar">Asignar pinchos</a></li>
 							<li class="option"><a href="index.php?controller=organizador&amp;action=finalistas">Elegir finalistas</a></li>
-							<li class="option"><a>Premios</a></li>
+							<li class="option"><a href="index.php?controller=organizador&amp;action=premios">Premios</a></li>
 							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
 							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a></li>
 							<li><a  href="index.php?controller=users&amp;action=logout">Salir</a></li>
@@ -59,6 +59,7 @@
 						<!-- menu jurado popular -->
 						<?php } else if($tipoUsuario == "juradoPopular"){ ?>
 							<li class="option"><a href="index.php?controller=juradoPopular&amp;action=introCodigos">Votar</a></li>
+							<li class="option"><a href="index.php?controller=juradoPopular&amp;action=comentar">Comentar</a></li>
 							<li class="option"><a href="index.php?controller=pinchos&amp;action=page&amp;page=1">Pinchos</a></li>
 							<li><a href="index.php?controller=users&amp;action=info"><?= sprintf("Hola %s", $currentuser) ?></a></li>
 							<li><a  href="index.php?controller=users&amp;action=logout">Salir</a></li>

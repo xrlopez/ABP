@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/../model/Establecimiento.php");
+require_once(__DIR__."/../model/Comentario.php");
 require_once(__DIR__."/../model/IngredienteMapper.php");
 
 	class Pincho {
@@ -47,6 +48,16 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 		public function getValidado(){
 			return $this->validado;
 		}
+
+		public function getNumComentarios(){
+			$list = [];
+			$db = PDOConnection::getInstance();
+			$query = $db->prepare('SELECT COUNT(FK_cod) AS num FROM comentarios where FK_cod=? AND comentario IS NOT NULL');
+			$query->execute(array($this->id_pincho));
+			$num_comentarios = $query->fetch(PDO::FETCH_ASSOC);
+			return $num_comentarios["num"];
+		}
+
 		public function setValidado($validado){
 			$this->validado = $validado;
 		}
@@ -108,6 +119,17 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 
 		public function getIngredientes(){
 			return $this->ingredientes->getIngredientes($this->id_pincho);
+		}
+
+		public function getComentario($pincho){
+			$list = [];
+			$db = PDOConnection::getInstance();
+			$query = $db->prepare('SELECT * FROM comentarios where FK_cod=? AND comentario IS NOT NULL');
+			$query->execute(array($pincho));
+			foreach($query->fetchAll() as $comentario) {
+				$list[] = new Comentario($comentario['FK_juradoPopular_vot'], $comentario['FK_cod'], $comentario['comentario']);
+    		}
+   		 	return $list;
 		}
 
 		//devuelve el numero de pinchos validados

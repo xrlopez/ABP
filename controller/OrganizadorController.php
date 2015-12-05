@@ -192,6 +192,11 @@ public function perfil(){
     $this->view->render("organizador", "validarPincho");
   }
 
+  //Redirecciona a la vista de los premios
+  public function premios(){
+    $this->view->render("organizador", "gestionarPremios");
+  }
+
   
   /*Redirecciona a la vista de la gestion de los jurados profesionales*/
   public function gestionJurado(){

@@ -5,6 +5,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/../model/Codigo.php");
 require(__DIR__."/../fpdf/fpdf.php");
 require_once(__DIR__."/../model/JuradoPopular.php");
+require_once(__DIR__."/../model/Pincho.php");
 
 class CodigoMapper {
 
@@ -33,10 +34,20 @@ class CodigoMapper {
   }
   
   //modifica un codigo concreto
-  public function update(Codigo $cod) {
+  public function update(Codigo $cod,JuradoPopular $jpop) {
     $stmt = $this->db->prepare("UPDATE codigo set usado=? where id_codigo=?");
     $stmt->execute(array($cod->getUsado(), $cod->getId()));
-  
+  }
+  public function insertProbados(JuradoPopular $jpop,Pincho $pincho){
+    $stmt = $this->db->prepare("INSERT INTO comentarios (FK_juradoPopular_vot, FK_cod) values(?,?)");
+    $stmt->execute(array($jpop->getId(),$pincho->getId()));
+  }
+  public function isProbado(JuradoPopular $jpop,Pincho $pincho){
+    $stmt = $this->db->prepare("SELECT * FROM comentarios WHERE FK_juradoPopular_vot=? and FK_cod=?");
+    $stmt->execute(array($jpop->getId(),$pincho->getId()));
+    $cod = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $cod;
+
   }
   //registra la votacion por ese codigo
   public function votar(Codigo $cod,JuradoPopular $jpop){
