@@ -18,8 +18,17 @@
 				<label for="celiaco">Celiaco</label>
 					<input name="celiaco" class="registrar" type="checkbox" id="celaico"/></p>
 					
-				<!--<label for="ingredientes">Ingredientes </label>
-					<input name="ingredientes" class="registrar" type="text" id="ingredientes" required/ ></p>-->
+				<label for="ingredientes">Ingredientes </label>
+				<?php $ingredientes = $pincho->getIngredientes();
+						foreach($ingredientes as $ingrediente){ ?>
+							<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" value="<?= $ingrediente->getIngrediente()?>"/></p>
+
+				<?php	}	?>
+					<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" /></p>
+					<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" /></p>
+					<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" /></p>
+
+					
 												 
 				<p id="bot"><input name="submit" type="submit" id="boton" value="Modificar" class="boton"/></p>
 			</form>

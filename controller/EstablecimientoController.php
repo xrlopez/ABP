@@ -10,7 +10,7 @@ require_once(__DIR__."/../model/CodigoMapper.php");
 require_once(__DIR__."/../model/Concurso.php");
 require_once(__DIR__."/../model/ConcursoMapper.php");
 require_once(__DIR__."/../model/Pincho.php");
-
+require_once(__DIR__."/../model/IngredienteMapper.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
@@ -30,6 +30,7 @@ class EstablecimientoController extends BaseController {
     $this ->pincho = new Pincho();   
     $this->concursoMapper = new ConcursoMapper();
     $this->userMapper = new UserMapper();
+    $this->ingredienteMapper = new IngredienteMapper();
   }
   
   
@@ -242,6 +243,25 @@ class EstablecimientoController extends BaseController {
       
         try{
             $this->establecimientoMapper->modPincho($pinc);
+            $pincho = $this->pincho->findByEstablecimiento($establecimiento);
+            if(isset($_POST["ingredientesSelected"])){
+              $ingredientesOld = $this->ingredienteMapper->getIngredientes($pincho->getId());
+              $ingredientesPOST = $_POST["ingredientesSelected"];
+              $ingredientesNew = array_unique($ingredientesPOST, SORT_STRING);
+
+              foreach ($ingredientesOld as $ingrediente) { 
+                if(!in_array($ingrediente,$ingredientesNew,TRUE)){
+                  $this->ingredienteMapper->delete($pincho,$ingrediente->getIngrediente());
+                }
+              }
+              foreach ($ingredientesNew as $ingrediente) { 
+                  if(!in_array($ingrediente,$ingredientesOld,TRUE) AND !empty($ingrediente)){
+                    $this->ingredienteMapper->insert($pincho,$ingrediente);
+                }
+              }
+            }
+
+
             $this->view->setFlash("Pincho ".$pinc->getNombre()." modificado.");
             }catch(ValidationException $ex) {
               $errors = $ex->getErrors();
@@ -297,10 +317,19 @@ class EstablecimientoController extends BaseController {
         $pinc->setValidado(0);
         $pinc->setEstablecimiento($currentuser);
         $pinc->setConcurso("pinchosOurense");   
-      
+        
         try{
             $this->establecimientoMapper->savePincho($pinc);
-            $this->view->setFlash("Pincho ".$pinc->getId()." registrado.");
+            $pincho = $this->pincho->findByEstablecimiento($establecimiento);
+            if(isset($_POST["ingredientesSelected"])){
+              $ingredientes = $_POST["ingredientesSelected"];
+              for ($i=0; $i < count($ingredientes) ; $i++) { 
+                  if(!empty($ingredientes[$i])){
+                  $this->ingredienteMapper->insert($pincho,$ingredientes[$i]);
+                  }
+              }
+            }
+            $this->view->setFlash("Pincho ".$pinc->getNombre()." registrado.");
             }catch(ValidationException $ex) {
               $errors = $ex->getErrors();
               $this->view->setVariable("errors", $errors);

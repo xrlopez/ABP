@@ -21,8 +21,12 @@
 				<label for="celiaco">Celiaco *</label>
 					<input name="celiaco" class="registrar" type="checkbox" id="celaico"/></p>
 					
-				<!--<label for="ingredientes">Ingredientes </label>
-					<input name="ingredientes" class="registrar" type="text" id="ingredientes" required/ ></p>-->
+				<label for="Ingredientes">Ingredientes </label>
+					<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" /></p>
+					<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" /></p>
+					<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" /></p>
+					<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" /></p>
+					<input name="ingredientesSelected[]" class="registrar" type="text" id="ingredientesSelected[]" /></p>
 												 
 				<p id="bot"><input name="submit" type="submit" id="boton" value="Registrar" class="boton"/></p>
 			</form>

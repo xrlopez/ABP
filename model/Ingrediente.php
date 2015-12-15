@@ -6,7 +6,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 		private $ingrediente;
 		private $id_pincho;
 
-		public function __construct($ingrediente = NULL, $id_pincho = NULL){
+		public function __construct($id_pincho = NULL,$ingrediente = NULL){
 			$this->ingrediente = $ingrediente;
 			$this->id_pincho = $id_pincho;
 		}

@@ -29,10 +29,10 @@ $comentarios = $view->getVariable("comentarios");
 				}
 			?>	
 			</li>
-			<li class="ingredientes">Sal</li>
-			<li class="ingredientes">Harina</li>
-			<li class="ingredientes">Agua</li>
-			<li class="ingredientes">Aceite</li>
+			<?php $ingredientes = $pincho->getIngredientes();
+					foreach($ingredientes as $ingrediente){ ?>
+				<li class="ingrediente"><?= $ingrediente->getIngrediente() ?></li>
+						<?php }	?>
 		</ul>
 		<!--sumario-->
 		<h6 class="landmark heading">Sumario</h6>
