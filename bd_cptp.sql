@@ -120,7 +120,7 @@ CREATE TABLE ingrediente(
     FK_pincho_ing INT NOT NULL,
     ingrediente VARCHAR(20) NOT NULL,
 	PRIMARY KEY (FK_pincho_ing,ingrediente),
-    CONSTRAINT FK_pincho_ing FOREIGN KEY  (FK_pincho_ing) REFERENCES pincho(id_pincho)
+    CONSTRAINT FK_pincho_ing FOREIGN KEY  (FK_pincho_ing) REFERENCES pincho(id_pincho) ON DELETE CASCADE
 );
 
 /*

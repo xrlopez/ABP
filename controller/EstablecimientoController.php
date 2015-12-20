@@ -322,10 +322,11 @@ class EstablecimientoController extends BaseController {
             $this->establecimientoMapper->savePincho($pinc);
             $pincho = $this->pincho->findByEstablecimiento($establecimiento);
             if(isset($_POST["ingredientesSelected"])){
-              $ingredientes = $_POST["ingredientesSelected"];
-              for ($i=0; $i < count($ingredientes) ; $i++) { 
-                  if(!empty($ingredientes[$i])){
-                  $this->ingredienteMapper->insert($pincho,$ingredientes[$i]);
+              $ingredientesPOST = $_POST["ingredientesSelected"];
+              $ingredientesNew = array_unique($ingredientesPOST, SORT_STRING);
+              foreach ($ingredientesNew as $ingrediente) { 
+                  if(!empty($ingrediente)){
+                    $this->ingredienteMapper->insert($pincho,$ingrediente);
                   }
               }
             }
