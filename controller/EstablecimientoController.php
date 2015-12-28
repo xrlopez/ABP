@@ -241,6 +241,16 @@ class EstablecimientoController extends BaseController {
         }
         $pinc->setDescripcion($_POST["descripcion"]);
       
+		if(isset($_FILES['img'])){
+		  $fichero = $_FILES['img']['name'];
+		  $ext = strrchr($fichero, '.');
+		  $ruta = 'imagenes/pincho_'.$pinc->getNombre().$ext;
+		 
+		  if(move_uploaded_file($_FILES['img']['tmp_name'],$ruta)){
+			  $pinc->setImagen($pinc->getNombre().$ext);
+		  }
+		}
+		
         try{
             $this->establecimientoMapper->modPincho($pinc);
             $pincho = $this->pincho->findByEstablecimiento($establecimiento);
@@ -313,6 +323,16 @@ class EstablecimientoController extends BaseController {
         }else{
           $pinc->setCeliaco(0);
         }
+		if(isset($_FILES['img'])){
+		  $fichero = $_FILES['img']['name'];
+		  $ext = strrchr($fichero, '.');
+		  $ruta = 'imagenes/pincho_'.$pinc->getNombre().$ext;
+
+		  if(move_uploaded_file($_FILES['img']['tmp_name'],$ruta)){
+			  $pinc->setImagen($pinc->getNombre().$ext);
+		  }
+		}
+		
         $pinc->setDescripcion($_POST["descripcion"]);
         $pinc->setValidado(0);
         $pinc->setEstablecimiento($currentuser);

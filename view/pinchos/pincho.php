@@ -8,9 +8,9 @@ $comentarios = $view->getVariable("comentarios");
 
 ?>
 <div class="divInfo col-xs-12 col-sm-12 col-md-12">
-	<div id="pincho_1" class="pinchos blurb" role="informacion">
+	<div id="pincho_1" class="row pinchos blurb" role="informacion">
 		<!-- Tiltulo, establecimiento-->
-		<div class="header module">
+		<div class="header module col-xs-12 col-sm-12 col-md-12">
 			<h4 class="heading">
 				<h2><?php echo $pincho->nombre ?></h2>
 				por
@@ -18,6 +18,7 @@ $comentarios = $view->getVariable("comentarios");
 			</h4>
 		</div>
 		<!--ingredientes-->
+		<div class="header module col-xs-6 col-sm-6 col-md-6">
 		<h6 class="landmark heading">Ingredientes</h6>
 		<ul class="ingredientes commas">
 			<li class="warnings">
@@ -44,6 +45,10 @@ $comentarios = $view->getVariable("comentarios");
 			<dt class"votos">Votos:</dt>
 			<dd class"votos"><?php echo $pincho->num_votos; ?></dd>
 		</dl>
+		</div>
+		<div class ="col-xs-6 col-sm-6 col-md-6">
+			<img class="imagen" src="imagenes/pincho_<?= $pincho->imagen ?>" alt="imagenPincho" width="300px">
+		</div>
 	</div>
 </div>
 

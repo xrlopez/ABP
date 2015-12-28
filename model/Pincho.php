@@ -15,9 +15,9 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 		public $establecimiento;
 		private $ingredientes;
 		public $votPro=0;
+		public $imagen;
 
-
-		public function __construct($nombre=NULL, $celiaco=NULL, $descripcion=NULL, $num_votos=NULL, $establecimiento=NULL, $id_pincho=NULL,$validado=NULL,$concurso=NULL) {
+		public function __construct($nombre=NULL, $celiaco=NULL, $descripcion=NULL, $num_votos=NULL, $establecimiento=NULL, $id_pincho=NULL,$validado=NULL,$concurso=NULL,$imagen=NULL) {
 			$this->nombre= $nombre;
 			$this->celiaco  = $celiaco;
 			$this->descripcion = $descripcion;
@@ -27,6 +27,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$this->validado = $validado;
 			$this->concurso = $concurso;
 			$this->ingredientes = new IngredienteMapper();
+			$this->imagen = $imagen;
 		}
 
 		public function getNombre(){
@@ -131,6 +132,13 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
     		}
    		 	return $list;
 		}
+		
+		public function getImagen(){
+			return $this->imagen;
+		}
+		public function setImagen($imagen){
+			$this->imagen=$imagen;
+		}
 
 		//devuelve el numero de pinchos validados
 		public static function getNumPinchos()
@@ -148,7 +156,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$db = PDOConnection::getInstance();
 			$req = $db->query('SELECT * FROM pincho WHERE validado = 1 limit '.$inicio.', '.$limite.'');
 			foreach($req->fetchAll() as $pincho) {
-				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
+				$list[] = new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc'], $pincho['imagen']);
 			}
 			return $list;
 		}
@@ -187,7 +195,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$req = $db->prepare('SELECT * FROM pincho WHERE id_pincho = '.$id);
 			$req->execute(array());
 			$pincho = $req->fetch();
-			return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
+			return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc'],$pincho['imagen']);
 		}
 
 		//devuelve un pincho de un determinado establecimiento
@@ -197,7 +205,7 @@ require_once(__DIR__."/../model/IngredienteMapper.php");
 			$req->execute(array($esta->getId()));
 			$pincho = $req->fetch();
 			if($pincho!=NULL){
-					return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc']);
+					return new Pincho($pincho['nombre'], $pincho['celiaco'], $pincho['descripcion'], $pincho['num_votos'], $pincho["FK_establecimiento_pinc"], $pincho['id_pincho'],$pincho['validado'],$pincho['FK_concurso_pinc'],$pincho['imagen']);
 			}else{
 				return NULL;
 			}

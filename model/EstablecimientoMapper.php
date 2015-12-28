@@ -122,15 +122,15 @@ class EstablecimientoMapper {
 
   //inserta un establecimiento
   public function savePincho(Pincho $pincho){
-    $stmt = $this->db->prepare("INSERT INTO pincho values (?,?,?,?,?,?,?,?)");
-    $stmt->execute(array(NULL, $pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(), $pincho->getValidado(), 0,$pincho->getConcurso(), $pincho->getEstablecimiento()));
-  
+    $stmt = $this->db->prepare("INSERT INTO pincho values (?,?,?,?,?,?,?,?,?)");
+    $stmt->execute(array(NULL, $pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(), $pincho->getValidado(), 0,$pincho->getImagen(),$pincho->getConcurso(), $pincho->getEstablecimiento()));
+	
   }
 
   //modifica un pincho antes de que no este validado
   public function modPincho(Pincho $pincho){
-     $stmt = $this->db->prepare("UPDATE pincho set nombre=?, descripcion=?, celiaco=? where id_pincho=?");
-     $stmt->execute(array($pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(),$pincho->getId()));
+     $stmt = $this->db->prepare("UPDATE pincho set nombre=?, descripcion=?, celiaco=?, imagen=? where id_pincho=?");
+     $stmt->execute(array($pincho->getNombre(),$pincho->getDescripcion(), $pincho->isCeliaco(), $pincho->getImagen(), $pincho->getId()));
   }
 
   //elimina un pincho antes de que no este validado

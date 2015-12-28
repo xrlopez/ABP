@@ -39,44 +39,48 @@ $paginas = ceil($numPinchos['num']/5);
 	
 	<?php foreach($pinchos as $pincho): ?>
 	<div class="pinchos blurb col-xs-12 col-sm-12 col-md-12">
-		<div class="header module">
+	<div class="row">
+		<div class="header module col-xs-12 col-sm-12 col-md-12">
 			<h4 class="heading">
 				<a href="index.php?controller=pinchos&amp;action=pinchoEspecifico&amp;id=<?= $pincho->id_pincho ?>"><?php echo $pincho->nombre; ?></a>
 				por
 				<a class="login establecimiento" rel="establecimiento" href="index.php?controller=establecimiento&amp;action=info&amp;id=<?= $pincho->getEstablecimiento() ?>"><?= $pincho->getNombreEstablecimiento() ?></a>
 			</h4>
 		</div>
-		<div>
-				<h6 class="landmark heading">Ingredientes</h6>
-				<ul class="ingredientes">
-					<li class="warnings">
-						<?php
-							if ($pincho->celiaco == 1) {
-								echo "<strong>Apto para celíacos</strong>";
-							}else{
-								echo "<strong>No apto para celíacos</strong>";
-							}
-						?>	
-					</li>
-
-						<?php $ingredientes = $pincho->getIngredientes();
+		
+		<div class ="col-xs-6 col-sm-6 col-md-6">
+			<h6 class="landmark heading">Ingredientes</h6>
+			<ul class="ingredientes">
+				<li class="warnings">
+					<?php
+						if ($pincho->celiaco == 1) {
+							echo "<strong>Apto para celíacos</strong>";
+						}else{
+							echo "<strong>No apto para celíacos</strong>";
+						}
+					?>	
+				</li>
+					<?php $ingredientes = $pincho->getIngredientes();
 								foreach($ingredientes as $ingrediente){ ?>
 							<li class="ingrediente"><?= $ingrediente->getIngrediente() ?></li>
 									<?php }	?>
-
-				</ul>
-				<h6 class="landmark heading">Sumario</h6>
-				<blockquote class="sumario pincho">
-					<p>
-					<?php echo $pincho->descripcion; ?>
-					</p>
-				</blockquote>
-				<dl class="stats">
-					<dt class"votos">Votos:</dt>
-					<dd class"votos"><?php echo $pincho->num_votos; ?></dd>
-					<dt class"comentarios">Comentarios:</dt>
-					<dd class"comentarios"><?php echo $pincho->getNumComentarios(); ?></dd>
-				</dl>
+			</ul>
+			<h6 class="landmark heading">Sumario</h6>
+			<blockquote class="sumario pincho">
+				<p>
+				<?php echo $pincho->descripcion; ?>
+				</p>
+			</blockquote>
+			<dl class="stats">
+				<dt class"votos">Votos:</dt>
+				<dd class"votos"><?php echo $pincho->num_votos; ?></dd>
+				<dt class"comentarios">Comentarios:</dt>
+				<dd class"comentarios"><?php echo $pincho->getNumComentarios(); ?></dd>
+			</dl>
+		</div>
+		<div class ="col-xs-6 col-sm-6 col-md-6">
+			<img class="imagen" src="imagenes/pincho_<?= $pincho->getImagen() ?>" alt="imagenPincho" width="300px">
+		</div>
 		</div>
 		
 	</div>
