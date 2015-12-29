@@ -19,6 +19,13 @@ body{
 .nombre a{
 	text-decoration: none;
 }
+p.nombreEsta{
+	text-align: center;
+	font-size: 20px;
+}
+.pinchoFolleto{
+	padding-left: 20px;
+}
 
 #main{
     padding: 10px 30px;
@@ -47,6 +54,20 @@ body{
 	margin-left: 10px;
 }
 
+.folleto{
+	padding: 15px;
+	border-radius: 4px;
+	color: black;
+	margin-bottom: 20px;
+	background-color: white;
+	clear: both;
+	width: inherit;
+}
+.follEsta{
+	padding-left: 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
 #menu{
 	color: #D0B498;
 	background-color: #724E29;
