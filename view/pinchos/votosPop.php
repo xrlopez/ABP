@@ -6,6 +6,10 @@ $pinchos = $view->getVariable("pinchos");
 ?>
 <div class="row index">
 	<h2 class="heading">Lista de Pinchos por Votación Popular</h2>
+
+	<form action="index.php?controller=organizador&amp;action=premios" method="post" >
+		<input name="submit" type="submit" id="boton" value="Atras" class="boton"/>
+    </form>
 	<?php
 	foreach($pinchos as $pincho) {
 	?>
@@ -24,7 +28,7 @@ $pinchos = $view->getVariable("pinchos");
 				<span class"votos">Votos:</span>
 				<span class"votos"><?php echo $pincho->num_votos; ?></span>
 				<span class"comentarios">Comentarios:</span>
-				<span class"comentarios">14</span>
+				<span class"comentarios"><?php echo $pincho->getNumComentarios(); ?></span>
 			</div>
 		</div>	
 <?php

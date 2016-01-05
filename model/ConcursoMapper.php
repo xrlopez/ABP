@@ -34,7 +34,7 @@ class ConcursoMapper {
   //devuelve el resultado del formulario de busqueda
   public function buscarInfo($busqueda){
     
-    $stmt = $this->db->prepare("SELECT * FROM establecimiento, usuario WHERE (usuario.nombre LIKE ? OR establecimiento.descripcion LIKE ?) AND establecimiento.id_usuario=usuario.id_usuario");
+    $stmt = $this->db->prepare("SELECT * FROM establecimiento, usuario WHERE (usuario.nombre LIKE ? OR establecimiento.descripcion LIKE ?) AND establecimiento.id_usuario=usuario.id_usuario AND establecimiento.id_usuario IN (SELECT FK_establecimiento_pinc FROM pincho WHERE validado=1)");
     $stmt->execute(array("%$busqueda%","%$busqueda%"));  
     $estas = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
@@ -45,7 +45,7 @@ class ConcursoMapper {
     }    
 
 
-    $stmt2 = $this->db->prepare("SELECT * FROM pincho WHERE (pincho.nombre LIKE ? OR pincho.descripcion LIKE ?)");
+    $stmt2 = $this->db->prepare("SELECT * FROM pincho WHERE (pincho.nombre LIKE ? OR pincho.descripcion LIKE ?) AND validado=1");
     $stmt2->execute(array("%$busqueda%","%$busqueda%"));  
     $pinchos = $stmt2->fetchAll(PDO::FETCH_ASSOC);   
     

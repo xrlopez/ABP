@@ -11,7 +11,16 @@ $ronda = $view->getVariable("ronda");
 ?>
 <div class="row index">
 	<h2 class="heading">Lista de Pinchos por Votación Profesional Ronda <?= $ronda ?></h2>
+	<form action="index.php?controller=organizador&amp;action=premios" method="post" >
+		<input name="submit" type="submit" id="boton" value="Atras" class="boton"/>
+    </form>
 	<?php
+	if($pinchos==null){?>
+	<div class="pinchos">
+		<h4>La ronda <?= $ronda ?> no ha empezado todavia.</h4>
+	</div>
+	<?php
+	}else{
 	foreach($pinchos as $pincho) {
 	?>
 		<div class="pinchos">
@@ -29,10 +38,10 @@ $ronda = $view->getVariable("ronda");
 				<span class"votos">Votos:</span>
 				<span class"votos"><?php echo $pincho->num_votos; ?></span>
 				<span class"comentarios">Comentarios:</span>
-				<span class"comentarios">14</span>
+				<span class"comentarios"><?php echo $pincho->getNumComentarios(); ?></span>
 			</div>
 		</div>	
 <?php
-}
+}}
 ?>
 </div>

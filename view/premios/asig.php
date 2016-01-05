@@ -10,8 +10,8 @@
 		<h2>Asignar premio</h2>
 		<form class="formLogin col-md-12" name="login" method="post">
 			<div class="divFormulario">
-				<a href="index.php?controller=premios&amp;action=premiosPop">Asignar a jurado popular</a>
-				<a href="index.php?controller=premios&amp;action=premiosPro">Asignar a jurado profesional</a>
+				<p><a href="index.php?controller=premios&amp;action=premiosPop">Asignar a jurado popular</a></p>
+				<p><a href="index.php?controller=premios&amp;action=premiosPro">Asignar a jurado profesional</a></p>
 			</div>
 		</form>
 	</div>
