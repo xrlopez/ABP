@@ -178,7 +178,9 @@ class EstablecimientoController extends BaseController {
     $this->view->setVariable("establecimientos", $establecimientos); 
     $this->view->render("establecimiento", "listar");
     }
+    $comentarios = Pincho::getComentario($pincho->getId());
     $this->view->setVariable("pincho", $pincho); 
+    $this->view->setVariable("comentarios", $comentarios);
     $this->view->render("pinchos", "pincho");
       
   }
