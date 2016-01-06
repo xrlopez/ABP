@@ -13,6 +13,7 @@
 <div class="row registrarE">
 <div class="divLogin col-xs-12 col-sm-12 col-md-12">
     <h2>Organizador</h2>
+    <form id="form-aceptar" method="POST" action="index.php?controller=organizador&amp;action=eliminar">
 	    <div>
 		    <div class="row consultarInfo">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
@@ -48,8 +49,9 @@
 		    </div>
 	    </div>
 	    <div class="divFormulario">
-	    	<p id="bot"><a href="index.php?controller=organizador&amp;action=modificar">Modificar</a></p>
-	    	<p id="bot"><a href="index.php?controller=organizador&amp;action=eliminar">Eliminar</a></p>
+	    	<p id="bot"><a href="index.php?controller=juradoPopular&amp;action=modificar">Modificar</a></p>
+			<p id="bot"><a href="#" onclick="if (confirm('estas seguro?')) {document.getElementById('form-aceptar').submit()}">Eliminar</a></p>
 		</div>
+    </form>
     </div>
 </div>
