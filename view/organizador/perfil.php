@@ -40,7 +40,7 @@
 		    </div>
 		    <div class="row consultarInfo">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
-		    		Residencia:  
+		    		Descripción:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
 			    	<?= $organizador->getDescripcionOrga()?>  
