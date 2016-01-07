@@ -100,7 +100,6 @@
                     </li>           
                   <li class="preg"><a href="index.php?controller=establecimiento&amp;action=listar">Establecimientos</a></li>
                   <li class="preg"><a href="index.php?controller=concurso&amp;action=folleto">Folleto</a></li>
-                  <li class="preg"><a>Bases del concurso</a></li>
                   
                 </ul>
               </div>

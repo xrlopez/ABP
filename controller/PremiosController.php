@@ -40,25 +40,26 @@ class PremiosController extends BaseController {
 	/*Recupera los datos del formulario de registro de un premio, comprueba que son correctos y
 	llama a save() de PremioMapper.php donde lo inserta.*/
 	public function register() {
-		$premio = new Premio();
-		if($this->premioMapper->findById($_POST["id_premio"])){
+		$premio = $this->premioMapper->findById($_POST["id_premio"]);
+		if($premio!=null){
 		    $this->view->setFlash("Premio ".$premio->getId()." ya esta registrado.");
 			$this->view->render("premios", "registerPremio");
 
 		}else{
 			if(isset($_POST["id_premio"],$_POST["tipo"]))
 			{
-				$premio->setId($_POST["id_premio"]);
-				$premio->setTipo($_POST["tipo"]);
+				$prem= new Premio();
+				$prem->setId($_POST["id_premio"]);
+				$prem->setTipo($_POST["tipo"]);
 				try{
-		            $this->premioMapper->save($premio);
-		            $this->view->setFlash("Premio ".$premio->getId()." registrado.");
+		            $this->premioMapper->save($prem);
+		            $this->view->setFlash("Premio ".$prem->getId()." registrado.");
 	            }catch(ValidationException $ex) {
 					$errors = $ex->getErrors();
 					$this->view->setVariable("errors", $errors);
 	            }
 	        }
-			$this->view->setVariable("premio", $premio);
+			$this->view->setVariable("premio", $prem);
 
 			$this->view->render("organizador", "gestionarPremios");
 		}

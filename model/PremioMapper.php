@@ -49,7 +49,11 @@ class PremioMapper {
   	$req = $this->db->prepare('SELECT * FROM premio WHERE id_premio =?');
 		$req->execute(array($id));
 		$premio = $req->fetch();
-		return new Premio($premio['id_premio'], $premio['tipo']);
+    if($premio!=null){
+      return new Premio($premio['id_premio'], $premio['tipo']);
+    }else{
+      return null;
+    }
 
   }
 
